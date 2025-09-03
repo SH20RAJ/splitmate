@@ -9,6 +9,10 @@ PS = Build a conversational chatbot to add, manage, and analyze expenses in natu
 
 ---
 
+https://www.notion.so/Hackquest-263f46ab1581805082cdea91df37e8ea?source=copy_link
+
+
+
 ## ✨ Overview
 SplitMate is a **natural language expense manager** that helps users:
 - Add expenses with a simple message
