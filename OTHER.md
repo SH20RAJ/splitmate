@@ -8,6 +8,11 @@ Here’s a **structured suggestion** on how you can approach it for HackQuest:
 Build a **conversational chatbot** to add, manage, and analyze expenses in natural language, making finance management effortless.
 
 ---
+https://www.perplexity.ai/search/the-expense-chatbot-is-my-prob-wUnsYqFeS3mUGRvc6qtfEw
+
+https://chatgpt.com/share/68b7a95a-8a70-800b-98c2-e3521c4c073e
+
+
 
 ### 🔑 Features You Can Include
 
