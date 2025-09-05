@@ -63,6 +63,19 @@ Add your API keys to `.env.local`.
 npm run dev
 ```
 
+## Documentation
+
+For detailed information about SplitMate's features and integrations, please see the [documentation folder](docs/README.md):
+
+- [SplitMate Features](docs/SPLITMATE_FEATURES.md) - Overview of all SplitMate features
+- [Vercel AI SDK Integration](docs/VERCEL_AI_SDK_INTEGRATION.md) - How SplitMate integrates Vercel AI SDK with Assistant UI
+- [StackAuth Integration](docs/STACKAUTH_INTEGRATION.md) - Authentication system implementation
+- [UPI Integration](docs/UPI_INTEGRATION.md) - UPI payment processing
+- [Reminder Integration](docs/REMINDER_INTEGRATION.md) - WhatsApp and Web Share API integration
+- [Summary](docs/SUMMARY.md) - Comprehensive overview of the entire system
+- [Deployment](docs/DEPLOYMENT.md) - How to deploy SplitMate to Vercel
+- [Contributing](docs/CONTRIBUTING.md) - Guidelines for contributing to SplitMate
+
 ## Key Components
 
 ### Authentication
@@ -92,11 +105,11 @@ npm run dev
 - `/api/groups` - Group management
 - `/api/user/sync` - User data synchronization
 - `/api/upi` - UPI link and QR code generation
-- `/api/reminders` - Reminder sending (WhatsApp, Web Share)
+- `/api/reminders` - Reminder sending (WhatsApp, Web Share API)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions to SplitMate! Please read our [contributing guidelines](docs/CONTRIBUTING.md) before submitting pull requests.
 
 ## License
 
