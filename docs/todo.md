@@ -1,0 +1,5 @@
+- [x] Add stack Auth
+- [x] Add AI SDK
+- [x] Add Qdrant
+- [ ] Add Supabase
+- [x] Add AI elements
