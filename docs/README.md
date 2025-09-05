@@ -10,6 +10,12 @@ Welcome to the SplitMate documentation. This folder contains detailed informatio
 4. [UPI Integration](UPI_INTEGRATION.md) - UPI payment processing
 5. [Reminder Integration](REMINDER_INTEGRATION.md) - WhatsApp and Web Share API integration
 6. [Summary](SUMMARY.md) - Comprehensive overview of the entire system
+7. [Deployment](DEPLOYMENT.md) - How to deploy SplitMate to Vercel
+8. [Contributing](CONTRIBUTING.md) - Guidelines for contributing to SplitMate
+9. [Project Structure](PROJECT_STRUCTURE.md) - Directory organization and file structure
+10. [Coding Standards](CODING_STANDARDS.md) - Code quality and style guidelines
+11. [Development Setup](DEVELOPMENT_SETUP.md) - Setting up your development environment
+12. [Testing](TESTING.md) - How to run and write tests for SplitMate
 
 ## Overview
 
@@ -49,7 +55,7 @@ SplitMate follows a modern web application architecture with:
 
 ### Feature Implementation
 - [SplitMate Features](SPLITMATE_FEATURES.md) documents all core features
-- [Summary](SUMMARY.md) provides a comprehensive overview of the system
+- [Summary](SUMMARY.md) provides a complete picture of the system
 
 ## Getting Started
 
@@ -62,9 +68,20 @@ To understand how SplitMate works, we recommend reading the documentation in thi
 5. [Reminder Integration](REMINDER_INTEGRATION.md) - See how reminders work
 6. [Summary](SUMMARY.md) - Get a complete picture of the system
 
+## Development
+
+For developers interested in contributing:
+
+1. [Development Setup](DEVELOPMENT_SETUP.md) - Set up your development environment
+2. [Project Structure](PROJECT_STRUCTURE.md) - Understand the codebase organization
+3. [Coding Standards](CODING_STANDARDS.md) - Follow our code quality guidelines
+4. [Testing](TESTING.md) - Learn how to test SplitMate
+5. [Contributing](CONTRIBUTING.md) - Learn how to contribute to the project
+6. [Deployment](DEPLOYMENT.md) - Deploy SplitMate to production
+
 ## Contributing
 
-We welcome contributions to SplitMate! Please read our contributing guidelines before submitting pull requests.
+We welcome contributions to SplitMate! Please read our [contributing guidelines](CONTRIBUTING.md) before submitting pull requests.
 
 ## License
 
