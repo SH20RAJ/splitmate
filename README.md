@@ -6,49 +6,58 @@ A conversational chatbot that makes expense management and bill splitting effort
 
 ---
 
-## ✨ What is SplitMate?
+## 🎯 The Problem
 
-SplitMate transforms how you manage group expenses. Instead of tedious manual entry, simply chat with our AI:
+Managing expenses can feel tedious as users must navigate multiple screens to add and view details. What if expense management could be as simple as chatting with a friend?
 
-> **You:** "I spent ₹500 on cab yesterday"  
+## ✨ The Solution: SplitMate
+
+SplitMate is an AI-powered expense management chatbot that transforms how you track and split costs. Instead of manual data entry, just talk to our AI.
+
+> **You:** "I spent ₹500 on a cab yesterday"  
 > **SplitMate:** "Got it! Added ₹500 under Transport on Sep 4th"
 
-> **You:** "Split ₹1200 pizza with Rahul and Shreya"  
+> **You:** "Split ₹1200 for pizza with Rahul and Shreya"  
 > **SplitMate:** "Done! Each person owes ₹400. Send reminder?"
 
 ---
 
-## 🚀 Key Features
+## 🚀 Key Features & Implementation Guide
 
-### 💬 **Natural Language Processing**
-- Add expenses by chatting: *"Paid ₹800 for dinner with friends"*
-- Smart categorization with emojis (Food 🍕, Travel 🚕, Bills 💡)
-- AI remembers context and relationships
+### 💬 **1. Natural Language Processing**
 
-### 💰 **Smart Bill Splitting**
-- Equal splits or custom amounts
-- Auto-calculates who owes whom
-- Tracks settlements in real-time
+- **What it is:** Add expenses, query analytics, and manage groups by chatting in plain English.
+- **How to implement it:**
+    1.  **UI Layer:** Use `ai-sdk.dev`'s pre-built chat components for a ready-made interface.
+    2.  **AI Engine:** Connect to the OpenAI API for language understanding.
+    3.  **Context & Memory:** Use a Qdrant Vector DB to store embeddings of users, expenses, and groups. This allows the AI to remember relationships (e.g., who "Rahul" is).
+    4.  **Backend:** Create an API route (e.g., `/api/chat`) that takes the user's message, fetches context from Qdrant, and calls the OpenAI API.
 
-### 📱 **UPI Integration**
-- Generate UPI deep links for instant payments
-- QR codes for easy scanning
-- One-tap settlement from chat
+### 💰 **2. Smart Bill Splitting**
 
-### 🔄 **Share-to-Chat**
-- Share UPI transactions from PhonePe/GPay directly into SplitMate
-- Auto-parse payment details
-- PWA support for seamless integration
+- **What it is:** Automatically calculate who owes whom for equal or custom splits.
+- **How to implement it:**
+    1.  **Data Model:** In your Supabase database, create tables for `expenses`, `groups`, and `group_members`.
+    2.  **Splitting Logic:** When an expense is added, create a function to calculate each member's share and update their balance in a `balances` table.
+    3.  **Real-time Updates:** Use Supabase's real-time capabilities to instantly reflect balance changes for all group members.
 
-### 🤖 **AI Assistant**
-- Ask: *"How much do I owe Rahul this month?"*
-- Get insights: *"Your food expenses are up 30% this week"*
-- Smart reminders and notifications
+### 📱 **3. UPI Integration & Reminders**
 
-### 📊 **Analytics Dashboard**
-- Visual spending trends and charts
-- Category-wise breakdowns
-- Group expense summaries
+- **What it is:** Generate UPI deep links and QR codes for one-tap payments and send reminders via multiple channels.
+- **How to implement it:**
+    1.  **UPI Deep Links:** Generate links using the format: `upi://pay?pa={upi_id}&pn={name}&am={amount}&cu=INR`.
+    2.  **QR Codes:** Use a library like `qrcode` to generate QR codes from the UPI deep link string.
+    3.  **Reminders (Hackathon-Ready):**
+        *   **WhatsApp:** Use a deep link: `https://wa.me/?text=Hey! You owe me ₹{amount} for {expense}. Pay here: {payment_link}`.
+        *   **Web Share API:** Use `navigator.share()` to open the native share sheet on mobile devices for a seamless experience.
+
+### 🔄 **4. Share-to-Chat (PWA)**
+
+- **What it is:** Share UPI transaction screenshots or text directly from apps like PhonePe/GPay into SplitMate for automatic parsing.
+- **How to implement it:**
+    1.  **PWA Setup:** Configure your Next.js app to be a Progressive Web App (PWA).
+    2.  **Web Share Target API:** In your `manifest.json`, define a `share_target` that accepts shared files/text and directs them to a specific URL in your app (e.g., `/share-handler`).
+    3.  **Parsing Logic:** On the `/share-handler` page, parse the received text to extract the amount and payee, then pre-fill the "Add Expense" form.
 
 ---
 
@@ -60,7 +69,6 @@ SplitMate transforms how you manage group expenses. Instead of tedious manual en
 - **Database:** Supabase
 - **PWA:** Service Worker + Web Share Target API
 - **Payments:** UPI Deep Links + QR Generation
-- **Reminders:** Twilio WhatsApp API
 
 ---
 
@@ -72,76 +80,25 @@ SplitMate transforms how you manage group expenses. Instead of tedious manual en
 - Supabase account
 
 ### Installation
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/sh20raj/splitmate.git
+    cd splitmate
+    ```
+2.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+3.  **Environment Setup**
+    ```bash
+    cp .env.example .env.local
+    ```
+    Add your API keys to `.env.local`.
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/your-username/splitmate.git
-cd splitmate
-```
-
-2. **Install dependencies**
-```bash
-npm install
-```
-
-3. **Environment Setup**
-```bash
-cp .env.example .env.local
-```
-
-Add your API keys to `.env.local`:
-```env
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-QDRANT_URL=your-qdrant-url
-QDRANT_API_KEY=your-qdrant-key
-TWILIO_ACCOUNT_SID=your-twilio-sid
-TWILIO_AUTH_TOKEN=your-twilio-token
-```
-
-4. **Run the development server**
-```bash
-npm run dev
-```
-
-5. **Open your browser**
-Navigate to [http://localhost:3000](http://localhost:3000)
-
----
-
-## 📱 Demo Flow
-
-1. **Share from UPI App** → PhonePe transaction shared to SplitMate
-2. **AI Parsing** → "Dinner ₹1200 detected, split with whom?"
-3. **Smart Split** → "Rahul owes ₹400, Shreya owes ₹400"
-4. **Send Reminder** → WhatsApp message with UPI payment link
-5. **Track Settlement** → Real-time balance updates
-
----
-
-## 🎯 Problem → Solution
-
-| Problem | SplitMate Solution |
-|---------|-------------------|
-| Manual expense entry is tedious | Natural language chat interface |
-| Forgetting who owes what | AI-powered balance tracking |
-| Awkward payment reminders | Automated WhatsApp/UPI reminders |
-| Complex bill splitting | Smart equal/custom split calculations |
-| No spending insights | AI analytics and trends |
-| UPI sharing is manual | Direct share from payment apps |
-
----
-
-## 🔮 Roadmap
-
-- [ ] **Phase 1:** Core expense management + UPI integration
-- [ ] **Phase 2:** PWA + Share Target API
-- [ ] **Phase 3:** AI chatbot + vector memory
-- [ ] **Phase 4:** WhatsApp reminders + analytics
-- [ ] **Phase 5:** Multi-language support (Hinglish)
-- [ ] **Future:** Voice input, OCR receipts, budgeting AI
-
+4.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
 ---
 
 ## 🤝 Contributing
@@ -154,8 +111,4 @@ Built with ❤️ for HackQuest Pantheon 2025
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details
-
----
-
-**SplitMate - Pay Smart, Stay Friends** 🤝💰
+MIT License - see [LICENSE](LICENSE) for details.
