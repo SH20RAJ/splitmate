@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackServerApp } from "../stack";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -28,11 +30,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}><StackProvider app={stackServerApp}><StackTheme>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
           {children}
         </div>
-      </body>
+      </StackTheme></StackProvider></body>
     </html>
   );
 }
