@@ -3,6 +3,7 @@ import { StackProvider, StackTheme } from "@stackframe/stack";
 import { stackServerApp } from "../stack";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SplitMateRuntimeProvider } from "@/app/splitmate-runtime-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,11 +31,17 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
-      <body className={`${inter.variable} antialiased`}><StackProvider app={stackServerApp}><StackTheme>
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-          {children}
-        </div>
-      </StackTheme></StackProvider></body>
+      <body className={`${inter.variable} antialiased`}>
+        <StackProvider app={stackServerApp}>
+          <StackTheme>
+            <SplitMateRuntimeProvider>
+              <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+                {children}
+              </div>
+            </SplitMateRuntimeProvider>
+          </StackTheme>
+        </StackProvider>
+      </body>
     </html>
   );
 }

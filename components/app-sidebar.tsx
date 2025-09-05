@@ -1,7 +1,19 @@
 "use client";
 
 import * as React from "react"
-import { Github, MessagesSquare, User, LogOut, LogIn } from "lucide-react"
+import { 
+  Github, 
+  MessagesSquare, 
+  User, 
+  LogOut, 
+  LogIn,
+  Home,
+  Users,
+  IndianRupee,
+  PieChart,
+  QrCode,
+  Calculator
+} from "lucide-react"
 import Link from "next/link"
 import {
   Sidebar,
@@ -26,12 +38,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-                <Link href="https://assistant-ui.com" target="_blank">
+                <Link href="/">
                   <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <MessagesSquare className="size-4" />
+                    <IndianRupee className="size-4" />
                   </div>
                   <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">assistant-ui</span>
+                    <span className="font-semibold">SplitMate</span>
                   </div>
                 </Link>
               </SidebarMenuButton>
@@ -39,6 +51,53 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/">
+                <Home className="size-4" />
+                <span>Home</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/dashboard">
+                <PieChart className="size-4" />
+                <span>Dashboard</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/groups">
+                <Users className="size-4" />
+                <span>Groups</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/split-bill">
+                <Calculator className="size-4" />
+                <span>Split Bill</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/generate-qr">
+                <QrCode className="size-4" />
+                <span>Generate QR</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+        
         <ThreadList />
       </SidebarContent>
       

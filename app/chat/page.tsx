@@ -1,6 +1,6 @@
 "use client";
 
-import { Assistant } from "../assistant";
+import { SplitMateThread } from "@/components/assistant-ui/splitmate-thread";
 import { useUser } from "@stackframe/stack";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -30,5 +30,5 @@ export default function ChatPage() {
     );
   }
 
-  return <Assistant />;
+  return <SplitMateThread />;
 }
