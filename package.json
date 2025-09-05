@@ -12,6 +12,8 @@
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
 	},
 	"dependencies": {
+		"@ai-sdk/openai": "^2.0.23",
+		"@ai-sdk/react": "^2.0.30",
 		"@opennextjs/cloudflare": "^1.7.1",
 		"@radix-ui/react-avatar": "^1.1.10",
 		"@radix-ui/react-collapsible": "^1.1.12",
