@@ -4,17 +4,20 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import ThemeToggle from '@/components/theme-toggle'
-import { 
-  MessageSquareIcon, 
+import {
+  MessageSquareIcon,
   BarChart3Icon,
   BellIcon,
-  MenuIcon
+  MenuIcon,
+  UserIcon
 } from 'lucide-react'
 import { useState } from 'react'
+import { useUser } from '@stackframe/stack'
 
 export function AppHeader() {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const user = useUser()
 
   const navItems = [
     {
@@ -63,6 +66,26 @@ export function AppHeader() {
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center space-x-2">
+          {/* User status */}
+          {user && user !== null ? (
+            <div className="flex items-center space-x-2">
+              <span className="hidden sm:inline text-sm font-medium">
+                {user.displayName || user.primaryEmail}
+              </span>
+              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
+                {user.displayName?.charAt(0) || user.primaryEmail?.charAt(0) || 'U'}
+              </div>
+            </div>
+          ) : user === null ? (
+            <Button variant="default" size="sm" onClick={() => {
+              // This would typically open a login modal or redirect to login page
+              console.log('Login action needed');
+            }}>
+              <UserIcon className="h-4 w-4 mr-2" />
+              Login
+            </Button>
+          ) : null}
+
           {/* Notifications */}
           <Button variant="ghost" size="icon" className="relative">
             <BellIcon className="h-4 w-4" />
