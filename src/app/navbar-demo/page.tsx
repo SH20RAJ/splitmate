@@ -5,82 +5,128 @@ import Link from 'next/link';
 export default function NavbarDemoPage() {
   const demoData = {
     logo: {
-      url: "/",
+      url: "/dashboard",
       src: "https://www.shadcnblocks.com/images/block/block-1.svg",
       alt: "SplitMate Logo",
       title: "SplitMate",
     },
     menu: [
       {
-        title: "Home",
-        url: "/",
-      },
-      {
-        title: "Features",
-        url: "#",
+        title: "Dashboard",
+        url: "/dashboard",
         items: [
           {
-            title: "Expense Tracking",
-            description: "Track and categorize all your expenses automatically",
-            url: "/features/expense-tracking",
+            title: "Overview",
+            description: "View your expense summary and recent activity",
+            url: "/dashboard",
           },
           {
-            title: "Group Management",
-            description: "Manage expenses across different friend groups and trips",
-            url: "/features/group-management",
+            title: "Activity",
+            description: "See all recent transactions and updates",
+            url: "/dashboard/activity",
           },
           {
-            title: "AI Assistant",
-            description: "Get instant help with expense splitting and financial calculations",
-            url: "/features/ai-assistant",
+            title: "Friends",
+            description: "Manage your friends and their balances",
+            url: "/friends",
+          }
+        ],
+      },
+      {
+        title: "Expenses",
+        url: "/expenses",
+        items: [
+          {
+            title: "All Expenses",
+            description: "View and manage all your expenses",
+            url: "/expenses",
           },
           {
-            title: "Real-time Sync",
-            description: "Keep everyone in sync with instant updates and notifications",
-            url: "/features/real-time-sync",
+            title: "Add Expense",
+            description: "Quickly add a new expense",
+            url: "/expenses/add-expense",
+          },
+          {
+            title: "Recent",
+            description: "See your most recent expenses",
+            url: "/expenses/recent",
+          },
+          {
+            title: "Categories",
+            description: "Manage expense categories",
+            url: "/expenses/categories",
           },
         ],
       },
       {
-        title: "Resources",
-        url: "#",
+        title: "Groups",
+        url: "/groups",
         items: [
           {
-            title: "Help Center",
-            description: "Get all the answers you need right here",
-            url: "/help",
+            title: "My Groups",
+            description: "View and manage your expense groups",
+            url: "/groups",
           },
           {
-            title: "Contact Us",
-            description: "We are here to help you with any questions you have",
-            url: "/contact",
+            title: "Create Group",
+            description: "Create a new group for shared expenses",
+            url: "/groups/create",
           },
           {
-            title: "Status",
-            description: "Check the current status of our services and APIs",
-            url: "/status",
-          },
-          {
-            title: "Terms of Service",
-            description: "Our terms and conditions for using our services",
-            url: "/terms",
+            title: "Invitations",
+            description: "Manage group invitations",
+            url: "/groups/invitations",
           },
         ],
       },
       {
-        title: "Pricing",
-        url: "/pricing",
+        title: "Analytics",
+        url: "/analytics",
+        items: [
+          {
+            title: "Overview",
+            description: "View spending patterns and insights",
+            url: "/analytics",
+          },
+          {
+            title: "Insights",
+            description: "Get AI-powered financial insights",
+            url: "/analytics/insights",
+          },
+          {
+            title: "Reports",
+            description: "Generate detailed expense reports",
+            url: "/analytics/reports",
+          },
+        ],
       },
       {
-        title: "Blog",
-        url: "/blog",
+        title: "AI Assistant",
+        url: "/chat",
+        items: [
+          {
+            title: "Chat",
+            description: "Chat with our AI expense assistant",
+            url: "/chat",
+          },
+          {
+            title: "Suggestions",
+            description: "Get prompt suggestions for the AI assistant",
+            url: "/chat/suggestions",
+          },
+          {
+            title: "History",
+            description: "View your chat history with the AI",
+            url: "/chat/history",
+          },
+        ],
       },
     ],
     mobileExtraLinks: [
-      { name: "Press", url: "/press" },
+      { name: "Settings", url: "/settings" },
+      { name: "Help", url: "/help" },
+      { name: "About", url: "/about" },
       { name: "Contact", url: "/contact" },
-      { name: "Imprint", url: "/imprint" },
-      { name: "Sitemap", url: "/sitemap" },
     ],
     auth: {
       login: { text: "Log in", url: "/login" },
@@ -94,38 +140,37 @@ export default function NavbarDemoPage() {
       
       <div className="container py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl font-bold tracking-tight mb-6">
-            Navbar Component Demo
+          <h1 className="text-3xl font-bold tracking-tight mb-4">
+            SplitMate Navigation
           </h1>
-          <p className="text-lg text-muted-foreground mb-10">
-            This is a demo page showcasing the Navbar1 component with a responsive design 
-            that works on both desktop and mobile devices.
+          <p className="text-muted-foreground mb-10">
+            This demo showcases the navigation structure used throughout SplitMate
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">Responsive Design</h3>
+              <h3 className="font-semibold mb-2">Intuitive Navigation</h3>
               <p className="text-sm text-muted-foreground">
-                The navbar automatically adapts to different screen sizes with a hamburger menu on mobile.
+                Easily access all features through our organized menu structure
               </p>
             </div>
             <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">Dropdown Menus</h3>
+              <h3 className="font-semibold mb-2">Mobile Friendly</h3>
               <p className="text-sm text-muted-foreground">
-                Complex navigation with dropdown menus for nested items on desktop.
+                Responsive design that works perfectly on all devices
               </p>
             </div>
             <div className="p-6 border rounded-lg">
-              <h3 className="font-semibold mb-2">Mobile Accordion</h3>
+              <h3 className="font-semibold mb-2">AI Integration</h3>
               <p className="text-sm text-muted-foreground">
-                Collapsible sections for mobile navigation with smooth animations.
+                Access our AI assistant from anywhere in the app
               </p>
             </div>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild>
-              <Link href="/">Back to Home</Link>
+              <Link href="/dashboard">Go to Dashboard</Link>
             </Button>
             <Button asChild variant="outline">
               <Link href="/about">About SplitMate</Link>

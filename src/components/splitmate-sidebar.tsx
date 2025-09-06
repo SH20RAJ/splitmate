@@ -16,6 +16,7 @@ import {
   Upload,
   Link,
   Send,
+  IndianRupee,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -41,7 +42,7 @@ const splitMateData = {
   teams: [
     {
       name: "SplitMate",
-      logo: DollarSign,
+      logo: IndianRupee,
       plan: "Pro",
     },
     {

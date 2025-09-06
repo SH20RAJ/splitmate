@@ -10,14 +10,16 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { 
-  Plus, 
-  Trash2, 
-  Users, 
-  TrendingUp, 
+import {
+  Plus,
+  Trash2,
+  Users,
+  TrendingUp,
   TrendingDown,
   MessageSquare,
-  UserPlus
+  UserPlus,
+  Bot,
+  Send
 } from "lucide-react";
 import { AppContainer } from "@/components/app-container";
 import { BottomNav } from "@/components/bottom-nav";
@@ -108,10 +110,47 @@ export default function FriendsPage() {
   const totalOwed = friends.filter(f => f.balance > 0).reduce((sum, f) => sum + f.balance, 0);
   const totalOwes = friends.filter(f => f.balance < 0).reduce((sum, f) => sum + Math.abs(f.balance), 0);
 
+  const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
+
+  const toggleFriendSelection = (friendId: string) => {
+    setSelectedFriends(prev =>
+      prev.includes(friendId)
+        ? prev.filter(id => id !== friendId)
+        : [...prev, friendId]
+    );
+  };
+
+  const getSelectedFriendNames = () => {
+    return friends
+      .filter(friend => selectedFriends.includes(friend.id))
+      .map(friend => friend.name);
+  };
+
+  const copyFriendNamesForChat = () => {
+    const names = getSelectedFriendNames().join(", ");
+    navigator.clipboard.writeText(names);
+  };
+
+  const generateSplitPrompt = () => {
+    const names = getSelectedFriendNames();
+    if (names.length === 0) return "";
+    
+    return `Split ₹${(names.length * 500).toFixed(2)} with ${names.join(", ")} for our dinner`;
+  };
+
   return (
     <>
       <AppContainer>
         <div className="space-y-6 pb-20">
+          {/* Header */}
+          <div className="flex flex-col gap-2">
+            <h1 className="text-2xl font-bold">Friends</h1>
+            <p className="text-muted-foreground">
+              Manage your friends and easily split expenses with them using our AI assistant or Telegram bot.
+              Select friends below and use the quick actions to generate prompts for splitting bills.
+            </p>
+          </div>
+          
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card>
@@ -142,6 +181,66 @@ export default function FriendsPage() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Quick Actions */}
+          {selectedFriends.length > 0 && (
+            <Card className="border-primary">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bot className="h-5 w-5" />
+                  Quick Actions with Selected Friends
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  <Button onClick={copyFriendNamesForChat} variant="outline" size="sm">
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    Copy Names for Chat
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      const prompt = generateSplitPrompt();
+                      navigator.clipboard.writeText(prompt);
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    Copy Split Prompt
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      const names = getSelectedFriendNames().join(", ");
+                      const message = `Hi ${names}, let's split our recent expenses. Check SplitMate to see what you owe!`;
+                      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                      window.open(whatsappUrl, '_blank');
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Share via WhatsApp
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      const names = getSelectedFriendNames().join(", ");
+                      const message = `Hi ${names}, let's split our recent expenses. Check SplitMate to see what you owe!`;
+                      const telegramUrl = `https://t.me/share/url?text=${encodeURIComponent(message)}`;
+                      window.open(telegramUrl, '_blank');
+                    }}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Send className="h-4 w-4 mr-2" />
+                    Share via Telegram
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground mt-2">
+                  Selected: {getSelectedFriendNames().join(", ")}
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Friends List */}
           <Card>
@@ -191,6 +290,12 @@ export default function FriendsPage() {
                   <div key={friend.id}>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={selectedFriends.includes(friend.id)}
+                          onChange={() => toggleFriendSelection(friend.id)}
+                          className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary"
+                        />
                         <Avatar>
                           <AvatarFallback>
                             {friend.name.split(' ').map(n => n[0]).join('')}
@@ -210,7 +315,14 @@ export default function FriendsPage() {
                         {friend.balance === 0 && (
                           <Badge variant="outline">Settled</Badge>
                         )}
-                        <Button size="sm" variant="ghost">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => {
+                            const prompt = `Split expenses with ${friend.name}`;
+                            navigator.clipboard.writeText(prompt);
+                          }}
+                        >
                           <MessageSquare className="h-4 w-4" />
                         </Button>
                         <Button size="sm" variant="ghost" onClick={() => deleteFriend(friend.id)}>

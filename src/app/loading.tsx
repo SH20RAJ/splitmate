@@ -1,5 +1,12 @@
-export default function Loading() {
-  // Stack uses React Suspense, which will render this page while user data is being fetched.
-  // See: https://nextjs.org/docs/app/api-reference/file-conventions/loading
-  return <></>;
+import { ShaderAnimation } from "@/components/ui/shader-animation";
+
+export default function DemoOne() {
+  return (
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-xl border bg-blue-700">
+      <ShaderAnimation/>
+      <span className="absolute pointer-events-none z-10 text-center text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white">
+        Split <span className="text-blue-300">Mate</span>
+      </span>
+    </div>
+  )
 }
