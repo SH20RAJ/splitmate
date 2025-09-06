@@ -290,7 +290,11 @@ Here’s how you could structure your full documentation:
 
    * Expense tracking (Splitmate scenario)
 
----
+7. **UI Components**
+  
+  * [Pill Component Usage Guide](./pill-component.md) - Enhanced badge components with indicators, deltas, and avatars
+
+ ---
 
 Let me know if you'd like help formatting this into a polished document, adding diagrams, or expanding any section into code examples!
 

@@ -1,6 +1,7 @@
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
 
 import { Badge } from "@/components/ui/badge"
+import { Pill, PillDelta } from "@/components/ui/kibo-ui/pill"
 import {
   Card,
   CardAction,
@@ -20,10 +21,11 @@ export function SectionCards() {
             $1,250.00
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
+            <Pill variant="outline">
               <IconTrendingUp />
               +12.5%
-            </Badge>
+              <PillDelta delta={12.5} />
+            </Pill>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
@@ -42,10 +44,11 @@ export function SectionCards() {
             1,234
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
+            <Pill variant="outline">
               <IconTrendingDown />
               -20%
-            </Badge>
+              <PillDelta delta={-20} />
+            </Pill>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
@@ -64,10 +67,11 @@ export function SectionCards() {
             45,678
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
+            <Pill variant="outline">
               <IconTrendingUp />
               +12.5%
-            </Badge>
+              <PillDelta delta={12.5} />
+            </Pill>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
@@ -84,10 +88,11 @@ export function SectionCards() {
             4.5%
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
+            <Pill variant="outline">
               <IconTrendingUp />
               +4.5%
-            </Badge>
+              <PillDelta delta={4.5} />
+            </Pill>
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">

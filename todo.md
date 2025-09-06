@@ -59,3 +59,9 @@ shaswatraj@Sh splitmate %
 
 
 6.   - src/components/ui/kibo-ui/kanban/index.tsx use this kanban component to show task management or expense tracking in a visual way. for example, you can create columns for different expense categories and move expenses between them as they are added or settled.
+
+---
+
+ https://www.assistant-ui.com/docs/runtimes/ai-sdk/use-chat
+
+ 

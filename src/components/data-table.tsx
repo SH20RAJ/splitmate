@@ -55,6 +55,7 @@ import { z } from "zod"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
+import { Pill, PillIndicator } from "@/components/ui/kibo-ui/pill"
 import { Button } from "@/components/ui/button"
 import {
   ChartConfig,
@@ -181,9 +182,9 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     header: "Section Type",
     cell: ({ row }) => (
       <div className="w-32">
-        <Badge variant="outline" className="text-muted-foreground px-1.5">
+        <Pill variant="outline" className="text-muted-foreground px-1.5">
           {row.original.type}
-        </Badge>
+        </Pill>
       </div>
     ),
   },
@@ -191,14 +192,20 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <Badge variant="outline" className="text-muted-foreground px-1.5">
+      <Pill variant="outline" className="text-muted-foreground px-1.5">
         {row.original.status === "Done" ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+          <>
+            <PillIndicator variant="success" />
+            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+          </>
         ) : (
-          <IconLoader />
+          <>
+            <PillIndicator variant="warning" pulse />
+            <IconLoader />
+          </>
         )}
         {row.original.status}
-      </Badge>
+      </Pill>
     ),
   },
   {
@@ -428,10 +435,10 @@ export function DataTable({
         <TabsList className="**:data-[slot=badge]:bg-muted-foreground/30 hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:px-1 @4xl/main:flex">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
+            Past Performance <Pill variant="secondary">3</Pill>
           </TabsTrigger>
           <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
+            Key Personnel <Pill variant="secondary">2</Pill>
           </TabsTrigger>
           <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>

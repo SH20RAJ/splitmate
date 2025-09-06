@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button"
 import { ChatInterface } from "@/components/chat-interface"
 import { useState } from "react"
 import { useUser } from "@stackframe/stack"
+import { useRouter } from "next/navigation"
 
 const splitMateData = {
   teams: [
@@ -156,6 +157,8 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
     avatar: "",
   };
 
+    const router = useRouter();
+
   return (
     <>
       <Sidebar collapsible="icon" {...props}>
@@ -171,7 +174,7 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
             <Button 
               variant="outline" 
               className="w-full justify-start gap-2"
-              onClick={() => setShowChat(true)}
+              onClick={() => router.push('/chat')}
             >
               <MessageSquare className="h-4 w-4" />
               AI Assistant
