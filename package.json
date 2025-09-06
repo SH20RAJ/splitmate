@@ -54,7 +54,7 @@
 		"@stackframe/stack": "^2.8.36",
 		"@tabler/icons-react": "^3.34.1",
 		"@tanstack/react-table": "^8.21.3",
-		"ai": "^5.0.33",
+		"ai": "^5.0.34",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"cmdk": "^1.1.1",
