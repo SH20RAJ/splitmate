@@ -49,7 +49,7 @@ interface ReminderResult {
   recipientName: string;
 }
 
-interface Expense {
+export interface Expense {
   id: string;
   amount: number;
   description: string;
@@ -59,14 +59,14 @@ interface Expense {
   paidBy: string;
 }
 
-interface GroupMember {
+export interface GroupMember {
   id: string;
   name: string;
   email: string;
   avatar?: string;
 }
 
-interface Group {
+export interface Group {
   id: string;
   name: string;
   description: string;

@@ -96,6 +96,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+          
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/manual-expense">
+                <Calculator className="size-4" />
+                <span>Manual Expense</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
         
         <ThreadList />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSplitMate } from '@/hooks/use-splitmate';
+import type { Expense, Group } from '@/hooks/use-splitmate';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,10 +11,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { 
-  IndianRupeeIcon, 
-  UsersIcon, 
-  QrCodeIcon, 
+import {
+  IndianRupeeIcon,
+  UsersIcon,
+  QrCodeIcon,
   MessageCircleIcon,
   PlusIcon,
   MinusIcon,
@@ -77,8 +78,8 @@ export function ManualExpenseManager() {
   const [isCopied, setIsCopied] = useState(false);
   
   // State for existing data
-  const [expenses, setExpenses] = useState<any[]>([]);
-  const [groups, setGroups] = useState<any[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   
   // Load existing data on component mount
   useEffect(() => {
@@ -559,7 +560,7 @@ export function ManualExpenseManager() {
                 <p className="text-gray-500 text-center py-4">No expenses found</p>
               ) : (
                 <div className="space-y-3">
-                  {expenses.slice(0, 3).map((expense: any) => (
+                  {expenses.slice(0, 3).map((expense) => (
                     <div key={expense.id} className="p-3 border rounded-lg">
                       <div className="flex justify-between">
                         <span className="font-medium">{expense.description}</span>
@@ -574,7 +575,7 @@ export function ManualExpenseManager() {
                       <div className="flex items-center mt-2">
                         <UsersIcon className="h-4 w-4 mr-1 text-gray-500" />
                         <div className="flex -space-x-2">
-                          {expense.participants.slice(0, 3).map((participant: string, index: number) => (
+                          {expense.participants.slice(0, 3).map((participant, index) => (
                             <Avatar key={index} className="h-6 w-6 border-2 border-white">
                               <AvatarFallback className="text-xs">
                                 {participant.charAt(0)}
