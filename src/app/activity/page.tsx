@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, ArrowDownLeft, Users, Plus, Minus } from "lucide-react";
 import { BottomNav } from "@/components/bottom-nav";
+import { AppContainer } from "@/components/app-container";
 
 const mockActivities = [
   {
@@ -92,61 +93,63 @@ const getActivityMessage = (activity: typeof mockActivities[0]) => {
 
 export default function ActivityPage() {
   return (
-    <div className="min-h-screen nm pb-20">
-      <div className="max-w-md mx-auto p-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Recent Activity
-        </h1>
+    <>
+      <AppContainer>
+        <div className="pb-20">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            Recent Activity
+          </h1>
 
-        <div className="space-y-4">
-          {mockActivities.map((activity) => (
-            <Card key={activity.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
-                  <div className={`p-2 rounded-full bg-gray-100 dark:bg-gray-800 ${activity.color}`}>
-                    <activity.icon className="h-4 w-4" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                        {getActivityMessage(activity)}
-                      </p>
-                      {activity.amount && (
-                        <span className={`text-sm font-semibold ml-2 ${activity.type === "payment_received"
-                            ? "text-green-600 dark:text-green-400"
-                            : activity.type === "payment_sent"
-                              ? "text-red-600 dark:text-red-400"
-                              : "text-gray-900 dark:text-white"
-                          }`}>
-                          {activity.type === "payment_received" ? "+" :
-                            activity.type === "payment_sent" ? "-" : ""}
-                          ₹{activity.amount.toLocaleString()}
+          <div className="space-y-4">
+            {mockActivities.map((activity) => (
+              <Card key={activity.id} className="hover:shadow-md transition-shadow">
+                <CardContent className="p-4">
+                  <div className="flex items-start space-x-4">
+                    <div className={`p-2 rounded-full bg-gray-100 dark:bg-gray-800 ${activity.color}`}>
+                      <activity.icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                          {getActivityMessage(activity)}
+                        </p>
+                        {activity.amount && (
+                          <span className={`text-sm font-semibold ml-2 ${activity.type === "payment_received"
+                              ? "text-green-600 dark:text-green-400"
+                              : activity.type === "payment_sent"
+                                ? "text-red-600 dark:text-red-400"
+                                : "text-gray-900 dark:text-white"
+                            }`}>
+                            {activity.type === "payment_received" ? "+" :
+                              activity.type === "payment_sent" ? "-" : ""}
+                            ₹{activity.amount.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <Badge variant="secondary" className="text-xs">
+                          {activity.group}
+                        </Badge>
+                        <span className="text-xs text-gray-500">
+                          {activity.timestamp}
                         </span>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between mt-1">
-                      <Badge variant="secondary" className="text-xs">
-                        {activity.group}
-                      </Badge>
-                      <span className="text-xs text-gray-500">
-                        {activity.timestamp}
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        {/* Load More */}
-        <div className="mt-6 text-center">
-          <button className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline">
-            Load more activities
-          </button>
+          {/* Load More */}
+          <div className="mt-6 text-center">
+            <button className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline">
+              Load more activities
+            </button>
+          </div>
         </div>
-      </div>
+      </AppContainer>
       <BottomNav />
-    </div>
+    </>
   );
 }

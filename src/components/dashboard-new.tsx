@@ -216,7 +216,6 @@ export function DashboardNew() {
                       {expense.date}
                     </div>
                   </div>
-                </div>
                 <div className="text-right">
                   <div className="font-semibold text-sm">₹{expense.amount.toLocaleString()}</div>
                   <Badge variant="secondary" className="text-xs mt-1">

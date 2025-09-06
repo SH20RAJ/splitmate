@@ -13,6 +13,8 @@ import {
   ArrowRightIcon
 } from 'lucide-react'
 import { Bento } from '@/components/bento'
+import { HeroSection } from '@/components/blocks/hero-section-dark'
+import { AboutNavbar } from '@/components/about-navbar'
 
 export const metadata: Metadata = {
   title: 'About SplitMate',
