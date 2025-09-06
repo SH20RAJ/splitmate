@@ -185,16 +185,18 @@ const splitMateData = {
     },
     {
       title: "Telegram Bot",
-      url: "/telegram",
+      url: "https://t.me/splitmate2_bot",
       icon: Send,
+      isExternal: true,
       items: [
         {
-          title: "Setup Bot",
-          url: "/telegram/setup",
+          title: "Open Telegram Bot",
+          url: "https://t.me/splitmate2_bot",
+          isExternal: true,
         },
         {
-          title: "Commands",
-          url: "/telegram/commands",
+          title: "Bot Setup",
+          url: "/telegram/setup",
         },
       ],
     },

@@ -149,7 +149,7 @@ use mongoose and mongodb to create the backend of the app
 
 ---
 
-create the telegram bot
+✓ create the telegram bot
 
 
 ---

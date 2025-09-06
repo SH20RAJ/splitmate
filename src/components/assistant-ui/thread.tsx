@@ -18,7 +18,7 @@ import {
   Square,
 } from "lucide-react";
 import type { FC } from "react";
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 
 import {
   ComposerAddAttachment,
@@ -28,6 +28,7 @@ import {
 import { MarkdownText } from "@/components/assistant-ui/markdown-text";
 import { ToolFallback } from "@/components/assistant-ui/tool-fallback";
 import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
+import { VoiceInput } from "@/components/assistant-ui/voice-input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
@@ -264,9 +265,31 @@ const Composer: FC = () => {
 };
 
 const ComposerAction: FC = () => {
+  const handleVoiceTranscript = (transcript: string) => {
+    // Find the composer input element in the DOM
+    const inputElement = document.querySelector('.aui-composer-input') as HTMLTextAreaElement | null;
+    
+    if (inputElement) {
+      // Append the transcript to the current input value
+      const currentInput = inputElement.value;
+      const newInput = currentInput ? `${currentInput} ${transcript}` : transcript;
+      inputElement.value = newInput;
+      
+      // Trigger input event to update the composer state
+      const inputEvent = new Event('input', { bubbles: true });
+      inputElement.dispatchEvent(inputEvent);
+      
+      // Focus the input
+      inputElement.focus();
+    }
+  };
+
   return (
     <div className="aui-composer-action-wrapper relative mx-1 mt-2 mb-2 flex items-center justify-between">
-      <ComposerAddAttachment />
+      <div className="flex items-center gap-1">
+        <ComposerAddAttachment />
+        <VoiceInput onTranscript={handleVoiceTranscript} />
+      </div>
 
       <ThreadPrimitive.If running={false}>
         <ComposerPrimitive.Send asChild>
