@@ -17,6 +17,7 @@ import {
   Link,
   Send,
   IndianRupee,
+  LogIn,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -29,6 +30,9 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { ChatInterface } from "@/components/chat-interface"
@@ -255,7 +259,24 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
               <AnimatedThemeToggler className="flex-shrink-0" />
             </div>
           </div>
-          <NavUser user={currentUser} />
+          {user ? (
+            <NavUser user={currentUser} />
+          ) : (
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  size="lg" 
+                  onClick={() => router.push('/handler/sign-up')}
+                  className="w-full"
+                >
+                  <div className="flex items-center gap-2 w-full">
+                    <LogIn className="h-4 w-4" />
+                    <span>Sign In</span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          )}
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
