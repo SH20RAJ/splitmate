@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stackServerApp } from '@/stack';
-import { createClient } from '../../../../lib/db';
+import { 
+  getUserById, 
+  createUser, 
+  updateUser 
+} from '@/lib/db/queries';
 
-// POST /api/user/sync - Sync user data between StackAuth and Supabase
+// POST /api/user/sync - Sync user data between StackAuth and database
 export async function POST(req: NextRequest) {
   try {
     // Get the current user from StackAuth
@@ -11,48 +15,39 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get Supabase client
-    const supabase = createClient();
+    // Check if user exists in database
+    const existingUser = await getUserById(user.id);
 
-    // Check if user exists in Supabase
-    const { data: existingUser, error: fetchError } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-
-    // If user doesn't exist, create them in Supabase
+    // If user doesn't exist, create them in database
     if (!existingUser) {
-      const { error: insertError } = await supabase
-        .from('users')
-        .insert({
-          id: user.id,
-          name: user.displayName || 'Anonymous User',
-          email: user.primaryEmail || '',
-          created_at: new Date().toISOString(),
-        });
+      const newUser = await createUser({
+        id: user.id,
+        email: user.primaryEmail!,
+        displayName: user.displayName || null,
+        firstName: null,
+        lastName: null,
+        profileImageUrl: user.profileImageUrl || null,
+      });
 
-      if (insertError) {
-        return NextResponse.json({ error: 'Failed to create user in Supabase' }, { status: 500 });
+      if (!newUser) {
+        return NextResponse.json({ error: 'Failed to create user in database' }, { status: 500 });
       }
     } else {
       // If user exists, update their information
-      const { error: updateError } = await supabase
-        .from('users')
-        .update({
-          name: user.displayName || existingUser.name,
-          email: user.primaryEmail || existingUser.email,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', user.id);
+      const updatedUser = await updateUser(user.id, {
+        email: user.primaryEmail!,
+        displayName: user.displayName || null,
+        profileImageUrl: user.profileImageUrl || null,
+      });
 
-      if (updateError) {
-        return NextResponse.json({ error: 'Failed to update user in Supabase' }, { status: 500 });
+      if (!updatedUser) {
+        return NextResponse.json({ error: 'Failed to update user in database' }, { status: 500 });
       }
     }
 
     return NextResponse.json({ success: true, message: 'User synced successfully' });
   } catch (error) {
+    console.error('Error syncing user:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -66,25 +61,15 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get Supabase client
-    const supabase = createClient();
-
-    // Check if user exists in Supabase
-    const { data: existingUser, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', user.id)
-      .single();
-
-    if (error) {
-      return NextResponse.json({ error: 'Failed to check user in Supabase' }, { status: 500 });
-    }
+    // Check if user exists in database
+    const existingUser = await getUserById(user.id);
 
     return NextResponse.json({
       synced: !!existingUser,
       user: existingUser || null,
     });
   } catch (error) {
+    console.error('Error checking user sync status:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
