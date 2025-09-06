@@ -18,7 +18,7 @@ const fetchStats = async (): Promise<StatsData> => {
   const baseUrl =
     typeof window !== "undefined" ? "" : process.env.NEXT_PUBLIC_BASE_URL;
   const res = await fetch(`${baseUrl}/api/fetch-umami-stats`);
-  const data = await res.json();
+  const data: any = await res.json();
   console.log("data is:", data);
 
   // Calculate average visit duration in seconds
@@ -31,7 +31,7 @@ const fetchStats = async (): Promise<StatsData> => {
   data.totaltime.value = averageVisitDurationMinutes;
   data.totaltime.prev = data.totaltime.prev / 60; // Assuming prev is also in seconds
 
-  return data;
+  return data as StatsData;
 };
 
 type StatsData = {
@@ -81,8 +81,8 @@ export default function StatsChart() {
 
   useEffect(() => {
     const getStats = async () => {
-      const stats = await fetchStats();
-      setStats(stats);
+      const statsData = await fetchStats();
+      setStats(statsData);
     };
 
     getStats();

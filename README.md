@@ -17,6 +17,16 @@ Splitmate is an **open-source expense splitting app** designed to make it effort
 - ✅ Simple settlement tracking (mark as paid/unpaid).  
 - 📊 Dashboard view of total owed/lent.  
 - 📱 Responsive, clean UI powered by Shadcn/UI.  
+- 🤖 AI chat assistant for natural language expense input.
+- 🔗 UPI payment link generation for quick settlements
+- 📊 Insights & analytics for smarter spending.
+- 📧 Email notifications & reminders (via Resend).
+- 🧑‍💼  authentication (StackAuth ready).
+- PWA support for web share api & installability.
+- 🗃️ Supabase backend (Postgres).
+- 🛠️ Easy to set up locally with Bun/Node.js.
+- OpenAI integration for AI-powered features.
+
 
 ---
 

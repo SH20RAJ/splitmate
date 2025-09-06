@@ -1,5 +1,3 @@
-// ProjectPosts.tsx
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,14 +5,24 @@ import { fetchProjects } from "@/lib/fetchers";
 import ProjectShowcaseVertical from "@/components/project-showcase-vertical";
 import { defaultDomains } from "@/lib/data";
 
+interface PostData {
+  data: {
+    title: string;
+    description: string;
+    image: string;
+    href: string;
+  };
+  slug: string;
+}
+
 const ProjectPosts = () => {
   const [files, setFiles] = useState(defaultDomains);
 
   useEffect(() => {
     const getPosts = async () => {
       const postsData = await fetchProjects();
-      if (postsData) {
-        const formattedPosts = postsData.postsData.map((post: { data: { title: string; description: string; image: string; href: string } }) => ({
+      if (postsData && postsData.postsData) {
+        const formattedPosts = postsData.postsData.map((post: PostData) => ({
           name: post.data.title,
           body: post.data.description,
           slug: post.slug,
@@ -22,7 +30,6 @@ const ProjectPosts = () => {
         }));
         setFiles(formattedPosts.slice(0, 10));
       }
-      setPosts(postsData);
     };
 
     getPosts();

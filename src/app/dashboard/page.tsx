@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Dashboard } from '@/components/dashboard'
+import { BottomNav } from '@/components/bottom-nav'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -8,8 +9,11 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <div className="container py-6">
-      <Dashboard />
+    <div className="min-h-screen max-w-4xl mx-auto p-4 space-y-6">
+      <div className="container py-6">
+        <Dashboard />
+      </div>
+      <BottomNav />
     </div>
   )
 }

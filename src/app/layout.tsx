@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { AppHeader } from '@/components/app-header'
+import StackProviderClient from '@/components/stack-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -69,19 +70,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body  className={"flex justify-center items-center" + inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen bg-background ">
-            <AppHeader />
-            <main className="min-h-[calc(100vh-3.5rem)]">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+        <StackProviderClient>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="min-h-screen bg-background ">
+              <AppHeader />
+              <main className="min-h-[calc(100vh-3.5rem)]">
+                {children}
+              </main>
+            </div>
+          </ThemeProvider>
+        </StackProviderClient>
       </body>
     </html>
   )

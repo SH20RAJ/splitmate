@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { InsightsSection } from "@/components/insights-section";
 import { 
   PlusIcon, 
   UsersIcon, 
@@ -13,6 +17,7 @@ import {
   QrCodeIcon,
   MessageSquareIcon
 } from "lucide-react";
+import Link from "next/link";
 
 interface Balance {
   name: string;
@@ -39,6 +44,9 @@ interface Group {
 }
 
 export function Dashboard() {
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [showQRPayment, setShowQRPayment] = useState(false);
+  
   // Mock data for demonstration
   const balances: Balance[] = [
     { name: "Rahul Sharma", amount: 850, type: "owed" },
@@ -124,15 +132,25 @@ export function Dashboard() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Button className="h-20 flex-col gap-2">
-          <PlusIcon className="h-6 w-6" />
-          <span>Add Expense</span>
-        </Button>
-        <Button variant="outline" className="h-20 flex-col gap-2">
+        <Link href="/add-expense">
+          <Button className="h-20 flex-col gap-2 w-full">
+            <PlusIcon className="h-6 w-6" />
+            <span>Add Expense</span>
+          </Button>
+        </Link>
+        <Button 
+          variant="outline" 
+          className="h-20 flex-col gap-2"
+          onClick={() => setShowCreateGroup(true)}
+        >
           <UsersIcon className="h-6 w-6" />
           <span>Create Group</span>
         </Button>
-        <Button variant="outline" className="h-20 flex-col gap-2">
+        <Button 
+          variant="outline" 
+          className="h-20 flex-col gap-2"
+          onClick={() => setShowQRPayment(true)}
+        >
           <QrCodeIcon className="h-6 w-6" />
           <span>QR Payment</span>
         </Button>
@@ -191,8 +209,9 @@ export function Dashboard() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {groups.map((group) => (
-              <Card key={group.id} className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-4">
+              <Link key={group.id} href={`/groups/${group.id}`}>
+                <Card className="cursor-pointer hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="text-2xl">{group.emoji}</div>
                     <div>
@@ -206,6 +225,7 @@ export function Dashboard() {
                   <div className="text-sm text-muted-foreground">Total expenses</div>
                 </CardContent>
               </Card>
+              </Link>
             ))}
           </div>
         </CardContent>
@@ -248,6 +268,88 @@ export function Dashboard() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Analytics & Insights */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Analytics & Insights</CardTitle>
+          <CardDescription>Detailed analysis of your spending patterns</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <InsightsSection />
+        </CardContent>
+      </Card>
+
+      {/* Create Group Modal */}
+      {showCreateGroup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-sm">
+            <CardHeader>
+              <CardTitle>Create New Group</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <input
+                type="text"
+                placeholder="Group name"
+                className="w-full p-3 border rounded-lg"
+              />
+              <select className="w-full p-3 border rounded-lg">
+                <option>Trip</option>
+                <option>Flatmates</option>
+                <option>Office</option>
+                <option>Friends</option>
+              </select>
+              <div className="flex space-x-2">
+                <Button 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={() => setShowCreateGroup(false)}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  className="flex-1"
+                  onClick={() => {
+                    setShowCreateGroup(false);
+                    // Add success toast here
+                  }}
+                >
+                  Create
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* QR Payment Modal */}
+      {showQRPayment && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-sm">
+            <CardHeader>
+              <CardTitle>QR Payment</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-center">
+              <div className="w-48 h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mx-auto">
+                <QrCodeIcon className="h-24 w-24 text-gray-400" />
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Scan this QR code to pay via UPI
+              </p>
+              <p className="font-mono text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                splitmate@paytm
+              </p>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => setShowQRPayment(false)}
+              >
+                Close
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

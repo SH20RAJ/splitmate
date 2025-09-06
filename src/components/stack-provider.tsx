@@ -9,6 +9,7 @@ export default function StackProviderClient({
 }) {
   const stackApp = new StackClientApp({
     projectId: process.env.NEXT_PUBLIC_STACK_PROJECT_ID!,
+    tokenStore: "nextjs-cookie",
   });
 
   return (
