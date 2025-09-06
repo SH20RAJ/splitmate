@@ -10,7 +10,7 @@ import GlobeAndStars from "@/components/globe-and-stars";
 import Hero from "@/components/hero";
 import Marquee from "@/components/magicui/marquee";
 import Technologies from "@/components/technologies";
-import ThemeToggle from "@/components/theme-toggle";
+import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
 import Orbit from "@/components/orbit";
 import RetroGrid from "@/components/magicui/retro-grid";
 import StatsChart from "@/components/stats-chart";
@@ -39,7 +39,7 @@ const features = [
 
         <div className="absolute right-0 top-0 z-50">
           <FadeIn direction="down">
-            <ThemeToggle />
+            <AnimatedThemeToggler />
           </FadeIn>
         </div>
       </>

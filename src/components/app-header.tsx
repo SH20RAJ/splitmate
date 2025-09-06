@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import ThemeToggle from '@/components/theme-toggle'
+import { AnimatedThemeToggler } from '@/components/magicui/animated-theme-toggler'
 import {
   BarChart3Icon,
   BellIcon,
@@ -106,7 +106,7 @@ export function AppHeader() {
           </Button>
 
           {/* Theme toggle */}
-          <ThemeToggle />
+          <AnimatedThemeToggler />
 
           {/* Mobile menu button */}
           <Button

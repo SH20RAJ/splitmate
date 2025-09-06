@@ -79,7 +79,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="min-h-screen  bg-transparent ">
+            <div className="min-h-screen w-full bg-transparent ">
               <AppHeaderWrapper />
               <main className="min-h-[calc(100vh-3.5rem)]">
                 <ErrorBoundary>

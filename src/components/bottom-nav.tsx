@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Users, User, Activity, Plus, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Dock, DockIcon } from "@/components/magicui/dock";
 
 const navItems = [
   { href: "/dashboard", icon: Home, label: "Home" },
@@ -17,27 +18,39 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-md text-center border-t border-gray-200 dark:border-gray-800 backdrop-blur-md z-50 rounded-t-2xl">
-      <div className="flex justify-around items-center py-2 px-4 max-w-md mx-auto">
-      {navItems.map((item) => {
-        const isActive = pathname === item.href;
-        return (
-        <Link
-          key={item.href}
-          href={item.href}
-          className={cn(
-          "flex flex-col items-center justify-center p-2 rounded-lg transition-colors",
-          isActive
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-          )}
-        >
-          <item.icon className="h-5 w-5 mb-1" />
-          <span className="text-xs font-medium">{item.label}</span>
-        </Link>
-        );
-      })}
-      </div>
+    <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+      <Dock
+        className="border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-lg"
+        iconSize={44}
+        iconMagnification={64}
+        iconDistance={120}
+      >
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <DockIcon 
+              key={item.href} 
+              className={cn(
+                "transition-all duration-300 ease-out",
+                isActive
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
+              )}
+            >
+              <Link
+                href={item.href}
+                className="flex items-center justify-center w-full h-full rounded-full"
+                title={item.label}
+              >
+                <item.icon className={cn(
+                  "transition-all duration-200",
+                  isActive ? "h-6 w-6" : "h-5 w-5"
+                )} />
+              </Link>
+            </DockIcon>
+          );
+        })}
+      </Dock>
     </div>
   );
 }
