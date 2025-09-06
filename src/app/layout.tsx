@@ -71,7 +71,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body  className={"flex justify-center items-center" + inter.className}>
+      <body className={"flex justify-center items-center" + inter.className}>
         <StackProviderClient>
           <ThemeProvider
             attribute="class"
@@ -80,7 +80,6 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="min-h-screen w-full bg-transparent ">
-              <AppHeaderWrapper />
               <main className="min-h-[calc(100vh-3.5rem)]">
                 <ErrorBoundary>
                   {children}
