@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import { TextEffect } from '@tailark/core/motion-primitives/text-effect'
-import { AnimatedGroup } from '@tailark/core/motion-primitives/animated-group'
+import { TextEffect } from '@/components/motion-primitives/text-effect'
+import { AnimatedGroup } from '@/components/motion-primitives/animated-group'
 import { HeroHeader } from '@/components/header'
 
 const transitionVariants = {

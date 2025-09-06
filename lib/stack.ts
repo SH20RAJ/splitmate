@@ -1,7 +1,7 @@
 "use client";
 
-import { StackApp } from "@stackframe/stack";
+import { StackClientApp } from "@stackframe/stack";
 
-export const stackApp = new StackApp({
+export const stackApp = new StackClientApp({
   tokenStore: "nextjs-cookie",
 });
