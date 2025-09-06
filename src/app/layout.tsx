@@ -1,38 +1,88 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { AppHeader } from '@/components/app-header'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "SplitMate - AI-Powered Expense Splitter",
-  description: "Smart AI-powered expense management that makes splitting bills as simple as chatting with a friend. Track expenses, split bills, and manage group finances effortlessly.",
-};
+  metadataBase: new URL('https://splitmate.app'),
+  title: {
+    default: 'SplitMate - AI-Powered Expense Splitting',
+    template: '%s | SplitMate'
+  },
+  description: 'Split expenses effortlessly with friends using our AI-powered expense management app. Track, calculate, and settle bills with intelligent insights.',
+  keywords: ['expense splitting', 'bill splitting', 'group expenses', 'AI assistant', 'expense tracker', 'money management'],
+  authors: [{ name: 'SplitMate Team' }],
+  creator: 'SplitMate',
+  publisher: 'SplitMate',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://splitmate.app',
+    title: 'SplitMate - AI-Powered Expense Splitting',
+    description: 'Split expenses effortlessly with friends using our AI-powered expense management app.',
+    siteName: 'SplitMate',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'SplitMate - AI-Powered Expense Splitting'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SplitMate - AI-Powered Expense Splitting',
+    description: 'Split expenses effortlessly with friends using our AI-powered expense management app.',
+    images: ['/og-image.png'],
+    creator: '@splitmate'
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-        <script
-          defer
-          src="https://assets.onedollarstats.com/stonks.js"
-        ></script>
+    <html lang="en" suppressHydrationWarning>
+      <body  className={"flex justify-center items-center" + inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen bg-background ">
+            <AppHeader />
+            <main className="min-h-[calc(100vh-3.5rem)]">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
