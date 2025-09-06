@@ -4,11 +4,12 @@ import { makeAssistantToolUI } from "@assistant-ui/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  UsersIcon, 
+import {
+  UsersIcon,
   DollarSignIcon,
   CheckCircleIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  ShareIcon
 } from "lucide-react";
 
 // Split Expense Tool UI
@@ -59,6 +60,49 @@ export const SplitExpenseToolUI = makeAssistantToolUI<
 
     const shareAmount = args.totalAmount / args.participants.length;
 
+    // Generate UPI links for each participant
+    const generateUPILink = (participant: string, amount: number) => {
+      const upiId = "splitmate@paytm"; // This would come from user settings in a real implementation
+      const upiLink = `upi://pay?pa=${upiId}&pn=SplitMate&am=${amount}&cu=INR&tn=${encodeURIComponent(`Payment to ${args.paidBy} for ${args.description || 'shared expense'}`)}`;
+      return upiLink;
+    };
+
+    // Handle share action
+    const handleShare = (participant: string, amount: number) => {
+      const upiLink = generateUPILink(participant, amount);
+
+      // Try to use Web Share API if available
+      if (navigator.share) {
+        navigator.share({
+          title: 'SplitMate Payment Request',
+          text: `Hi ${participant}! You owe ₹${amount.toFixed(2)} to ${args.paidBy} for ${args.description || 'our shared expense'}. Pay via UPI: ${upiLink}`
+        }).catch((error) => {
+          console.error('Error sharing:', error);
+          // Fallback to opening UPI link directly
+          window.open(upiLink, '_blank');
+        });
+      } else {
+        // Fallback: open UPI link directly
+        window.open(upiLink, '_blank');
+      }
+    };
+
+    // Handle WhatsApp share
+    const handleWhatsAppShare = (participant: string, amount: number) => {
+      const upiLink = generateUPILink(participant, amount);
+      const message = `Hi ${participant}! You owe ₹${amount.toFixed(2)} to ${args.paidBy} for ${args.description || 'our shared expense'}.\n\nPay via UPI: ${upiLink}`;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    };
+
+    // Handle Telegram share
+    const handleTelegramShare = (participant: string, amount: number) => {
+      const upiLink = generateUPILink(participant, amount);
+      const message = `Hi ${participant}! You owe ₹${amount.toFixed(2)} to ${args.paidBy} for ${args.description || 'our shared expense'}.\n\nPay via UPI: ${upiLink}`;
+      const telegramUrl = `https://t.me/share/url?text=${encodeURIComponent(message)}`;
+      window.open(telegramUrl, '_blank');
+    };
+
     return (
       <Card className="max-w-md border-green-200 bg-tgreenr-50/50">
         <CardHeader>
@@ -74,7 +118,7 @@ export const SplitExpenseToolUI = makeAssistantToolUI<
           <CardDescription>{args.description}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          
+
           {/* Paid by info */}
           <div className="flex items-center gap-3 p-3 bg-tblue-50 rounded-lg">
             <DollarSignIcon className="h-4 w-4 text-blue-600" />
@@ -90,7 +134,7 @@ export const SplitExpenseToolUI = makeAssistantToolUI<
               <ArrowRightIcon className="h-3 w-3" />
               Each person owes: ₹{shareAmount.toFixed(2)}
             </p>
-            
+
             <div className="grid grid-cols-1 gap-2">
               {args.participants.filter(p => p !== args.paidBy).map((participant, index) => (
                 <div key={index} className="flex items-center gap-2 p-2 bg-twhite rounded border">
@@ -99,6 +143,37 @@ export const SplitExpenseToolUI = makeAssistantToolUI<
                   </Avatar>
                   <span className="text-sm">{participant}</span>
                   <span className="ml-auto text-sm font-medium">₹{shareAmount.toFixed(2)}</span>
+                  <div className="flex gap-1 ml-2">
+                    <button
+                      onClick={() => handleShare(participant, shareAmount)}
+                      className="p-1 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600"
+                      title="Share payment request"
+                    >
+                      <ShareIcon className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleWhatsAppShare(participant, shareAmount)}
+                      className="p-1 rounded-full bg-green-100 hover:bg-green-200 text-green-600"
+                      title="Share via WhatsApp"
+                    >
+                      <img
+                        src="https://www.svgrepo.com/show/475692/whatsapp-color.svg"
+                        alt="WhatsApp"
+                        className="h-4 w-4"
+                      />
+                    </button>
+                    <button
+                      onClick={() => handleTelegramShare(participant, shareAmount)}
+                      className="p-1 rounded-full bg-blue-400 hover:bg-blue-500 text-white"
+                      title="Share via Telegram"
+                    >
+                      <img
+                        src="https://www.svgrepo.com/show/354443/telegram.svg"
+                        alt="Telegram"
+                        className="h-4 w-4"
+                      />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

@@ -15,6 +15,7 @@ import {
   Smartphone,
   Upload,
   Link,
+  Send,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -64,6 +65,10 @@ const splitMateData = {
           title: "Activity",
           url: "/dashboard/activity",
         },
+        {
+          title: "Friends",
+          url:"/friends"
+        }
       ],
     },
     {
@@ -164,8 +169,27 @@ const splitMateData = {
           url: "/chat",
         },
         {
+          title: "Suggestions",
+          url: "/chat/suggestions",
+        },
+        {
           title: "History",
           url: "/chat/history",
+        },
+      ],
+    },
+    {
+      title: "Telegram Bot",
+      url: "/telegram",
+      icon: Send,
+      items: [
+        {
+          title: "Setup Bot",
+          url: "/telegram/setup",
+        },
+        {
+          title: "Commands",
+          url: "/telegram/commands",
         },
       ],
     },

@@ -139,4 +139,13 @@ they can also upload their sms or email notifications to parse and split bills o
 ----
 
 also on the sidebar add a button to open telegram bot of splitmate
+If API returns error then fall back to hard coded data
+Quadrant vector search 
 
+---
+
+use mongoose and mongodb to create the backend of the app
+
+---
+
+create the telegram bot

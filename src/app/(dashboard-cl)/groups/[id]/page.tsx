@@ -392,8 +392,9 @@ function ActivityCard({ activity }: { activity: any }) {
     );
 }
 
-export default function GroupPage({ params }: GroupPageProps) {
-    const group = mockGroupsData[params.id as keyof typeof mockGroupsData];
+export default async function GroupPage({ params }: GroupPageProps) {
+    const resolvedParams = await params;
+    const group = mockGroupsData[resolvedParams.id as keyof typeof mockGroupsData];
 
     if (!group) {
         notFound();

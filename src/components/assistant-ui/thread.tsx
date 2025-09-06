@@ -18,7 +18,7 @@ import {
   Square,
 } from "lucide-react";
 import type { FC } from "react";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 import {
   ComposerAddAttachment,
@@ -117,20 +117,96 @@ const ThreadWelcome: FC = () => {
 };
 
 const ThreadWelcomeSuggestions: FC = () => {
+  const allSuggestions = [
+    {
+      title: "Split a dinner bill",
+      label: "of ₹1200 with 4 friends",
+      action: "I paid ₹1200 for dinner at Domino's with 3 friends yesterday. How much does each person owe me? Can you help me track who has paid and send payment reminders?",
+    },
+    {
+      title: "Add a group expense",
+      label: "for our trip to Goa",
+      action: "Help me add a group expense of ₹5000 for hotel booking for our 3-day Goa trip with 6 friends. Split it equally and track individual contributions.",
+    },
+    {
+      title: "Track monthly expenses",
+      label: "and analyze spending patterns",
+      action: "Show me my spending analysis for this month. Break it down by categories like food, transportation, entertainment, and groceries. Highlight where I'm spending the most.",
+    },
+    {
+      title: "Settle group balances",
+      label: "with friends efficiently",
+      action: "I owe different amounts to different friends from various shared expenses. Help me calculate the optimal way to settle all balances with minimum transactions.",
+    },
+    {
+      title: "Create expense budget",
+      label: "for next month",
+      action: "Help me create a monthly budget based on my past spending. Set limits for dining out (₹3000), groceries (₹2000), and entertainment (₹1500). Send alerts when I'm close to limits.",
+    },
+    {
+      title: "Import restaurant bill",
+      label: "from UPI payment screenshot",
+      action: "I have a screenshot of my Google Pay payment for ₹850 at Starbucks with 2 friends. Can you extract the details and help me split this bill equally?",
+    },
+    {
+      title: "Plan trip expenses",
+      label: "for upcoming vacation",
+      action: "We're planning a 4-day trip to Manali with 5 friends. Help me create expense categories (accommodation, food, activities, transport) and set a budget of ₹8000 per person.",
+    },
+    {
+      title: "Roommate bill splitting",
+      label: "for monthly utilities",
+      action: "I paid the electricity bill (₹1800), internet (₹600), and grocery bill (₹2400) for our shared apartment. Help me split these with my 2 roommates and track payments.",
+    },
+    {
+      title: "Track lending money",
+      label: "to friends and family",
+      action: "I lent ₹2000 to my friend Rahul last week and ₹1500 to my sister this month. Help me keep track of these personal loans and set payment reminders.",
+    },
+    {
+      title: "Analyze group spending",
+      label: "for office lunch expenses",
+      action: "Our office team of 8 people regularly orders lunch together. Show me our spending pattern over the last 3 months and suggest ways to optimize costs.",
+    },
+    {
+      title: "Split shopping bills",
+      label: "from grocery store",
+      action: "I bought groceries worth ₹3200 from BigBasket. Some items are shared (₹2000) and some are personal (₹1200). Help me split only the shared items with my roommates.",
+    },
+    {
+      title: "Manage wedding expenses",
+      label: "with family members",
+      action: "We're organizing my cousin's wedding with a budget of ₹5 lakhs. Help me track expenses across different categories (venue, catering, decorations, photography) and split costs among family members.",
+    }
+  ];
+
+  // Randomly select 4 suggestions each time the component renders
+  const getRandomSuggestions = () => {
+    const shuffled = [...allSuggestions].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 4);
+  };
+
+  const [randomSuggestions] = useState(() => getRandomSuggestions());
+
   return (
-    <div className="aui-thread-welcome-suggestions grid w-full gap-2 @md:grid-cols-2">
-      {[
-        {
-          title: "Split a dinner bill",
-          label: "of ₹1200 with 4 friends",
-          action: "I paid ₹1200 for dinner with 3 friends. How much does each person owe me?",
-        },
-        {
-          title: "Add a group expense",
-          label: "for our trip to Goa",
-          action: "Help me add a group expense for our trip to Goa and split it equally among everyone.",
-        },
-      ].map((suggestedAction, index) => (
+    <div className="space-y-4">
+      {/* Telegram Bot Button */}
+      <div className="flex justify-center">
+        <a
+          href="https://t.me/splitmate2_bot"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full text-sm font-medium transition-colors"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.568 8.16c-.416 1.896-2.208 8.944-3.12 11.872-.384 1.248-1.44 1.464-2.32.912L8.928 18.48l-1.248-2.16 4.896-3.072c.672-.432.432-1.104-.336-.672l-6.048 3.744-2.16-.816c-.48-.144-.48-.48.096-.72l10.08-3.936c.432-.144.816.096.672.552z"/>
+          </svg>
+          Chat on Telegram Bot
+        </a>
+      </div>
+
+      <div className="aui-thread-welcome-suggestions grid w-full gap-2 @md:grid-cols-2">
+        {randomSuggestions.map((suggestedAction, index) => (
         <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,6 +236,7 @@ const ThreadWelcomeSuggestions: FC = () => {
           </ThreadPrimitive.Suggestion>
         </m.div>
       ))}
+      </div>
     </div>
   );
 };

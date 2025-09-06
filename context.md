@@ -1,0 +1,1 @@
+try to keep ui clean minimilastic with required minimal featiures only - so that db svhema will be good and clean 
