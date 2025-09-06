@@ -12,7 +12,7 @@ export interface ExpenseParseResult {
 
 export interface AnalyticsResult {
   message: string; // Simple text response
-  data?: any; // Optional data for internal use
+  data?: Record<string, unknown>; // Optional data for internal use
 }
 
 export interface CategoryResult {
@@ -146,7 +146,7 @@ export async function calculateOptimalSettlement(groupId?: string, participants?
 **Total settled: ₹950** across ${members.length} people.`;
 }
 
-export async function searchExpenses(query: string, filters?: any): Promise<string> {
+export async function searchExpenses(query: string, filters?: Record<string, unknown>): Promise<string> {
   // Simple expense search
   if (query.toLowerCase().includes("food")) {
     return `🍕 **Food Expenses Found:**

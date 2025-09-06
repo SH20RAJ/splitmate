@@ -46,34 +46,29 @@ const features = [
     ),
   },
   {
-    
-    name: "I'm Josh",
+    name: "What is Splitmate?",
     description:
-      "software engineer & open-source contributor focused in gen-ai, web, linux, cybersecurity, and finance.",
+      "An intelligent app to split expenses with friends and family. Track balances, and settle up with ease.",
     className: "col-span-3 md:col-span-1",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}`,
-    cta: "Visit portfolio",
+    href: "/about",
+    cta: "Learn more",
     background: (
       <div>
         <div className="absolute right-0 top-0 h-3/4 w-full border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_5%,#000_50%)] group-hover:scale-105">
           <BlurIn duration={0.5} className="h-full">
             <Image
               className="object-cover object-center h-full w-full"
-              src={
-                process.env.AVATAR_URL ||
-                "https://github.com/engageintellect.png"
-              }
-              alt="avatar image"
+              src="/og.png"
+              alt="splitmate app screenshot"
               width={200}
               height={200}
-              priority // Load image immediately
-              quality={75} // Adjust quality for optimization
-              placeholder="blur" // Placeholder to improve perceived performance
-              blurDataURL="data:image/svg+xml;base64,..." // Use a small base64-encoded placeholder image
+              priority
+              quality={75}
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,..."
             />
           </BlurIn>
         </div>
-
         <FadeIn
           direction="right"
           framerProps={{
@@ -81,39 +76,23 @@ const features = [
           }}
         >
           <a
-            href={
-              process.env.NEXT_PUBLIC_AVAILABLE_FOR_FREELANCE == "true"
-                ? `${process.env.NEXT_PUBLIC_DISCORD}`
-                : "#contact-form"
-            }
+            href="#contact-form"
             className="absolute top-2 right-2 bg-background rounded-lg px-4 py-2 text-xs text-neutral-500 dark:text-neutral-300 max-w-3/4 w-fit"
           >
             <div className="flex items-center gap-2">
-              <div
-                className={`w-3 h-3 rounded-full animate-pulse ${
-                  process.env.NEXT_PUBLIC_AVAILABLE_FOR_FREELANCE == "true"
-                    ? "bg-emerald-400"
-                    : "bg-yellow-400"
-                }`}
-              ></div>
-              <div className="">
-                {process.env.NEXT_PUBLIC_AVAILABLE_FOR_FREELANCE == "true"
-                  ? "available"
-                  : "on engagement"}
-              </div>
+              <div className="w-3 h-3 rounded-full animate-pulse bg-emerald-400"></div>
+              <div className="">Join the beta</div>
             </div>
           </a>
         </FadeIn>
       </div>
     ),
   },
-
   {
-    
-    name: "Tech Domain",
-    description: "Sector-agnostic, focused on solving problems with code.",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/projects`,
-    cta: "View projects",
+    name: "Core Features",
+    description: "Everything you need to manage shared expenses.",
+    href: "/#features",
+    cta: "View features",
     className: "col-span-3 md:col-span-1",
     background: (
       <motion.div
@@ -125,15 +104,23 @@ const features = [
           className="absolute h-2/3 top-10 [--duration:40s] [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] w-full"
           pauseOnHover
         >
-          {defaultDomains.map((f, idx) => (
-            <a
-              href={`${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/tags/${f.slug}`}
+          {[
+            {
+              name: "Groups",
+              body: "Create groups for trips, households, and more.",
+            },
+            { name: "Expenses", body: "Add expenses and attach receipts." },
+            { name: "Balances", body: "See who owes who and how much." },
+            { name: "Settle Up", body: "Settle debts with integrated payments." },
+            { name: "Activity", body: "A shared feed of all group activity." },
+          ].map((f, idx) => (
+            <div
               key={idx}
               className={cn(
-                "relative w-40 h-full cursor-pointer overflow-hidden rounded-xl border p-4 hover:-translate-y-1",
+                "relative w-40 h-full cursor-pointer overflow-hidden rounded-xl border p-4",
                 "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
                 "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
-                "transform-gpu transition-all duration-300 ease-out hover:blur-none"
+                "transform-gpu transition-all duration-300 ease-out hover:blur-none hover:-translate-y-1",
               )}
             >
               <div className="flex flex-row items-center gap-2">
@@ -144,17 +131,16 @@ const features = [
                 </div>
               </div>
               <blockquote className="mt-2 text-xs">{f.body}</blockquote>
-            </a>
+            </div>
           ))}
         </Marquee>
       </motion.div>
     ),
   },
   {
-    
     name: "Technologies",
     description:
-      "Using a combination of cutting-edge, and time-tested technologies to build robust, scalable, and secure applications.",
+      "Using a combination of cutting-edge, and time-tested technologies to build a robust, scalable, and secure application.",
     href: "/technologies",
     cta: "View all technologies",
     className: "col-span-3 md:col-span-2",
@@ -167,12 +153,11 @@ const features = [
     ),
   },
   {
-    
-    name: "AI Integrations",
+    name: "AI-Powered Splits",
     description:
-      "Generative UIs, LLMs, Transformers, Chatbots, Classification, and more.",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/tags/ai`,
-    cta: "Visit AI projects",
+      "Use our AI assistant to automatically split bills from a receipt or just by describing it in plain English.",
+    href: "/chat",
+    cta: "Try the AI assistant",
     className: "col-span-3 md:col-span-2",
     background: (
       <motion.div
@@ -185,11 +170,10 @@ const features = [
     ),
   },
   {
-    
-    name: "Seamless Deployments",
-    description: "Push, build, deploy.",
+    name: "Seamless Experience",
+    description: "Fast, reliable, and always in sync.",
     className: "col-span-3 md:col-span-1",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/tags/vercel`,
+    href: "/",
     cta: "Learn more",
     background: (
       <div className="absolute w-full h-full right-0 top-0 origin-top rounded-md transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_25%,#000_70%)] group-hover:scale-105">
@@ -199,12 +183,11 @@ const features = [
   },
 
   {
-    
-    name: "Worldwide Reach",
+    name: "Available Everywhere",
     description:
-      "Deploy to any region on earth. From remote servers, on-prem, in the cloud, or to the edge.",
+      "Access Splitmate on the web, or install it as a PWA on your phone. Your data is always available.",
     className: "col-span-3 md:col-span-3",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/tags/vercel`,
+    href: "/",
     cta: "Learn more",
     background: (
       <div className="absolute w-full h-full right-0 top-0 origin-top rounded-md transition-all duration-300 ease-out  [mask-image:linear-gradient(to_top,transparent_20%,#000_100%)] md:[mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105 group-hover:-translate-y-4">
@@ -214,23 +197,21 @@ const features = [
   },
 
   {
-    
-    name: "GitHub Stars",
-    description: "Star this repository to show your support.",
+    name: "Share with Friends",
+    description: "Love Splitmate? Share it with your friends and get rewards.",
     className: "col-span-3 md:col-span-1",
-    href: `${process.env.GITHUB_URL}/${process.env.REPO_NAME}`,
-    cta: "Star repository",
+    href: "/invite",
+    cta: "Invite friends",
     background: (
       <div className="absolute h-full w-full left-0 top-0 origin-top rounded-md transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_40%,#000_70%)] group-hover:scale-105 group-hover:-translate-y-4">
         <div className="text-7xl font-semibold w-full flex justify-center items-center h-2/3 group-hover:-translate-y-2 transition-all duration-300">
           <a
-            href={`${process.env.GITHUB_URL}/${process.env.REPO_NAME}`}
+            href="/invite"
             className="flex items-center gap-2 border shadow-xl p-5 rounded-lg border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05] dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
           >
-            <GitHubStars />
             <Image
-              src="/images/githubstar.webp"
-              alt="GitHub logo"
+              src="/file.svg"
+              alt="Share icon"
               className="h-14 w-14 drop-shadow"
               width={56}
               height={56}
@@ -243,13 +224,11 @@ const features = [
   },
 
   {
-    
-    name: "Project Showcase",
-    description:
-      "Here are a few of my recent projects, using the technologies mentioned above.",
+    name: "How It Works",
+    description: "A quick overview of how to get started with Splitmate.",
     className: "col-span-3 md:col-span-2",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/projects`,
-    cta: "All projects",
+    href: "/#how-it-works",
+    cta: "See the guide",
     background: (
       <div className="absolute h-full w-full left-0 top-0 origin-top rounded-md transition-all duration-300 ease-out group-hover:scale-[102%]">
         <div className="absolute h-full w-full [mask-image:linear-gradient(to_top,transparent_20%,#000_70%)]">
@@ -266,11 +245,10 @@ const features = [
   },
 
   {
-    
-    name: "Daily Visitors",
-    description: "Live visitor stats for this website, powered by Umami Analytics.",
-    href: "https://umami.is",
-    cta: "Umami",
+    name: "User Analytics",
+    description: "Track your spending habits and see where your money goes.",
+    href: "/analytics",
+    cta: "View Analytics",
     className: "col-span-3 md:col-span-2",
     background: (
       <>
@@ -287,12 +265,11 @@ const features = [
   },
 
   {
-    
-    name: "",
-    description: "",
+    name: "Dashboard",
+    description: "Your central hub for all your groups and expenses.",
     className: "col-span-3 md:col-span-1",
-    href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/now`,
-    cta: "Ideas",
+    href: "/dashboard",
+    cta: "Go to Dashboard",
     background: (
       <div className="absolute h-full w-full left-0 top-0 origin-top rounded-md transition-all duration-300 ease-out group-hover:scale-[105%]">
         <div className="absolute h-full w-full [mask-image:linear-gradient(to_top,transparent_20%,#000_70%)]">
@@ -305,7 +282,6 @@ const features = [
   },
 
   {
-    
     name: "",
     description: "",
     className: "col-span-3 md:col-span-3",
@@ -320,12 +296,11 @@ const features = [
           <div className="max-w-sm w-full flex flex-col gap-2">
             <div className="text-5xl md:text-6xl font-semibold text-neutral-700 dark:text-neutral-300 w-full flex justify-start">
               <BlurIn duration={0.5} className="h-full">
-                Get in touch.
+                Get early access.
               </BlurIn>
             </div>
             <div className="w-full flex justify-center text-neutral-500 dark:text-neutral-400">
-              Leave your email to get the conversation started. We&apos;ll be in
-              touch soon.
+              Leave your email to get notified when we launch.
             </div>
             <div className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
               *Your email will never be shared with anyone.
