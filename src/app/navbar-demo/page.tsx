@@ -2,6 +2,8 @@ import { Navbar1 } from '@/components/ui/navbar1';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
+export const runtime = 'edge';
+
 export default function NavbarDemoPage() {
   const demoData = {
     logo: {

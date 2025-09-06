@@ -161,7 +161,7 @@ export default function ExpensesPage() {
           <CardContent>
             <div className="text-2xl font-bold">4</div>
             <p className="text-xs text-muted-foreground">
-              Groups you're part of
+              Groups you&#39;re part of
             </p>
           </CardContent>
         </Card>

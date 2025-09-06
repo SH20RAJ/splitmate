@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+export const runtime = 'edge';
+
 // Mock data for individual groups
 const mockGroupsData = {
   '1': {
@@ -93,7 +95,7 @@ const mockGroupsData = {
       {
         id: 2,
         description: 'Flight Tickets',
-        amount: 15000,
+        amount: 1500,
         paidBy: 'Rahul',
         date: '2025-08-22',
         category: 'Transport',

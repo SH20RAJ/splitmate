@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { db } from '@/db';
 import { users, groups, categories } from '@/db/schema';
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     // Test the database connection by checking if tables exist

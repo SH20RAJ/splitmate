@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import TelegramBot from 'node-telegram-bot-api';
 import SplitMateBotService from '@/lib/telegram-bot';
+
+export const runtime = 'edge';
 
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const WEBHOOK_URL = process.env.TELEGRAM_WEBHOOK_URL;
@@ -9,12 +10,30 @@ if (!BOT_TOKEN) {
   throw new Error('TELEGRAM_BOT_TOKEN is required');
 }
 
-// Create bot instance (webhook mode)
-const bot = new TelegramBot(BOT_TOKEN);
+// Create bot service instance
 const botService = new SplitMateBotService(BOT_TOKEN);
 
+// Helper function to make requests to Telegram Bot API
+async function callTelegramAPI(method: string, data: any = {}) {
+  const url = `https://api.telegram.org/bot${BOT_TOKEN}/${method}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Telegram API error: ${response.status} ${response.statusText}`);
+  }
+
+  const result = await response.json();
+  return result;
+}
+
 // Handle different types of messages
-async function handleMessage(msg: TelegramBot.Message): Promise<void> {
+async function handleMessage(msg: any): Promise<void> {
   const chatId = msg.chat.id;
   const text = msg.text?.toLowerCase() || '';
   const userId = msg.from?.id || 0;
@@ -34,7 +53,9 @@ I'm your AI expense management assistant. Here's what I can help you with:
 
 Just send me a message in natural language and I'll help you manage your expenses! 🚀`;
       
-      await bot.sendMessage(chatId, welcomeMessage, { 
+      await callTelegramAPI('sendMessage', {
+        chat_id: chatId,
+        text: welcomeMessage,
         parse_mode: 'Markdown',
         reply_markup: botService.generateInlineKeyboard()
       });
@@ -65,7 +86,11 @@ Just send me a message in natural language and I'll help you manage your expense
 
 Need more help? Visit: splitmate.app 🌐`;
       
-      await bot.sendMessage(chatId, helpMessage, { parse_mode: 'Markdown' });
+      await callTelegramAPI('sendMessage', {
+        chat_id: chatId,
+        text: helpMessage,
+        parse_mode: 'Markdown'
+      });
       return;
     }
 
@@ -80,7 +105,11 @@ Need more help? Visit: splitmate.app 🌐`;
 
 Use analytics commands for detailed insights! 📈`;
       
-      await bot.sendMessage(chatId, statsMessage, { parse_mode: 'Markdown' });
+      await callTelegramAPI('sendMessage', {
+        chat_id: chatId,
+        text: statsMessage,
+        parse_mode: 'Markdown'
+      });
       return;
     }
 
@@ -90,28 +119,40 @@ Use analytics commands for detailed insights! 📈`;
       
       if (action) {
         const response = await botService.executeAction(action, userId);
-        await bot.sendMessage(chatId, response, { parse_mode: 'Markdown' });
+        await callTelegramAPI('sendMessage', {
+          chat_id: chatId,
+          text: response,
+          parse_mode: 'Markdown'
+        });
       } else {
         // Fallback for unrecognized patterns
-        await bot.sendMessage(chatId, "I can help you with expenses! Try saying 'Add ₹250 for pizza' or 'Split ₹600 with friends' 💡", {
+        await callTelegramAPI('sendMessage', {
+          chat_id: chatId,
+          text: "I can help you with expenses! Try saying 'Add ₹250 for pizza' or 'Split ₹600 with friends' 💡",
           reply_markup: botService.generateQuickReplies()
         });
       }
     } else {
-      await bot.sendMessage(chatId, "I can help you with expenses! Try saying 'Add ₹250 for pizza' or 'Split ₹600 with friends' 💡");
+      await callTelegramAPI('sendMessage', {
+        chat_id: chatId,
+        text: "I can help you with expenses! Try saying 'Add ₹250 for pizza' or 'Split ₹600 with friends' 💡"
+      });
     }
 
-  } catch (error) {
+ } catch (error) {
     console.error('Error handling message:', error);
-    await bot.sendMessage(chatId, "Sorry, something went wrong! Please try again. 😅");
+    await callTelegramAPI('sendMessage', {
+      chat_id: chatId,
+      text: "Sorry, something went wrong! Please try again. 😅"
+    });
   }
 }
 
 // Handle inline queries for quick actions
-async function handleInlineQuery(query: TelegramBot.InlineQuery): Promise<void> {
+async function handleInlineQuery(query: any): Promise<void> {
   const queryText = query.query.toLowerCase();
   
-  const results: TelegramBot.InlineQueryResult[] = [
+  const results = [
     {
       type: 'article',
       id: '1',
@@ -151,7 +192,9 @@ async function handleInlineQuery(query: TelegramBot.InlineQuery): Promise<void> 
   ];
 
   try {
-    await bot.answerInlineQuery(query.id, results, {
+    await callTelegramAPI('answerInlineQuery', {
+      inline_query_id: query.id,
+      results: results,
       cache_time: 300,
       is_personal: true
     });
@@ -173,10 +216,12 @@ export async function POST(req: NextRequest) {
     } else if (body.callback_query) {
       // Handle callback queries from inline keyboards
       const callbackQuery = body.callback_query;
-      await bot.answerCallbackQuery(callbackQuery.id);
+      await callTelegramAPI('answerCallbackQuery', {
+        callback_query_id: callbackQuery.id
+      });
       
       if (callbackQuery.data === 'get_help') {
-        await handleMessage({ ...callbackQuery.message, text: '/help' } as TelegramBot.Message);
+        await handleMessage({ ...callbackQuery.message, text: '/help' });
       }
     }
 

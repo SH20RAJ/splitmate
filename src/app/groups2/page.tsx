@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+export const runtime = 'edge';
+
 // Mock data for groups
 const mockGroups = [
   {

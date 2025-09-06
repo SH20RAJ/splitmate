@@ -1,4 +1,3 @@
-import TelegramBot from 'node-telegram-bot-api';
 import { 
   parseExpenseFromText,
   processAnalyticsQuery, 
@@ -14,14 +13,14 @@ export interface ExpenseAction {
 }
 
 export class SplitMateBotService {
-  private bot: TelegramBot;
+  private botToken: string;
   
   constructor(token: string) {
-    this.bot = new TelegramBot(token);
+    this.botToken = token;
   }
 
   // Analyze message and determine intent
-  async analyzeMessage(message: string): Promise<ExpenseAction | null> {
+ async analyzeMessage(message: string): Promise<ExpenseAction | null> {
     const text = message.toLowerCase().trim();
     
     // Add expense patterns
@@ -215,7 +214,7 @@ Payment requests sent! 📤`;
   private async handleSearchExpenses(data: any, userId: number): Promise<string> {
     const result = await searchExpenses(data.query);
     
-    return `� *Search Results:*
+    return `🔍 *Search Results:*
 
 ${result}`;
   }
@@ -223,7 +222,7 @@ ${result}`;
   private async handleAnalytics(data: any, userId: number): Promise<string> {
     const result = await processAnalyticsQuery(data.query);
     
-    return `� *Expense Analytics:*
+    return `📊 *Expense Analytics:*
 
 ${result}`;
   }
@@ -233,61 +232,6 @@ ${result}`;
     
     return `${result}
 
-📊 Keep an eye on your biggest expenses! �`;
-  }
-
-  private async handleSearchExpenses(data: any, userId: number): Promise<string> {
-    const result = await searchExpenses(data.query);
-    
-    if (!result.expenses || result.expenses.length === 0) {
-      return "📭 No expenses found matching your search. Try a different keyword! 🔍";
-    }
-    
-    const expensesList = result.expenses
-      .slice(0, 5) // Limit to 5 for Telegram
-      .map((exp: any, idx: number) => 
-        `${idx + 1}. ₹${exp.amount} - ${exp.description} (${exp.date})`
-      )
-      .join('\n');
-    
-    return `🔍 *Search Results:*
-
-${expensesList}
-
-📊 *Total found:* ${result.totalFound} expenses
-💰 *Total amount:* ₹${result.totalAmount || 0}`;
-  }
-
-  private async handleAnalytics(data: any, userId: number): Promise<string> {
-    const result = await processAnalyticsQuery(data.query);
-    
-    return `📊 *Expense Analytics:*
-
-💰 *Total Spent:* ₹${result.totalAmount || 0}
-📈 *Period:* ${result.period || 'This month'}
-🏷️ *Top Category:* ${result.topCategory || 'N/A'}
-
-${result.insights || 'Keep tracking your expenses for better insights!'} 💡`;
-  }
-
-  private async handleTopExpenses(data: any, userId: number): Promise<string> {
-    const result = await getTopExpenses(data.count, data.period);
-    
-    if (!result.expenses || result.expenses.length === 0) {
-      return "📭 No expenses found for this period. Start tracking your expenses! 💰";
-    }
-    
-    const topList = result.expenses
-      .map((exp: any, idx: number) => 
-        `${idx + 1}. ₹${exp.amount} - ${exp.description}`
-      )
-      .join('\n');
-    
-    return `🏆 *Top ${data.count} Expenses (${data.period}):*
-
-${topList}
-
-💰 *Total:* ₹${result.totalAmount || 0}
 📊 Keep an eye on your biggest expenses! 👀`;
   }
 

@@ -222,7 +222,7 @@ export default function CreateGroupPage() {
               <CardHeader>
                 <CardTitle>Choose a Group Type</CardTitle>
                 <CardDescription>
-                  Select a template that best fits your group's needs
+                  Select a template that best fits your group&#39;s needs
                 </CardDescription>
               </CardHeader>
               <CardContent>
