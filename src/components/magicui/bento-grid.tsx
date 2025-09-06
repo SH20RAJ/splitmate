@@ -35,7 +35,7 @@ const BentoCard = ({
   name?: string;
   className?: string;
   background?: ReactNode;
-  Icon?: any;
+  Icon?: React.ComponentType<{ className?: string }>;
   description?: string;
   href?: string;
   cta?: string;
@@ -56,7 +56,7 @@ const BentoCard = ({
     <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
       <div className="flex flex-col gap-2">
         <div>
-          {Icon !== "" ? (
+          {Icon ? (
             <Icon className="h-12 w-12 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75" />
           ) : (
             ""

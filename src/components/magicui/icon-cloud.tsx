@@ -67,7 +67,7 @@ export const renderCustomIcon = (
           )}`,
           target: undefined,
           rel: undefined,
-          onClick: (e: any) => e.preventDefault(),
+          onClick: (e: React.MouseEvent) => e.preventDefault(),
           style: { cursor: "pointer" },
         },
   });
@@ -100,7 +100,6 @@ export default function IconCloud({
   }, [data, theme, liveLinks]);
 
   return (
-    // @ts-ignore
     <Cloud {...cloudProps}>
       <>{renderedIcons}</>
     </Cloud>

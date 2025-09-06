@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { IconProps } from "@radix-ui/react-icons/dist/types";
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, RefObject } from "react";
 
 const Circle = forwardRef<
   HTMLDivElement,
@@ -79,15 +79,15 @@ export function AnimatedBeamMultipleOutputs({
 
       {/* div1 to div6 */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div1Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
       />
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div1Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div1Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         delay={1}
         reverse
@@ -95,16 +95,16 @@ export function AnimatedBeamMultipleOutputs({
 
       {/* div2 to div6 */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div2Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div2Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div2Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         delay={0.75}
         reverse
@@ -112,16 +112,16 @@ export function AnimatedBeamMultipleOutputs({
 
       {/* div3 to div6 */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div3Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div3Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div3Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         delay={1.25}
         reverse
@@ -129,16 +129,16 @@ export function AnimatedBeamMultipleOutputs({
 
       {/* div4 to div6 */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div4Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div4Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div4Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div4Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         delay={1}
         reverse
@@ -146,33 +146,33 @@ export function AnimatedBeamMultipleOutputs({
 
       {/* div5 to div6 */}
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div5Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div5Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div5Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div5Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         delay={1.5}
         reverse
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div6Ref}
-        toRef={div7Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div6Ref as RefObject<HTMLElement>}
+        toRef={div7Ref as RefObject<HTMLElement>}
         duration={3}
         curvature={-20}
       />
 
       <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={div7Ref}
-        toRef={div6Ref}
+        containerRef={containerRef as RefObject<HTMLElement>}
+        fromRef={div7Ref as RefObject<HTMLElement>}
+        toRef={div6Ref as RefObject<HTMLElement>}
         duration={3}
         reverse
         curvature={20}

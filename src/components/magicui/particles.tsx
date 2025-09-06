@@ -7,6 +7,19 @@ interface MousePosition {
   y: number;
 }
 
+interface Circle {
+  x: number;
+  y: number;
+  translateX: number;
+  translateY: number;
+  size: number;
+  alpha: number;
+  targetAlpha: number;
+  dx: number;
+  dy: number;
+  magnetism: number;
+}
+
 function MousePosition(): MousePosition {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
@@ -62,7 +75,7 @@ const Particles: React.FC<ParticlesProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
-  const circles = useRef<any[]>([]);
+  const circles = useRef<Circle[]>([]);
   const mousePosition = MousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });

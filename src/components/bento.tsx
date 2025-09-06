@@ -23,7 +23,6 @@ import ProjectPosts from "@/components/project-posts";
 
 const features = [
   {
-    Icon: "",
     name: "",
     description: "",
     href: "",
@@ -47,7 +46,7 @@ const features = [
     ),
   },
   {
-    Icon: "",
+    
     name: "I'm Josh",
     description:
       "software engineer & open-source contributor focused in gen-ai, web, linux, cybersecurity, and finance.",
@@ -110,7 +109,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "Tech Domain",
     description: "Sector-agnostic, focused on solving problems with code.",
     href: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL}/projects`,
@@ -152,7 +151,7 @@ const features = [
     ),
   },
   {
-    Icon: "",
+    
     name: "Technologies",
     description:
       "Using a combination of cutting-edge, and time-tested technologies to build robust, scalable, and secure applications.",
@@ -168,7 +167,7 @@ const features = [
     ),
   },
   {
-    Icon: "",
+    
     name: "AI Integrations",
     description:
       "Generative UIs, LLMs, Transformers, Chatbots, Classification, and more.",
@@ -186,7 +185,7 @@ const features = [
     ),
   },
   {
-    Icon: "",
+    
     name: "Seamless Deployments",
     description: "Push, build, deploy.",
     className: "col-span-3 md:col-span-1",
@@ -200,7 +199,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "Worldwide Reach",
     description:
       "Deploy to any region on earth. From remote servers, on-prem, in the cloud, or to the edge.",
@@ -215,7 +214,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "GitHub Stars",
     description: "Star this repository to show your support.",
     className: "col-span-3 md:col-span-1",
@@ -244,7 +243,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "Project Showcase",
     description:
       "Here are a few of my recent projects, using the technologies mentioned above.",
@@ -267,7 +266,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "Daily Visitors",
     description: "Live visitor stats for this website, powered by Umami Analytics.",
     href: "https://umami.is",
@@ -288,7 +287,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "",
     description: "",
     className: "col-span-3 md:col-span-1",
@@ -306,7 +305,7 @@ const features = [
   },
 
   {
-    Icon: "",
+    
     name: "",
     description: "",
     className: "col-span-3 md:col-span-3",

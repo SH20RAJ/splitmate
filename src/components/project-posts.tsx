@@ -8,14 +8,13 @@ import ProjectShowcaseVertical from "@/components/project-showcase-vertical";
 import { defaultDomains } from "@/lib/data";
 
 const ProjectPosts = () => {
-  const [posts, setPosts] = useState<any | null>(null);
   const [files, setFiles] = useState(defaultDomains);
 
   useEffect(() => {
     const getPosts = async () => {
       const postsData = await fetchProjects();
       if (postsData) {
-        const formattedPosts = postsData.postsData.map((post: any) => ({
+        const formattedPosts = postsData.postsData.map((post: { data: { title: string; description: string; image: string; href: string } }) => ({
           name: post.data.title,
           body: post.data.description,
           slug: post.slug,

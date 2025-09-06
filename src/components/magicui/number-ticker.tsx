@@ -10,7 +10,7 @@ export default function NumberTicker({
   delay = 0,
   className,
 }: {
-  value: any;
+  value: number;
   direction?: "up" | "down";
   className?: string;
   delay?: number; // delay in s
@@ -35,7 +35,7 @@ export default function NumberTicker({
       springValue.on("change", (latest) => {
         if (ref.current) {
           ref.current.textContent = Intl.NumberFormat("en-US").format(
-            latest.toFixed(0)
+            Math.round(latest)
           );
         }
       }),

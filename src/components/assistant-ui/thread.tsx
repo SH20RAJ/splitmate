@@ -18,6 +18,7 @@ import {
   Square,
 } from "lucide-react";
 import type { FC } from "react";
+import { useMemo } from "react";
 
 import {
   ComposerAddAttachment,
@@ -31,6 +32,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import * as m from "motion/react-m";
+import { ExpenseSplitToolUI } from "@/components/tools/expense-split-tool";
 
 export const Thread: FC = () => {
   return (
@@ -224,6 +226,17 @@ const MessageError: FC = () => {
 };
 
 const AssistantMessage: FC = () => {
+  // Memoize the tools configuration to prevent infinite re-renders
+  const toolsConfig = useMemo(() => ({
+    Text: MarkdownText,
+    tools: { 
+      by_name: {
+        splitExpense: ExpenseSplitToolUI,
+      },
+      Fallback: ToolFallback 
+    },
+  }), []);
+
   return (
     <MessagePrimitive.Root asChild>
       <m.div
@@ -234,10 +247,7 @@ const AssistantMessage: FC = () => {
       >
         <div className="aui-assistant-message-content mx-2 leading-7 break-words text-foreground">
           <MessagePrimitive.Parts
-            components={{
-              Text: MarkdownText,
-              tools: { Fallback: ToolFallback },
-            }}
+            components={toolsConfig}
           />
           <MessageError />
         </div>
