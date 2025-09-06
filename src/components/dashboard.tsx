@@ -10,6 +10,12 @@ import { InsightsSection } from "@/components/insights-section";
 import { EnhancedCharts } from "@/components/enhanced-charts";
 import { ExpenseContributionGraph } from "@/components/expense-contribution-graph";
 import { 
+  MiniCalendar, 
+  MiniCalendarDays, 
+  MiniCalendarNavigation,
+  MiniCalendarDay 
+} from "@/components/ui/kibo-ui/mini-calendar";
+import { 
   PlusIcon, 
   UsersIcon, 
   TrendingUpIcon, 
@@ -17,7 +23,8 @@ import {
   DollarSignIcon,
   ShareIcon,
   QrCodeIcon,
-  MessageSquareIcon
+  MessageSquareIcon,
+  CalendarIcon
 } from "lucide-react";
 import Link from "next/link";
 
@@ -169,6 +176,60 @@ export function Dashboard() {
         </div>
       </CardContent>
     </Card>
+
+    {/* Calendar Section */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Mini Calendar */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <CalendarIcon className="h-5 w-5" />
+            Weekly View
+          </CardTitle>
+          <CardDescription>Quick expense tracking this week</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <MiniCalendar days={7}>
+            <div className="flex justify-between items-center mb-4">
+              <MiniCalendarNavigation direction="prev" />
+              <h3 className="font-semibold">This Week</h3>
+              <MiniCalendarNavigation direction="next" />
+            </div>
+            <MiniCalendarDays>
+              {(date) => (
+                <div key={date.toISOString()} className="relative">
+                  <MiniCalendarDay date={date} />
+                  {/* Mock expense indicator */}
+                  {Math.random() > 0.5 && (
+                    <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
+                  )}
+                </div>
+              )}
+            </MiniCalendarDays>
+          </MiniCalendar>
+        </CardContent>
+      </Card>
+
+      {/* Simple Calendar Placeholder */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <CalendarIcon className="h-5 w-5" />
+            Monthly Overview
+          </CardTitle>
+          <CardDescription>Expense tracking calendar</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <CalendarIcon className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+            <h3 className="font-semibold mb-2">Calendar View Coming Soon</h3>
+            <p className="text-sm text-muted-foreground">
+              Full calendar integration for expense tracking
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
 
       {/* Balances */}
       <Card>
