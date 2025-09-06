@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
 export default function HomePage() {
-  // Redirect to about page as the main landing
-  redirect('/about')
+  // Redirect to dashboard as the main app page
+  redirect('/dashboard')
 }
