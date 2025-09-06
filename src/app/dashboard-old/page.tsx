@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+export const runtime = 'edge';
 import { Dashboard } from '@/components/dashboard'
 import { BottomNav } from '@/components/bottom-nav'
 import { AppContainer } from '@/components/app-container'

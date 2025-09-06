@@ -18,7 +18,7 @@ import {
   BarChart3Icon,
   DollarSignIcon
 } from "lucide-react"
-
+export const runtime = 'edge';
 export const metadata: Metadata = {
   title: 'Analytics - SplitMate',
   description: 'Analyze your spending patterns and group expenses.',

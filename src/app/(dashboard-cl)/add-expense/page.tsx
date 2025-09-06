@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import type { Metadata } from 'next'
 import { SplitMateSidebar } from "@/components/splitmate-sidebar"
 import { SiteHeader } from "@/components/site-header"

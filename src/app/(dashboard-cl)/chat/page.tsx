@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: 'AI Assistant - SplitMate',
   description: 'Chat with your AI financial assistant.',
 }
-
+export const runtime = 'edge';
 const chatHistory = [
   {
     id: '1',

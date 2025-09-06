@@ -122,7 +122,7 @@ export function DashboardNew() {
       {/* Welcome Section */}
       <div className="text-center py-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome back!</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Here's what's happening with your expenses today.</p>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Here&apos;s what&apos;s happening with your expenses today.</p>
       </div>
 
       {/* Net Balance Card */}
@@ -351,7 +351,7 @@ export function DashboardNew() {
       <Card className="border-0 shadow-sm">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg font-semibold">Your Groups</CardTitle>
-          <CardDescription>Expense groups you're part of</CardDescription>
+          <CardDescription>Expense groups you&apos;re part of</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -359,16 +359,21 @@ export function DashboardNew() {
               <Link key={group.id} href={`/groups/${group.id}`}>
                 <Card className="cursor-pointer hover:shadow-md transition-shadow border-0">
                   <CardContent className="p-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="text-xl">{group.emoji}</div>
-                      <div>
-                        <div className="font-semibold text-sm">{group.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{group.memberCount} members</div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className="text-xl">{group.emoji}</div>
+                        <div>
+                          <div className="font-semibold text-sm">{group.name}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">{group.memberCount} members</div>
+                        </div>
                       </div>
-                    <div className="text-base font-semibold text-primary">
-                      ₹{group.totalExpenses.toLocaleString()}
+                      <div className="text-right">
+                        <div className="text-base font-semibold text-primary">
+                          ₹{group.totalExpenses.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">Total expenses</div>
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Total expenses</div>
                   </CardContent>
                 </Card>
               </Link>
@@ -402,6 +407,7 @@ export function DashboardNew() {
                       {balance.type === 'owed' ? 'owes you' : 'you owe'}
                     </div>
                   </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <div className={`font-semibold text-sm ${balance.type === 'owed' ? 'text-green-600' : 'text-red-600'}`}>
                     ₹{balance.amount.toLocaleString()}

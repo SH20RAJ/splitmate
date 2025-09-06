@@ -18,7 +18,7 @@ import {
   MoreHorizontalIcon,
   MapPinIcon
 } from "lucide-react"
-
+export const runtime = 'edge';
 export const metadata: Metadata = {
   title: 'Groups - SplitMate',
   description: 'Manage your expense groups and settlements.',
