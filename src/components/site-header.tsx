@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import Image from "next/image"
 
 export function SiteHeader() {
   return (
@@ -11,7 +12,16 @@ export function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-medium">Shade</h1>
+        <div className="flex items-center gap-2">
+          <Image 
+            src="/logo.png" 
+            alt="SplitMate Logo" 
+            width={20} 
+            height={20}
+            className="object-contain"
+          />
+          <h1 className="text-base font-medium">SplitMate</h1>
+        </div>
         <div className="ml-auto flex items-center gap-2">
           {/* <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
             <a

@@ -1,9 +1,9 @@
-# Splitmate 💸  
+# SplitMate 💸  
 > Simplifying group expenses, one split at a time.
 
-![Splitmate Banner](https://splitmate.pages.dev/og-image.png) <!-- Replace with your actual OG/banner -->
+![SplitMate Logo](public/logo.png) <!-- SplitMate Official Logo -->
 
-Splitmate is an **open-source expense splitting app** designed to make it effortless for friends, families, and teams to manage shared expenses. Think **Splitwise** but built for **modern web + Indian-first users** with UPI, AI assistance, and clean UI.
+SplitMate is an **open-source expense splitting app** designed to make it effortless for friends, families, and teams to manage shared expenses. Think **Splitwise** but built for **modern web + Indian-first users** with UPI, AI assistance, and clean UI.
 
 🌐 Live: [splitmate.pages.dev](https://splitmate.pages.dev/)  
 📦 Repo: [github.com/SH20RAJ/splitmate](https://github.com/SH20RAJ/splitmate/)

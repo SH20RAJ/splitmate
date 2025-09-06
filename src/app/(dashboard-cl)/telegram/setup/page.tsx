@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import WrapButton from "@/components/ui/wrap-button"
 import { 
   Send,
   Bot,
@@ -109,8 +111,23 @@ export default function TelegramSetupPage() {
         
         {/* Header */}
         <div className="px-4 lg:px-6">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold tracking-tight">Telegram Bot</h1>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <Image 
+                  src="/logo.png" 
+                  alt="SplitMate Logo" 
+                  width={32} 
+                  height={32}
+                  className="object-contain"
+                />
+                <h1 className="text-2xl font-bold tracking-tight">SplitMate Telegram Bot</h1>
+              </div>
+              <Badge variant="secondary" className="ml-auto">
+                <Bot className="h-3 w-3 mr-1" />
+                AI Powered
+              </Badge>
+            </div>
             <p className="text-muted-foreground">
               Manage your expenses directly through Telegram for quick and easy access
             </p>
@@ -217,6 +234,13 @@ export default function TelegramSetupPage() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Try Bot Now CTA */}
+        <div className="px-4 lg:px-6 flex justify-center">
+          <WrapButton href="https://t.me/splitmate2_bot" className="mt-6">
+            Try Bot Now
+          </WrapButton>
         </div>
 
         {/* Bot Commands */}

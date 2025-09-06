@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 export const runtime = 'edge';
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import WrapButton from '@/components/ui/wrap-button'
 import {
   BarChart3Icon,
   MessageSquareIcon,
@@ -65,7 +67,14 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      <Navbar1 />
+      <Navbar1 
+        logo={{
+          url: "/dashboard",
+          src: "/logo.png",
+          alt: "SplitMate Logo",
+          title: "SplitMate"
+        }}
+      />
 
       <HeroSection
         title="Split Expenses Smartly"
@@ -77,6 +86,28 @@ export default function AboutPage() {
         ctaText="Get Started"
         ctaHref="/dashboard"
       />
+
+      {/* Logo Section */}
+      <div className="container mx-auto py-8 text-center">
+        <div className="flex justify-center items-center mb-4">
+          <Image 
+            src="/logo.png" 
+            alt="SplitMate Logo" 
+            width={80} 
+            height={80}
+            className="object-contain"
+          />
+        </div>
+        <h3 className="text-2xl font-bold mb-2">SplitMate</h3>
+        <p className="text-muted-foreground mb-6">Your Smart Expense Splitting Companion</p>
+        
+        {/* WrapButton CTA */}
+        <div className="flex justify-center">
+          <WrapButton href="/dashboard" className="mt-4">
+            Get Started Now
+          </WrapButton>
+        </div>
+      </div>
 
 
       <div className='container mx-auto text-center pb-24 flex justify-center items-center flex-col'>

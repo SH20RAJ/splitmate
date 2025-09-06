@@ -156,7 +156,7 @@ const ThreadWelcomeSuggestions: FC = () => {
     {
       title: "Roommate bill splitting",
       label: "for monthly utilities",
-      action: "I paid the electricity bill (₹1800), internet (₹600), and grocery bill (₹2400) for our shared apartment. Help me split these with my 2 roommates and track payments.",
+      action: "I paid the electricity bill (₹1800), internet (₹600), and grocery bill (₹2400) for our shared apartment. Help me split these with my 2 roommates (Asra, Rehan) and track payments.",
     },
     {
       title: "Track lending money",

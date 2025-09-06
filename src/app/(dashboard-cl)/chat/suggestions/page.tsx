@@ -3,6 +3,7 @@
 export const runtime = 'edge';
 
 import { useState } from 'react'
+import WrapButton from '@/components/ui/wrap-button'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -353,6 +354,13 @@ export default function ChatSuggestionsPage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Start Chat CTA */}
+          <div className="px-4 lg:px-6 flex justify-center">
+            <WrapButton href="/chat" className="mt-8 mb-4">
+              Start AI Chat
+            </WrapButton>
           </div>
 
         </div>

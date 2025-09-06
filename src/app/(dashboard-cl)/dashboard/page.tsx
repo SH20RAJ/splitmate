@@ -8,6 +8,7 @@ import { InsightsSection } from "@/components/insights-section"
 import { ExpenseContributionGraph } from "@/components/expense-contribution-graph"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import WrapButton from "@/components/ui/wrap-button"
 import { 
   PlusIcon, 
   UsersIcon, 
@@ -237,6 +238,13 @@ export default function DashboardPage() {
                     </div>
                   </CardContent>
                 </Card>
+              </div>
+
+              {/* AI Assistant CTA */}
+              <div className="px-4 lg:px-6 flex justify-center">
+                <WrapButton href="/chat" className="mt-6 mb-4">
+                  Try AI Assistant
+                </WrapButton>
               </div>
 
             </div>

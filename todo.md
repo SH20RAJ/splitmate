@@ -125,7 +125,8 @@ whatsapp and telegram bot,
 swiggy ui
 resend
 twilio
-
+add voice input in ai agent
+make the fetch and split ui simple as image provided (keep single page only required feature dont featujre flood the app )
 
 
 ---
@@ -149,3 +150,31 @@ use mongoose and mongodb to create the backend of the app
 ---
 
 create the telegram bot
+
+
+---
+
+
+<!-- Analyse the full dashboard and create the landing page with all fetures and create a /pitch page with all the data that will convence all the judges that we did the best ever possible by humanity in the world also read the problem_statement.md to get better context init -->
+
+
+---
+<!-- 
+the public/logo.png will be our new logo use it everywhere it should be added -->
+
+
+
+The frontend ui of the app of many pages have very bad ux and ui has or not the ui has too many features flooded / keep minimal required neccesary features that will make the ux best
+
+<!-- 
+use the WrapButton where it can be added probabily the landing page or whereever it can be added function BasicExample() {
+ 
+  return (
+   <div className="w-full flex ">
+        <WrapButton className="mt-10" href="/docs/components/card-carousel" >
+            <Globe className="animate-spin " />
+            Get started
+        </WrapButton>
+    </div>
+  )
+} -->
