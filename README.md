@@ -3,6 +3,9 @@
 A conversational chatbot that makes expense management and bill splitting effortless through natural language interactions.
 use drizzle orm with supabase
 
+> https://splitmate-dusky.vercel.app/
+
+
 ## Features
 
 ### 💬 Natural Language Processing
