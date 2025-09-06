@@ -251,8 +251,8 @@ const Icons = {
           y1="-.024%"
           y2="99.99%"
         >
-          <stop offset="0%" stop-color="#f9aa4b" />
-          <stop offset="100%" stop-color="#f7931a" />
+          <stop offset="0%" stopColor="#f9aa4b" />
+          <stop offset="100%" stopColor="#f7931a" />
         </linearGradient>
       </defs>
       <path
@@ -280,8 +280,8 @@ const Icons = {
           y1="56.385%"
           y2="96.08%"
         >
-          <stop offset="0%" stop-color="#fff" />
-          <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+          <stop offset="0%" stopColor="#fff" />
+          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="logosNextjsIcon1"
@@ -290,8 +290,8 @@ const Icons = {
           y1="0%"
           y2="73.438%"
         >
-          <stop offset="0%" stop-color="#fff" />
-          <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+          <stop offset="0%" stopColor="#fff" />
+          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
         </linearGradient>
         <circle id="logosNextjsIcon2" cx="128" cy="128" r="128" />
       </defs>

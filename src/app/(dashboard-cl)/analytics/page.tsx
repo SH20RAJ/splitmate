@@ -1,15 +1,19 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExpenseContributionGraph } from "@/components/expense-contribution-graph"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { EnhancedCharts } from "@/components/enhanced-charts"
-import { 
+import {
   TrendingUpIcon,
   CalendarIcon,
   PieChartIcon,
   BarChart3Icon,
-  DollarSignIcon
+  DollarSignIcon,
+  LightbulbIcon,
+  FileTextIcon,
+  MessageSquareIcon
 } from "lucide-react"
 export const runtime = 'edge';
 export const metadata: Metadata = {

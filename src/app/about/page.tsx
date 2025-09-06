@@ -84,7 +84,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="border-t border-border bg-muted/30">
+      <div className="border-t border-border mx-auto text-center bg-muted/30">
         <div className="container py-16">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight">

@@ -1,4 +1,4 @@
-1.
+<!-- 1. done
 
 shaswatraj@Sh splitmate % npx shadcn@latest add https://www.kibo-ui.com/r/pill.json
 ✔ Checking registry.
@@ -12,8 +12,8 @@ shaswatraj@Sh splitmate % npx shadcn@latest add https://www.kibo-ui.com/r/pill.j
 
 shaswatraj@Sh splitmate % 
 
-use this badges across the application to indicate status or categories or tags or any other relevant information.
-
+use this badges across the application to indicate status or categories or tags or any other relevant information. -->
+<!-- 
 2.
 
 
@@ -29,7 +29,7 @@ shaswatraj@Sh splitmate %   npx shadcn@latest add "http://skiper-ui.com/registry
 shaswatraj@Sh splitmate % 
 
 
-add this card carousel component to the dashboard page to showcase featured expense groups or recent activities. and also on landing page to highlight app features show users. that this many users are using the app.
+add this card carousel component to the dashboard page to showcase featured expense groups or recent activities. and also on landing page to highlight app features show users. that this many users are using the app. -->
 
 
 
@@ -65,3 +65,54 @@ shaswatraj@Sh splitmate %
  https://www.assistant-ui.com/docs/runtimes/ai-sdk/use-chat
 
  
+ ---
+
+<!-- 
+
+ create one more item in the sidebar that is friends / that will contain the connected friends / analytics page is already there / add a bills page where bill history will be stored / and make the projects list in the sidebar onclick work
+
+
+ ---
+
+ create http://localhost:3000/chat/history - http://localhost:3000/analytics/insights - http://localhost:3000/analytics/reports and reorganise components in http://localhost:3000/analytics -
+
+
+ ---
+
+also in the /chat people can also ask for charts also create a http://localhost:3000/chat/suggesions where all the types of prompts will be listed which can be asked to user also in the there show that you can also upload your bill or phonepay screenshots to get things done - also add this fetures in the backend and list all possile chat suggestion on suggestions page also add it to the sidebar
+
+
+---
+
+✓ Compiled /api/chat in 675ms
+ POST /api/chat 200 in 9512ms
+Error: Route "/groups/[id]" used `params.id`. `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at GroupPage (src/app/(dashboard-cl)/groups/[id]/page.tsx:396:40)
+  394 |
+  395 | export default function GroupPage({ params }: GroupPageProps) {
+> 396 |     const group = mockGroupsData[params.id as keyof typeof mockGroupsData];
+      |                                        ^
+  397 |
+  398 |     if (!group) {
+  399 |         notFound(); {
+  
+}
+ GET /groups/goa-trip-2024 200 in 85ms
+ ○ Compiling /about ...
+ ✓ Compiled /about in 1775ms
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1397331044'
+}
+ GET /about 200 in 2371ms
+ ✓ Compiled in 128ms
+ ✓ Compiled /about in 52ms
+ GET /about 200 in 182ms
+
+
+---
+
+also add these conversational tools to the chat interface and make them work with mock data for now
+
+---
+
+add voice input support using web speech api in the chat interface -->

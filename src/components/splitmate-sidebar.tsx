@@ -29,6 +29,7 @@ import { ChatInterface } from "@/components/chat-interface"
 import { useState } from "react"
 import { useUser } from "@stackframe/stack"
 import { useRouter } from "next/navigation"
+import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler"
 
 const splitMateData = {
   teams: [
@@ -55,6 +56,10 @@ const splitMateData = {
       url: "/expenses",
       icon: Receipt,
       items: [
+        {
+          title: "Expense",
+          url: "/expenses",
+        },
         {
           title: "Add Expense",
           url: "/expenses/add-expense",
@@ -150,7 +155,7 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
   const currentUser = user ? {
     name: user.displayName || user.primaryEmail || "Guest",
     email: user.primaryEmail || "",
-    avatar: user.photoURL || "", // Assuming photoURL exists
+    avatar: "", // Remove avatar for now since property doesn't exist
   } : {
     name: "Guest",
     email: "",
