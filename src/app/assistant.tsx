@@ -7,10 +7,10 @@ import { ThreadList } from "@/components/assistant-ui/thread-list";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  PlusIcon, 
-  CalculatorIcon, 
-  QrCodeIcon, 
+import {
+  PlusIcon,
+  CalculatorIcon,
+  QrCodeIcon,
   ShareIcon,
   UserPlusIcon,
   TrendingUpIcon,
@@ -28,7 +28,7 @@ interface SplitMateAssistantProps {
 
 export const Assistant = ({ user }: SplitMateAssistantProps) => {
   const runtime = useChatRuntime({
-    api: "/api/assistant", // Use the new API route
+    api: "/api/assistant",
   });
 
   // Quick action suggestions for the AI
@@ -40,7 +40,7 @@ export const Assistant = ({ user }: SplitMateAssistantProps) => {
       color: "bg-blue-500"
     },
     {
-      icon: CalculatorIcon, 
+      icon: CalculatorIcon,
       label: "Calculate Split",
       prompt: "I paid ₹1200 for dinner with 3 friends. How much does each person owe me?",
       color: "bg-green-500"
@@ -91,7 +91,7 @@ export const Assistant = ({ user }: SplitMateAssistantProps) => {
                 Your intelligent expense splitting assistant. Chat with AI to manage expenses, split bills, and track payments effortlessly.
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <div className="text-left">
                 <h3 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
@@ -106,11 +106,11 @@ export const Assistant = ({ user }: SplitMateAssistantProps) => {
                   <li>• Get spending insights & analytics</li>
                 </ul>
               </div>
-              
+
               <Button className="w-full" size="lg">
                 Sign in to start chatting
               </Button>
-              
+
               <p className="text-xs text-gray-500">
                 Authentication required to protect your financial data
               </p>

@@ -27,13 +27,9 @@ import {
 import { Button } from "@/components/ui/button"
 import { ChatInterface } from "@/components/chat-interface"
 import { useState } from "react"
+import { useUser } from "@stackframe/stack"
 
 const splitMateData = {
-  user: {
-    name: "John Doe",
-    email: "john@example.com",
-    avatar: "/avatars/user.jpg",
-  },
   teams: [
     {
       name: "SplitMate",
@@ -60,7 +56,7 @@ const splitMateData = {
       items: [
         {
           title: "Add Expense",
-          url: "/add-expense",
+          url: "/expenses/add-expense",
         },
         {
           title: "Recent",
@@ -147,6 +143,18 @@ const splitMateData = {
 
 export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [showChat, setShowChat] = useState(false)
+  const user = useUser() // Get the current user
+
+  // Create a user object to pass to NavUser
+  const currentUser = user ? {
+    name: user.displayName || user.primaryEmail || "Guest",
+    email: user.primaryEmail || "",
+    avatar: user.photoURL || "", // Assuming photoURL exists
+  } : {
+    name: "Guest",
+    email: "",
+    avatar: "",
+  };
 
   return (
     <>
@@ -169,7 +177,7 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
               AI Assistant
             </Button>
           </div>
-          <NavUser user={splitMateData.user} />
+          <NavUser user={currentUser} />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
@@ -199,3 +207,4 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
     </>
   )
 }
+

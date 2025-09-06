@@ -33,12 +33,12 @@ const ReviewCard = ({
         "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
-      <a href={`https://bento.engage-dev.com/projects/${slug}`}>
+      <a href={`#`}>
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-col">
             <div className="flex items-start gap-2">
               <img
-                src={`https://bento.engage-dev.com${image}`}
+                src={`/og.png`}
                 alt={name}
                 className="w-8 h-8 rounded-lg object-cover shadow"
               />
