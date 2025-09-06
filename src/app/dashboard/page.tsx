@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Dashboard } from '@/components/dashboard'
 import { BottomNav } from '@/components/bottom-nav'
 import { AppContainer } from '@/components/app-container'
+import { FloatingChatButton } from '@/components/floating-chat'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -17,6 +18,7 @@ export default function DashboardPage() {
         </div>
       </AppContainer>
       <BottomNav />
+      <FloatingChatButton />
     </>
   )
 }

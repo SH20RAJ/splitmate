@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Receipt, Users, Calculator, Check } from "lucide-react";
 import { BottomNav } from "@/components/bottom-nav";
 import { AppContainer } from "@/components/app-container";
+import { FloatingChatButton } from "@/components/floating-chat";
 
 const mockGroups = [
   { id: 1, name: "Goa Trip 2024", members: 4 },
@@ -266,6 +267,7 @@ export default function AddExpensePage() {
         </div>
       </AppContainer>
       <BottomNav />
+      <FloatingChatButton />
     </>
   );
 }

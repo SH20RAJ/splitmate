@@ -216,6 +216,7 @@ export function DashboardNew() {
                       {expense.date}
                     </div>
                   </div>
+                </div>
                 <div className="text-right">
                   <div className="font-semibold text-sm">₹{expense.amount.toLocaleString()}</div>
                   <Badge variant="secondary" className="text-xs mt-1">
@@ -364,7 +365,6 @@ export function DashboardNew() {
                         <div className="font-semibold text-sm">{group.name}</div>
                         <div className="text-xs text-gray-500 dark:text-gray-400">{group.memberCount} members</div>
                       </div>
-                    </div>
                     <div className="text-base font-semibold text-primary">
                       ₹{group.totalExpenses.toLocaleString()}
                     </div>

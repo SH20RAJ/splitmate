@@ -17,6 +17,7 @@ import {
   Target
 } from "lucide-react";
 import { BottomNav } from "@/components/bottom-nav";
+import { AppContainer } from "@/components/app-container";
 import { Area, AreaChart, Cell, Pie, PieChart as RechartsPieChart, XAxis } from "recharts";
 
 const mockAnalytics = {
@@ -92,176 +93,178 @@ export default function AnalyticsPage() {
   const monthlyChange = ((currentMonth.amount - previousMonth.amount) / previousMonth.amount) * 100;
 
   return (
-    <div className="min-h-screen nm pb-20">
-      <div className="max-w-md mx-auto p-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Analytics
-        </h1>
+    <>
+      <AppContainer>
+        <div className="pb-20">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            Analytics
+          </h1>
 
-        {/* Key Metrics */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {mockAnalytics.insights.map((insight, index) => (
-            <Card key={index}>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <insight.icon className={`h-5 w-5 ${insight.color}`} />
-                  {insight.trend === "up" && (
-                    <TrendingUp className="h-4 w-4 text-red-500" />
-                  )}
-                  {insight.trend === "down" && (
-                    <TrendingDown className="h-4 w-4 text-green-500" />
-                  )}
-                </div>
-                <div className="space-y-1">
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {insight.value}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    {insight.title}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {insight.description}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+          {/* Key Metrics */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            {mockAnalytics.insights.map((insight, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <insight.icon className={`h-5 w-5 ${insight.color}`} />
+                    {insight.trend === "up" && (
+                      <TrendingUp className="h-4 w-4 text-red-500" />
+                    )}
+                    {insight.trend === "down" && (
+                      <TrendingDown className="h-4 w-4 text-green-500" />
+                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {insight.value}
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      {insight.title}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {insight.description}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        {/* Monthly Spending Chart */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <BarChart3 className="h-5 w-5 mr-2" />
-              Monthly Spending
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={chartConfig}>
-              <AreaChart
-                accessibilityLayer
-                data={mockAnalytics.monthlySpending}
-                margin={{
-                  left: 12,
-                  right: 12,
-                }}
-              >
-                <XAxis
-                  dataKey="month"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="line" />}
-                />
-                <Area
-                  dataKey="amount"
-                  type="natural"
-                  fill="var(--color-amount)"
-                  fillOpacity={0.4}
-                  stroke="var(--color-amount)"
-                />
-              </AreaChart>
-            </ChartContainer>
-            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">This Month</span>
-                <span className={`text-sm font-bold ${monthlyChange > 0 ? "text-red-600" : "text-green-600"
-                  }`}>
-                  {monthlyChange > 0 ? "+" : ""}{monthlyChange.toFixed(1)}%
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Category Breakdown */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <PieChart className="h-5 w-5 mr-2" />
-              Spending by Category
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={categoryChartConfig}
-              className="mx-auto aspect-square max-h-[250px]"
-            >
-              <RechartsPieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Pie
-                  data={mockAnalytics.categories}
-                  dataKey="amount"
-                  nameKey="name"
-                  innerRadius={60}
-                  strokeWidth={5}
+          {/* Monthly Spending Chart */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <BarChart3 className="h-5 w-5 mr-2" />
+                Monthly Spending
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={chartConfig}>
+                <AreaChart
+                  accessibilityLayer
+                  data={mockAnalytics.monthlySpending}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
                 >
-                  {mockAnalytics.categories.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-              </RechartsPieChart>
-            </ChartContainer>
-            <div className="mt-4 space-y-2">
-              {mockAnalytics.categories.map((category, index) => (
-                <div key={index} className="flex items-center justify-between text-sm">
-                  <div className="flex items-center space-x-2">
-                    <div
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: category.fill }}
-                    />
-                    <span>{category.name}</span>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-medium">₹{category.amount.toLocaleString()}</div>
-                    <div className="text-xs text-gray-500">{category.percentage}%</div>
-                  </div>
+                  <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="line" />}
+                  />
+                  <Area
+                    dataKey="amount"
+                    type="natural"
+                    fill="var(--color-amount)"
+                    fillOpacity={0.4}
+                    stroke="var(--color-amount)"
+                  />
+                </AreaChart>
+              </ChartContainer>
+              <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">This Month</span>
+                  <span className={`text-sm font-bold ${monthlyChange > 0 ? "text-red-600" : "text-green-600"
+                    }`}>
+                    {monthlyChange > 0 ? "+" : ""}{monthlyChange.toFixed(1)}%
+                  </span>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* AI Insights */}
-        <Card>
-          <CardHeader>
-            <CardTitle>💡 AI Insights</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border-l-4 border-yellow-400">
-              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                High Spending Alert
-              </p>
-              <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                You&apos;ve spent 23% more this month. Consider setting a budget for dining out.
-              </p>
-            </div>
-            <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-400">
-              <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                Savings Opportunity
-              </p>
-              <p className="text-sm text-green-700 dark:text-green-300">
-                You could save ₹2,500/month by reducing entertainment expenses by 30%.
-              </p>
-            </div>
-            <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400">
-              <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
-                Spending Pattern
-              </p>
-              <p className="text-sm text-blue-700 dark:text-blue-300">
-                You tend to spend more on weekends. Plan your budget accordingly.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          {/* Category Breakdown */}
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <PieChart className="h-5 w-5 mr-2" />
+                Spending by Category
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer
+                config={categoryChartConfig}
+                className="mx-auto aspect-square max-h-[250px]"
+              >
+                <RechartsPieChart>
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Pie
+                    data={mockAnalytics.categories}
+                    dataKey="amount"
+                    nameKey="name"
+                    innerRadius={60}
+                    strokeWidth={5}
+                  >
+                    {mockAnalytics.categories.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                </RechartsPieChart>
+              </ChartContainer>
+              <div className="mt-4 space-y-2">
+                {mockAnalytics.categories.map((category, index) => (
+                  <div key={index} className="flex items-center justify-between text-sm">
+                    <div className="flex items-center space-x-2">
+                      <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: category.fill }}
+                      />
+                      <span>{category.name}</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium">₹{category.amount.toLocaleString()}</div>
+                      <div className="text-xs text-gray-500">{category.percentage}%</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI Insights */}
+          <Card>
+            <CardHeader>
+              <CardTitle>💡 AI Insights</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border-l-4 border-yellow-400">
+                <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                  High Spending Alert
+                </p>
+                <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                  You&apos;ve spent 23% more this month. Consider setting a budget for dining out.
+                </p>
+              </div>
+              <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-400">
+                <p className="text-sm font-medium text-green-800 dark:text-green-200">
+                  Savings Opportunity
+                </p>
+                <p className="text-sm text-green-700 dark:text-green-300">
+                  You could save ₹2,500/month by reducing entertainment expenses by 30%.
+                </p>
+              </div>
+              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400">
+                <p className="text-sm font-medium text-blue-800 dark:text-blue-200">
+                  Spending Pattern
+                </p>
+                <p className="text-sm text-blue-700 dark:text-blue-300">
+                  You tend to spend more on weekends. Plan your budget accordingly.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </AppContainer>
       <BottomNav />
-    </div>
+    </>
   );
 }

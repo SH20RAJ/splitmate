@@ -35,8 +35,8 @@ function UserSection() {
 ### 3. **UI Consistency - Navbar & Dashboard Width**
 **Problem**: Dashboard page and navbar had inconsistent widths compared to other pages
 **Solution**:
-- Updated dashboard page to use `max-w-4xl mx-auto` for consistent width
-- Modified AppHeader to use `max-w-4xl mx-auto px-4` instead of `container`
+- Updated dashboard page to use `max-w-4xl2 mx-auto` for consistent width
+- Modified AppHeader to use `max-w-4xl2 mx-auto px-4` instead of `container`
 - All pages now have unified width constraints
 
 **Files Modified**:
@@ -108,7 +108,7 @@ src/
 ## ✅ UI/UX Improvements
 
 ### **Visual Consistency**
-- All pages now use `max-w-4xl mx-auto` for consistent width
+- All pages now use `max-w-4xl2 mx-auto` for consistent width
 - Navbar and content alignment matches across routes
 - Consistent spacing and padding throughout
 

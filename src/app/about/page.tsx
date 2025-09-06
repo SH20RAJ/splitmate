@@ -15,6 +15,7 @@ import {
 import { Bento } from '@/components/bento'
 import { HeroSection } from '@/components/blocks/hero-section-dark'
 import { AboutNavbar } from '@/components/about-navbar'
+import { FloatingChatButton } from '@/components/floating-chat'
 
 export const metadata: Metadata = {
   title: 'About SplitMate',
@@ -63,43 +64,18 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-      {/* Hero Section */}
-      <div className="container py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mb-6 flex items-center justify-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 shadow-lg">
-              <span className="text-2xl font-bold text-primary-foreground">₹</span>
-            </div>
-          </div>
+      <AboutNavbar />
 
-          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            Welcome to{' '}
-            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-              SplitMate
-            </span>
-          </h1>
-
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            The smart way to split expenses with friends. Track, calculate, and settle bills
-            effortlessly with our AI-powered expense management platform.
-          </p>
-
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link href="/dashboard">
-              <Button size="lg" className="gap-2">
-                Get Started
-                <ArrowRightIcon className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/chat">
-              <Button variant="outline" size="lg" className="gap-2">
-                <MessageSquareIcon className="h-4 w-4" />
-                Try AI Assistant
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+      <HeroSection
+        title="Split Expenses Smartly"
+        subtitle={{
+          regular: "The AI-Powered ",
+          gradient: "Expense Splitting Platform"
+        }}
+        description="SplitMate uses advanced AI to automatically categorize, split, and track shared expenses with friends, roommates, and groups. Say goodbye to manual calculations and awkward money conversations."
+        ctaText="Get Started"
+        ctaHref="/dashboard"
+      />
 
       {/* Features Section */}
       <div className="container pb-24">
@@ -111,7 +87,7 @@ export default function AboutPage() {
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
               Everything you need to manage shared expenses
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto max-w-7xl text-lg text-muted-foreground">
               From simple bill splitting to complex group expense management,
               SplitMate has you covered.
             </p>
@@ -146,7 +122,7 @@ export default function AboutPage() {
       {/* CTA Section */}
       <div className="border-t border-border bg-muted/30">
         <div className="container py-16">
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-7xl text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight">
               Ready to simplify your shared expenses?
             </h2>
@@ -162,6 +138,7 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+      <FloatingChatButton />
     </div>
   )
 }

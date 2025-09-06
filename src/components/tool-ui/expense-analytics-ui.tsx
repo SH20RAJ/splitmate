@@ -29,7 +29,7 @@ export const ExpenseAnalyticsToolUI = makeAssistantToolUI<ExpenseAnalyticsArgs, 
   render: ({ args, result }) => {
     if (!result) {
       return (
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full max-w-7xl">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
@@ -58,7 +58,7 @@ export const ExpenseAnalyticsToolUI = makeAssistantToolUI<ExpenseAnalyticsArgs, 
     ];
 
     return (
-      <Card className="w-full max-w-4xl">
+      <Card className="w-full max-w-4xl2">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             📊 Expense Analytics

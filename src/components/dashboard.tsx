@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { InsightsSection } from "@/components/insights-section";
 import { EnhancedCharts } from "@/components/enhanced-charts";
+import { ExpenseContributionGraph } from "@/components/expense-contribution-graph";
 import { 
   PlusIcon, 
   UsersIcon, 
@@ -287,6 +288,9 @@ export function Dashboard() {
         <CardContent>
           <InsightsSection />
           <EnhancedCharts />
+          <div className="mt-6">
+            <ExpenseContributionGraph />
+          </div>
         </CardContent>
       </Card>
 

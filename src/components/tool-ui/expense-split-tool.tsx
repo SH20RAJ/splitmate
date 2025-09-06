@@ -3,11 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { 
-  Calculator, 
-  Send, 
-  Copy, 
-  CheckCircle, 
+import {
+  Calculator,
+  Send,
+  Copy,
+  CheckCircle,
   IndianRupee,
   Users,
   Clock
@@ -76,7 +76,7 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
 
   if (status.type === "running") {
     return (
-      <Card className="w-full max-w-2xl">
+      <Card className="w-full max-w-7xl">
         <CardHeader>
           <div className="flex items-center gap-2">
             <Calculator className="h-5 w-5 animate-spin" />
@@ -105,7 +105,7 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
 
   if (status.type === "incomplete") {
     return (
-      <Card className="w-full max-w-2xl border-red-200">
+      <Card className="w-full max-w-7xl border-red-200">
         <CardContent className="pt-6">
           <div className="text-center text-red-600">
             <p>Failed to calculate expense split</p>
@@ -121,7 +121,7 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
   const { splitCalculation, paymentRequests } = result
 
   return (
-    <div className="w-full max-w-4xl space-y-4">
+    <div className="w-full max-w-4xl2 space-y-4">
       {/* Split Summary */}
       <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
         <CardHeader>
@@ -166,11 +166,10 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
         <CardContent>
           <div className="space-y-3">
             {splitCalculation.participants.map((participant, index) => (
-              <div 
+              <div
                 key={index}
-                className={`flex items-center justify-between p-3 rounded-lg border ${
-                  participant.isPaidBy ? 'bg-green-50 border-green-200' : 'bg-gray-50'
-                }`}
+                className={`flex items-center justify-between p-3 rounded-lg border ${participant.isPaidBy ? 'bg-green-50 border-green-200' : 'bg-gray-50'
+                  }`}
               >
                 <div className="flex items-center gap-3">
                   <Avatar className="h-8 w-8">
@@ -242,9 +241,9 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
                       </Badge>
                     )}
                   </div>
-                  
+
                   <div className="flex gap-2 flex-wrap">
-                    <Button 
+                    <Button
                       size="sm"
                       onClick={() => handleSendUPIRequest(request)}
                       disabled={notificationsSent.includes(request.name)}
@@ -253,18 +252,18 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
                       <IndianRupee className="h-4 w-4 mr-1" />
                       Send UPI Request
                     </Button>
-                    
-                    <Button 
-                      size="sm" 
+
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => handleSendWhatsApp(request)}
                     >
                       <Send className="h-4 w-4 mr-1" />
                       WhatsApp
                     </Button>
-                    
-                    <Button 
-                      size="sm" 
+
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => handleCopyUPI(request.upiLink)}
                     >
