@@ -174,6 +174,12 @@ export function useSplitMate() {
       const response = await fetch('/api/splitmate/expenses');
       
       if (!response.ok) {
+        // Check if it's an authentication error
+        if (response.status === 401) {
+          // Redirect to sign in page
+          window.location.href = '/sign-in';
+          return null;
+        }
         throw new Error('Failed to fetch expenses');
       }
       
@@ -197,6 +203,12 @@ export function useSplitMate() {
       const response = await fetch('/api/splitmate/groups');
       
       if (!response.ok) {
+        // Check if it's an authentication error
+        if (response.status === 401) {
+          // Redirect to sign in page
+          window.location.href = '/sign-in';
+          return null;
+        }
         throw new Error('Failed to fetch groups');
       }
       
