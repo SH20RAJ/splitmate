@@ -284,15 +284,15 @@ const ExpenseSplitUI = React.memo(({ args, result, status }: {
           <div className="text-center space-y-3">
             <div className="text-sm text-muted-foreground">What&apos;s next?</div>
             <div className="flex gap-2 justify-center flex-wrap">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => alert("Set reminder functionality to be implemented")}>
                 <Clock className="h-4 w-4 mr-1" />
                 Set Reminder
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => alert("Add to group functionality to be implemented")}>
                 <Users className="h-4 w-4 mr-1" />
                 Add to Group
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => alert("Add another expense functionality to be implemented")}>
                 <Calculator className="h-4 w-4 mr-1" />
                 Add Another Expense
               </Button>

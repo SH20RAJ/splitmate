@@ -27,7 +27,9 @@ interface SplitMateAssistantProps {
 }
 
 export const Assistant = ({ user }: SplitMateAssistantProps) => {
-  const runtime = useChatRuntime();
+  const runtime = useChatRuntime({
+    api: "/api/assistant", // Use the new API route
+  });
 
   // Quick action suggestions for the AI
   const quickActions = [

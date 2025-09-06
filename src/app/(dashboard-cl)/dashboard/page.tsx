@@ -1,12 +1,5 @@
 export const runtime = 'edge';
 import type { Metadata } from 'next'
-import { SplitMateSidebar } from "@/components/splitmate-sidebar"
-import { SiteHeader } from "@/components/site-header"
-import { BottomNav } from "@/components/bottom-nav"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { DataTable } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
@@ -93,18 +86,7 @@ const mockData = {
 
 export default function DashboardPage() {
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <SplitMateSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
               
@@ -260,12 +242,5 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </SidebarInset>
-      
-      {/* Bottom Navigation for Mobile */}
-      <div className="lg:hidden">
-        <BottomNav />
-      </div>
-    </SidebarProvider>
   )
 }

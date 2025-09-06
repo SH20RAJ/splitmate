@@ -15,9 +15,11 @@ export default function Hero() {
 
         <div className="text-lg text-neutral-500 dark:text-neutral-400 lg:px-1 w-full ">
           <BlurIn className="w-3/4 sm:w-2/3">
-            I craft sleek, full-stack experiences that users love and developers
-            enjoy expanding.
+            <p className="mt-4">
+              Welcome to SplitMate, your AI-powered expense management assistant. Effortlessly track, split, and manage your expenses with ease.
+            </p>
           </BlurIn>
+
 
           <FadeIn direction="down" className="my-class">
             <div className="flex items-center gap-2 w-full lg:w-2/3 mt-6">
@@ -25,6 +27,7 @@ export default function Hero() {
                 href={process.env.GITHUB_URL}
                 target="_blank"
                 className="flex-1"
+                aria-label="Visit GitHub repository"
               >
                 <Button
                   variant="default"
@@ -32,7 +35,7 @@ export default function Hero() {
                   className="flex items-center gap-2 w-full group/Github"
                 >
                   <div>GitHub</div>
-                  <Github className="h-5 w-5 lg:group-hover/Github:translate-x-1 transition-all duration-300" />
+                  <Github className="h-5 w-5 lg:group-hover/Github:translate-x-1 transition-all duration-300" aria-hidden="true" />
                 </Button>
               </a>
 
@@ -40,6 +43,7 @@ export default function Hero() {
                 href="mailto:engage_intellect@protonmail.com"
                 target="_blank"
                 className="flex-1"
+                aria-label="Send an email"
               >
                 <Button
                   variant="default"
@@ -47,7 +51,7 @@ export default function Hero() {
                   className="flex items-center gap-2 w-full group/Mail"
                 >
                   <div>Email Me</div>
-                  <Mail className="h-5 w-5 lg:group-hover/Mail:translate-x-1 transition-all duration-300" />
+                  <Mail className="h-5 w-5 lg:group-hover/Mail:translate-x-1 transition-all duration-300" aria-hidden="true" />
                 </Button>
               </a>
             </div>

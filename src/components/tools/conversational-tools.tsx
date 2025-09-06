@@ -91,7 +91,7 @@ export const insightsGeneratorTool = tool({
     focus: z.enum(["spending", "saving", "trends", "comparison"]).optional(),
   }),
   execute: async ({ timeframe, focus }) => {
-    const insights = await generateSmartInsights(timeframe, focus)
+    const insights = await generateSmartInsights(timeframe, focus ?? "")
     return {
       insights: insights.insights,
       trends: insights.trends,

@@ -169,7 +169,7 @@ export function Dashboard() {
           <QrCodeIcon className="h-6 w-6" />
           <span>QR Payment</span>
         </Button>
-        <Button variant="outline" className="h-20 flex-col gap-2">
+        <Button variant="outline" className="h-20 flex-col gap-2" onClick={() => alert("Send Reminder functionality to be implemented")}>
           <ShareIcon className="h-6 w-6" />
           <span>Send Reminder</span>
         </Button>
@@ -259,7 +259,7 @@ export function Dashboard() {
                     <div className={`font-semibold ${balance.type === 'owed' ? 'text-green-600' : 'text-red-600'}`}>
                       ₹{balance.amount.toLocaleString()}
                     </div>
-                    <Button size="sm" variant="ghost">
+                    <Button size="sm" variant="ghost" onClick={() => alert("Message functionality to be implemented")}>
                       <MessageSquareIcon className="h-4 w-4" />
                     </Button>
                   </div>
