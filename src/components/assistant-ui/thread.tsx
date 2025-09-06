@@ -32,8 +32,8 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import * as m from "motion/react-m";
-import { ExpenseSplitToolUI } from "@/components/tools/expense-split-tool";
-import { ExpenseAnalyticsToolUI } from "@/components/tools/expense-analytics-ui";
+import { ExpenseSplitToolUI } from "@/components/tool-ui/expense-split-tool";
+import { ExpenseAnalyticsToolUI } from "@/components/tool-ui/expense-analytics-ui";
 import {
   ExpenseParserTool,
   CategorizationTool,
@@ -107,7 +107,7 @@ const ThreadWelcome: FC = () => {
               transition={{ delay: 0.1 }}
               className="aui-thread-welcome-message-motion-2 text-2xl text-muted-foreground/65"
             >
-              I'll help you split expenses and manage group bills effortlessly.
+              I&apos;ll help you split expenses and manage group bills effortlessly.
             </m.div>
           </div>
         </div>

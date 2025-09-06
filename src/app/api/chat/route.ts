@@ -2,6 +2,19 @@ import { openai } from "@ai-sdk/openai";
 import { frontendTools } from "@assistant-ui/react-ai-sdk";
 import { convertToModelMessages, streamText, tool } from "ai";
 import { z } from "zod";
+import { 
+  parseExpenseFromText,
+  processAnalyticsQuery, 
+  categorizeExpense, 
+  checkBudgetStatus,
+  splitExpense,
+  generateSmartInsights,
+  calculateOptimalSettlement,
+  searchExpenses,
+  addExpense,
+  getExpenseSummary,
+  getTopExpenses
+} from "@/lib/tools";
 
 export const runtime = 'edge';
 export const maxDuration = 30;
@@ -18,91 +31,31 @@ export async function POST(req: Request) {
     model: openai("gpt-4o"),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     messages: convertToModelMessages(messages as any),
-    system: system || `You are SplitMate AI, an intelligent expense management assistant with advanced conversational capabilities. You help users:
+        system: system || `You are SplitMate AI, an intelligent expense management assistant. You help users track expenses, split bills, and manage budgets through simple conversational interactions.
 
-1. **Add and Split Expenses**: Help users add expenses and calculate how much each person owes
-2. **Natural Language Processing**: Parse natural language inputs like "I spent ₹500 on dinner with Rahul yesterday"
-3. **Expense Analytics**: Answer questions about spending patterns, trends, and comparisons
-4. **Smart Categorization**: Automatically categorize expenses using AI
-5. **Budget Monitoring**: Track budgets and provide alerts when approaching limits
-6. **AI Insights**: Generate personalized financial insights and recommendations
-7. **Group Settlements**: Calculate optimal settlement plans for groups
-8. **Expense Search**: Find expenses using natural language queries
-9. **Payment Integration**: Create UPI payment links and QR codes
-10. **WhatsApp Integration**: Generate payment reminder messages
+RESPONSE STYLE:
+- Keep responses concise and clear
+- Use emojis to make responses engaging  
+- Format amounts as ₹XXX
+- Use bold text for important information
+- Provide direct, actionable answers
 
-**Available Tools:**
-- **parseExpense**: Parse natural language expense inputs
-- **analyzeExpenses**: Answer analytics questions with visual charts
-- **categorizeExpense**: Auto-categorize expenses intelligently
-- **checkBudget**: Monitor budget status and provide alerts
-- **generateInsights**: Create personalized financial insights
-- **calculateSettlement**: Optimize group expense settlements
-- **searchExpenses**: Find expenses with natural language search
-- **splitExpense**: Visual expense splitting with payment options
+EXAMPLE INTERACTIONS:
+User: "Add ₹250 for pizza yesterday"  
+Bot: "Got it! Added ₹250 to *Food > Dining* on Aug 2."
 
-**Your personality:**
-- Friendly, conversational, and proactive
-- Use Indian currency (₹) and understand Indian payment methods (UPI, PhonePe, Google Pay)
-- Suggest relevant tools based on user queries
-- Provide actionable insights and recommendations
-- Ask intelligent follow-up questions
+User: "Show me my top 3 expenses this week"
+Bot: "1. Rent – ₹5000, 2. Food – ₹2300, 3. Transport – ₹1200."
 
-**Example interactions:**
-- "I spent ₹1200 on dinner with Rahul and Priya" → Use parseExpense + splitExpense
-- "How much did I spend on food last month?" → Use analyzeExpenses with visual charts
-- "Show me all restaurant expenses" → Use searchExpenses
-- "Is my food budget okay?" → Use checkBudget
-- "Give me insights about my spending" → Use generateInsights
+User: "Split ₹600 Domino's bill with Rahul and Aditi"  
+Bot: "Done! Each person owes ₹200."
 
-Always use the appropriate tool for each query and provide rich, interactive responses with visual elements when possible. Automatically categorize and analyze expenses to provide maximum value.
-
-When users mention splitting expenses, ALWAYS use the splitExpense tool. For analytics questions, use analyzeExpenses with visual charts.`,
+Always use the appropriate tool for each query and provide helpful, formatted text responses.`,
     
     tools: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...frontendTools(tools as any || {}),
       
-      parseExpense: tool({
-        description: 'Parse natural language expense input to extract structured data',
-        inputSchema: z.object({
-          input: z.string().describe("Natural language input like 'I spent ₹500 on dinner with Rahul yesterday'"),
-        }),
-        execute: async ({ input }) => {
-          // Simple parsing logic for demo
-          const amountMatch = input.match(/₹?(\d+)/);
-          const amount = amountMatch ? parseInt(amountMatch[1]) : 0;
-          
-          const categories = {
-            food: ["dinner", "lunch", "breakfast", "food", "restaurant", "zomato", "swiggy"],
-            travel: ["uber", "ola", "taxi", "bus", "train", "flight", "petrol"],
-            entertainment: ["movie", "game", "netflix", "spotify", "concert"],
-            shopping: ["shopping", "clothes", "amazon", "flipkart"],
-          };
-          
-          let category = "other";
-          for (const [cat, keywords] of Object.entries(categories)) {
-            if (keywords.some(keyword => input.toLowerCase().includes(keyword))) {
-              category = cat;
-              break;
-            }
-          }
-          
-          const participantMatch = input.match(/with (.+?)(?:\s|$)/);
-          const participants = participantMatch ? 
-            participantMatch[1].split(/\s+and\s+|\s*,\s*/) : [];
-          
-          return {
-            amount,
-            description: input.replace(/₹?\d+/, '').trim(),
-            participants,
-            date: new Date().toISOString().split('T')[0],
-            category,
-            confidence: 0.8
-          };
-        }
-      }),
-
       analyzeExpenses: tool({
         description: 'Analyze expenses and answer analytics questions',
         inputSchema: z.object({
@@ -110,18 +63,8 @@ When users mention splitting expenses, ALWAYS use the splitExpense tool. For ana
           timeframe: z.string().optional().describe("Time period for analysis"),
           category: z.string().optional().describe("Expense category to focus on"),
         }),
-        execute: async ({ query, category = "food" }) => {
-          // Mock analytics response
-          return {
-            answer: `Based on your spending patterns: You spent ₹2,450 on ${category} last month, which is 15% less than the previous month. Query: "${query}"`,
-            data: {
-              currentMonth: 2450,
-              previousMonth: 2900,
-              change: -15.5,
-              trend: "decreasing"
-            },
-            insights: ["Food spending has decreased", "Trending towards healthier budget"]
-          };
+        execute: async ({ query, category, timeframe }) => {
+          return await processAnalyticsQuery(query, timeframe, category);
         }
       }),
 
@@ -131,34 +74,8 @@ When users mention splitting expenses, ALWAYS use the splitExpense tool. For ana
           description: z.string().describe("Expense description to categorize"),
           amount: z.number().describe("Amount of the expense"),
         }),
-        execute: async ({ description }) => {
-          // Simple categorization logic
-          const categories = {
-            food: ["dinner", "lunch", "breakfast", "food", "restaurant", "cafe", "zomato", "swiggy"],
-            transport: ["uber", "ola", "taxi", "bus", "train", "flight", "petrol", "fuel"],
-            entertainment: ["movie", "game", "netflix", "spotify", "concert", "theater"],
-            shopping: ["shopping", "clothes", "amazon", "flipkart", "mall"],
-            healthcare: ["doctor", "hospital", "medicine", "pharmacy"],
-            utilities: ["electricity", "water", "gas", "internet", "phone"],
-          };
-          
-          let category = "other";
-          let subcategory = "";
-          
-          for (const [cat, keywords] of Object.entries(categories)) {
-            if (keywords.some(keyword => description.toLowerCase().includes(keyword))) {
-              category = cat;
-              subcategory = keywords.find(keyword => description.toLowerCase().includes(keyword)) || "";
-              break;
-            }
-          }
-          
-          return {
-            category,
-            subcategory,
-            confidence: 0.85,
-            suggestions: Object.keys(categories)
-          };
+        execute: async ({ description, amount }) => {
+          return await categorizeExpense(description, amount);
         }
       }),
 
@@ -168,36 +85,8 @@ When users mention splitting expenses, ALWAYS use the splitExpense tool. For ana
           category: z.string().optional().describe("Category to check budget for"),
           amount: z.number().optional().describe("Amount to check against budget"),
         }),
-        execute: async ({ category = "overall", amount = 0 }) => {
-          // Mock budget checking
-          const budgets = {
-            food: { limit: 3000, spent: 2450 },
-            transport: { limit: 1500, spent: 1200 },
-            entertainment: { limit: 1000, spent: 850 },
-            overall: { limit: 8000, spent: 6200 }
-          };
-          
-          const budget = budgets[category as keyof typeof budgets] || budgets.overall;
-          const newSpent = budget.spent + amount;
-          const percentage = Math.round((newSpent / budget.limit) * 100);
-          
-          let alertType = "safe";
-          if (percentage >= 90) alertType = "danger";
-          else if (percentage >= 75) alertType = "warning";
-          
-          return {
-            status: alertType,
-            currentSpend: newSpent,
-            budgetLimit: budget.limit,
-            remainingBudget: budget.limit - newSpent,
-            percentage,
-            alert: percentage >= 75,
-            message: percentage >= 90 ? 
-              `⚠️ Budget exceeded! You've spent ${percentage}% of your ${category} budget` :
-              percentage >= 75 ?
-              `⚠️ Warning: You've spent ${percentage}% of your ${category} budget` :
-              `✅ You're within budget (${percentage}% spent)`
-          };
+        execute: async ({ category, amount }) => {
+          return await checkBudgetStatus(category, amount);
         }
       }),
 

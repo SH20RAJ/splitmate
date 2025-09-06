@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
+import "./globals.css";
+import { AppHeaderWrapper } from "@/components/app-header-wrapper";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { Inter } from 'next/font/google'
-import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { AppHeader } from '@/components/app-header'
 import StackProviderClient from '@/components/stack-provider'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -79,9 +80,11 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <div className="min-h-screen  bg-transparent ">
-              <AppHeader />
+              <AppHeaderWrapper />
               <main className="min-h-[calc(100vh-3.5rem)]">
-                {children}
+                <ErrorBoundary>
+                  {children}
+                </ErrorBoundary>
               </main>
             </div>
           </ThemeProvider>

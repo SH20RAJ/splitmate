@@ -3,15 +3,16 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  BarChart3Icon, 
-  MessageSquareIcon, 
+import {
+  BarChart3Icon,
+  MessageSquareIcon,
   UsersIcon,
   SmartphoneIcon,
   ShieldIcon,
   TrendingUpIcon,
   ArrowRightIcon
 } from 'lucide-react'
+import { Bento } from '@/components/bento'
 
 export const metadata: Metadata = {
   title: 'About SplitMate',
@@ -68,19 +69,19 @@ export default function AboutPage() {
               <span className="text-2xl font-bold text-primary-foreground">₹</span>
             </div>
           </div>
-          
+
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Welcome to{' '}
             <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
               SplitMate
             </span>
           </h1>
-          
+
           <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground sm:text-xl">
-            The smart way to split expenses with friends. Track, calculate, and settle bills 
+            The smart way to split expenses with friends. Track, calculate, and settle bills
             effortlessly with our AI-powered expense management platform.
           </p>
-          
+
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link href="/dashboard">
               <Button size="lg" className="gap-2">
@@ -109,11 +110,11 @@ export default function AboutPage() {
               Everything you need to manage shared expenses
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              From simple bill splitting to complex group expense management, 
+              From simple bill splitting to complex group expense management,
               SplitMate has you covered.
             </p>
           </div>
-          
+
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => {
               const Icon = feature.icon
@@ -133,6 +134,11 @@ export default function AboutPage() {
             })}
           </div>
         </div>
+      </div>
+
+      <div className='container pb-24'>
+        {/* Bento Section */}
+        <Bento />
       </div>
 
       {/* CTA Section */}

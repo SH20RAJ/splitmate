@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { InsightsSection } from "@/components/insights-section";
+import { EnhancedCharts } from "@/components/enhanced-charts";
 import { 
   PlusIcon, 
   UsersIcon, 
@@ -285,6 +286,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent>
           <InsightsSection />
+          <EnhancedCharts />
         </CardContent>
       </Card>
 

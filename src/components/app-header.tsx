@@ -11,13 +11,42 @@ import {
   MenuIcon,
   UserIcon
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useUser } from '@stackframe/stack'
+
+// Separate component for user-related functionality that needs Suspense
+function UserSection() {
+  const user = useUser()
+  
+  if (user && user !== null) {
+    return (
+      <div className="flex items-center space-x-2">
+        <span className="hidden sm:inline text-sm font-medium">
+          {user.displayName || user.primaryEmail}
+        </span>
+        <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
+          {user.displayName?.charAt(0) || user.primaryEmail?.charAt(0) || 'U'}
+        </div>
+      </div>
+    )
+  } else if (user === null) {
+    return (
+      <Button variant="default" size="sm" onClick={() => {
+        // This would typically open a login modal or redirect to login page
+        console.log('Login action needed');
+      }}>
+        <UserIcon className="h-4 w-4 mr-2" />
+        Login
+      </Button>
+    )
+  }
+  
+  return null
+}
 
 export function AppHeader() {
   const pathname = usePathname()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
-  const user = useUser()
 
   const navItems = [
     {
@@ -34,7 +63,7 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="max-w-4xl mx-auto flex h-14 items-center px-4">
         {/* Logo and Brand */}
         <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
@@ -66,25 +95,15 @@ export function AppHeader() {
 
         {/* Right side actions */}
         <div className="ml-auto flex items-center space-x-2">
-          {/* User status */}
-          {user && user !== null ? (
-            <div className="flex items-center space-x-2">
-              <span className="hidden sm:inline text-sm font-medium">
-                {user.displayName || user.primaryEmail}
-              </span>
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
-                {user.displayName?.charAt(0) || user.primaryEmail?.charAt(0) || 'U'}
-              </div>
-            </div>
-          ) : user === null ? (
-            <Button variant="default" size="sm" onClick={() => {
-              // This would typically open a login modal or redirect to login page
-              console.log('Login action needed');
-            }}>
-              <UserIcon className="h-4 w-4 mr-2" />
-              Login
+          {/* User Section with Suspense Boundary */}
+          <Suspense fallback={
+            <Button variant="ghost" size="icon" className="relative">
+              <UserIcon className="h-4 w-4" />
+              <span className="sr-only">Loading...</span>
             </Button>
-          ) : null}
+          }>
+            <UserSection />
+          </Suspense>
 
           {/* Notifications */}
           <Button variant="ghost" size="icon" className="relative">
