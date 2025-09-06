@@ -116,3 +116,27 @@ also add these conversational tools to the chat interface and make them work wit
 ---
 
 add voice input support using web speech api in the chat interface -->
+
+
+---
+
+
+whatsapp and telegram bot,
+swiggy ui
+resend
+twilio
+
+
+
+---
+
+<!-- create a section for auto fetch and split bills from phonepay, google pay, paytm, amazon pay etc. using their apis or by parsing sms or email notifications
+fetch split bills from zepto / swiggy / instamart / blinkit / zomato  (from the api provided by them )
+
+add it in the sidebar as "Auto Fetch & Split" and create a page for it where user can connect their accounts and see the fetched bills and split them with friends
+they can also upload their sms or email notifications to parse and split bills or click on the share button in there upi apps to share the bill directly to the app screenshot ocr using openai -->
+
+----
+
+also on the sidebar add a button to open telegram bot of splitmate
+

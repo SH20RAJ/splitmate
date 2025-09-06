@@ -11,6 +11,10 @@ import {
   DollarSign,
   Receipt,
   Target,
+  Zap,
+  Smartphone,
+  Upload,
+  Link,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -30,6 +34,7 @@ import { useState } from "react"
 import { useUser } from "@stackframe/stack"
 import { useRouter } from "next/navigation"
 import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler"
+import { it } from "node:test"
 
 const splitMateData = {
   teams: [
@@ -50,6 +55,16 @@ const splitMateData = {
       url: "/dashboard",
       icon: Home,
       isActive: true,
+      items: [
+        {
+          title: "Overview",
+          url: "/dashboard",
+        },
+        {
+          title: "Activity",
+          url: "/dashboard/activity",
+        },
+      ],
     },
     {
       title: "Expenses",
@@ -109,6 +124,33 @@ const splitMateData = {
         {
           title: "Reports",
           url: "/analytics/reports",
+        },
+      ],
+    },
+    {
+      title: "Auto Fetch & Split",
+      url: "/auto-fetch",
+      icon: Zap,
+      items: [
+        {
+          title: "Connect Accounts",
+          url: "/auto-fetch",
+        },
+        {
+          title: "Payment Apps",
+          url: "/auto-fetch/payment-apps",
+        },
+        {
+          title: "Food Delivery",
+          url: "/auto-fetch/food-delivery",
+        },
+        {
+          title: "SMS/Email Parser",
+          url: "/auto-fetch/sms-parser",
+        },
+        {
+          title: "Screenshot OCR",
+          url: "/auto-fetch/screenshot-ocr",
         },
       ],
     },
@@ -176,14 +218,17 @@ export function SplitMateSidebar({ ...props }: React.ComponentProps<typeof Sideb
         </SidebarContent>
         <SidebarFooter>
           <div className="p-2 space-y-2">
-            <Button 
-              variant="outline" 
-              className="w-full justify-start gap-2"
-              onClick={() => router.push('/chat')}
-            >
-              <MessageSquare className="h-4 w-4" />
-              AI Assistant
-            </Button>
+            <div className="flex items-center justify-between gap-2">
+              <Button 
+                variant="outline" 
+                className="flex-1 justify-start gap-2"
+                onClick={() => router.push('/chat')}
+              >
+                <MessageSquare className="h-4 w-4" />
+                AI Assistant
+              </Button>
+              <AnimatedThemeToggler className="flex-shrink-0" />
+            </div>
           </div>
           <NavUser user={currentUser} />
         </SidebarFooter>

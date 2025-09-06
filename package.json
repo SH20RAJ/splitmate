@@ -11,7 +11,11 @@
 		"pages:build": "npx @cloudflare/next-on-pages",
 		"preview": "npm run pages:build && wrangler pages dev",
 		"deploy": "npm run pages:build && wrangler pages deploy",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./env.d.ts"
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./env.d.ts",
+		"db:generate": "drizzle-kit generate",
+		"db:push": "drizzle-kit push",
+		"db:studio": "drizzle-kit studio",
+		"db:init": "bun scripts/init-db.ts"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^2.0.24",
@@ -23,8 +27,10 @@
 		"@dnd-kit/sortable": "^10.0.0",
 		"@dnd-kit/utilities": "^3.2.2",
 		"@hookform/resolvers": "^5.2.1",
+		"@libsql/client": "^0.15.14",
 		"@motionone/utils": "^10.18.0",
 		"@nanostores/react": "ai/react",
+		"@paralleldrive/cuid2": "^2.2.2",
 		"@radix-ui/react-accordion": "^1.2.12",
 		"@radix-ui/react-alert-dialog": "^1.1.15",
 		"@radix-ui/react-aspect-ratio": "^1.1.7",
@@ -61,6 +67,8 @@
 		"cmdk": "^1.1.1",
 		"cobe": "^0.6.4",
 		"date-fns": "^4.1.0",
+		"drizzle-kit": "^0.31.4",
+		"drizzle-orm": "^0.44.5",
 		"embla-carousel-react": "^8.6.0",
 		"framer-motion": "^12.23.12",
 		"input-otp": "^1.4.2",

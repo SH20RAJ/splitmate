@@ -118,56 +118,62 @@ export default function AnalyticsPage() {
                   Your expense patterns over the last 12 months
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <ExpenseContributionGraph />
+              <CardContent className="pb-6">
+                <div className="h-[200px]">
+                  <ExpenseContributionGraph />
+                </div>
               </CardContent>
             </Card>
           </div>
 
           {/* Charts Grid */}
-          <div className="px-4 lg:px-6">
+          <div className="px-4 lg:px-6 space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
-              {/* Area Chart */}
-              <Card>
+              {/* Monthly Spending Trend */}
+              <Card className="h-fit">
                 <CardHeader>
                   <CardTitle>Monthly Spending Trend</CardTitle>
                   <CardDescription>
                     Track your spending patterns over time
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ChartAreaInteractive />
+                <CardContent className="pb-6">
+                  <div className="h-[300px]">
+                    <ChartAreaInteractive />
+                  </div>
                 </CardContent>
               </Card>
 
-              {/* Enhanced Charts */}
-              <Card>
+              {/* Category Breakdown */}
+              <Card className="h-fit">
                 <CardHeader>
                   <CardTitle>Category Breakdown</CardTitle>
                   <CardDescription>
                     See where your money goes
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <EnhancedCharts />
+                <CardContent className="pb-6">
+                  <div className="h-[300px]">
+                    <EnhancedCharts />
+                  </div>
                 </CardContent>
               </Card>
 
             </div>
           </div>
 
-          {/* Insights Section */}
-          <div className="px-4 lg:px-6">
+          {/* Navigation to Subpages */}
+          <div className="px-4 lg:px-6 mt-8">
             <Card>
               <CardHeader>
                 <CardTitle>Financial Insights</CardTitle>
-                <CardDescription>AI-powered analysis of your spending habits</CardDescription>
+                <CardDescription>Key insights from your spending patterns</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 
                 <div className="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
-                  <TrendingUpIcon className="h-5 w-5 text-green-600 mt-0.5" />
+                  <TrendingUpIcon className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="font-medium text-green-900 dark:text-green-100">Great Progress!</h4>
                     <p className="text-sm text-green-700 dark:text-green-200">
@@ -177,7 +183,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 <div className="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                  <PieChartIcon className="h-5 w-5 text-blue-600 mt-0.5" />
+                  <PieChartIcon className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="font-medium text-blue-900 dark:text-blue-100">Spending Pattern</h4>
                     <p className="text-sm text-blue-700 dark:text-blue-200">
@@ -187,7 +193,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 <div className="flex items-start gap-4 p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
-                  <BarChart3Icon className="h-5 w-5 text-yellow-600 mt-0.5" />
+                  <BarChart3Icon className="h-5 w-5 text-yellow-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="font-medium text-yellow-900 dark:text-yellow-100">Group Activity</h4>
                     <p className="text-sm text-yellow-700 dark:text-yellow-200">
@@ -201,7 +207,7 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Export Options */}
-          <div className="px-4 lg:px-6">
+          <div className="px-4 lg:px-6 pb-6">
             <Card>
               <CardHeader>
                 <CardTitle>Export & Reports</CardTitle>
@@ -210,15 +216,19 @@ export default function AnalyticsPage() {
               <CardContent>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+                    <FileTextIcon className="h-3 w-3 mr-1" />
                     Export CSV
                   </Badge>
                   <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+                    <FileTextIcon className="h-3 w-3 mr-1" />
                     Monthly Report
                   </Badge>
                   <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+                    <FileTextIcon className="h-3 w-3 mr-1" />
                     Tax Summary
                   </Badge>
                   <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+                    <MessageSquareIcon className="h-3 w-3 mr-1" />
                     Group Settlement
                   </Badge>
                 </div>
