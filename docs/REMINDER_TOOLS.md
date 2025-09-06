@@ -1,6 +1,6 @@
-# Reminder Integration in SplitMate
+# Reminder Tools in SplitMate
 
-This document explains how SplitMate integrates WhatsApp and Web Share API for sending payment reminders.
+This document explains how SplitMate implements reminder tools for sending payment reminders via WhatsApp and Web Share API.
 
 ## Overview
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   // Generate UPI link
   const upiLink = generateUpiLink(upiId || "user@upi", userName, amount);
   
-  // Generate WhatsApp reminder
+  // Generate WhatsApp reminder message
   const whatsappLink = generateWhatsAppReminderMessage(amount, description, upiLink);
   
   return NextResponse.json({ whatsappLink });
@@ -113,48 +113,142 @@ export function generateWebShareData(
 SplitMate provides a reminder component for the UI:
 
 ```typescript
-// components/splitmate/remind-user.tsx
-import { useSplitMate } from '@/hooks/use-splitmate';
+// components/assistant-ui/remind-user.tsx
+import { ToolCallContentPartComponent } from "@assistant-ui/react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MessageCircleIcon, Share2Icon } from "lucide-react";
 
-export function RemindUser() {
-  const { sendReminder, isLoading } = useSplitMate();
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
-
-  const handleRemind = async () => {
-    const result = await sendReminder({
-      amount: parseFloat(amount),
-      description,
-      recipientName: 'Friend',
-    });
-
-    if (result) {
-      // Open WhatsApp link or trigger Web Share
-      if (result.whatsappLink) {
-        window.open(result.whatsappLink, '_blank');
-      }
-    }
-  };
+export const RemindUser: ToolCallContentPartComponent = ({
+  toolName,
+  args,
+  result,
+}) => {
+  // Parse the arguments and result
+  const reminderData = typeof result === "string" ? JSON.parse(result) : result;
+  
+  if (!reminderData || !reminderData.whatsappLink) {
+    return (
+      <div className="mb-4 p-4 bg-purple-100 border border-purple-300 rounded-lg">
+        <p className="font-semibold">Preparing Reminder...</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <input 
-        type="number" 
-        placeholder="Amount"
-        value={amount} 
-        onChange={(e) => setAmount(e.target.value)} 
-      />
-      <input 
-        type="text" 
-        placeholder="Description"
-        value={description} 
-        onChange={(e) => setDescription(e.target.value)} 
-      />
-      <button onClick={handleRemind} disabled={isLoading}>
-        {isLoading ? 'Sending...' : 'Send Reminder'}
-      </button>
-    </div>
+    <Card className="mb-4 w-full">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <MessageCircleIcon className="h-5 w-5" />
+          Send Payment Reminder
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          <p className="text-gray-600">
+            Remind {reminderData.recipientName} about the ₹{reminderData.amount} they owe you for {reminderData.description}.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-2 pt-4">
+            <Button 
+              className="flex-1 bg-green-500 hover:bg-green-600"
+              onClick={() => {
+                window.open(reminderData.whatsappLink, '_blank');
+              }}
+            >
+              <MessageCircleIcon className="h-4 w-4 mr-2" />
+              Send via WhatsApp
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2"
+              onClick={async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share(reminderData.webShareData);
+                  } catch (err) {
+                    console.error('Error sharing:', err);
+                  }
+                } else {
+                  await navigator.clipboard.writeText(reminderData.upiLink);
+                  alert('UPI link copied to clipboard!');
+                }
+              }}
+            >
+              <Share2Icon className="h-4 w-4 mr-2" />
+              Share
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
+};
+```
+
+### 2. Hook Integration
+
+The reminder tools are integrated with a custom hook:
+
+```typescript
+// hooks/use-splitmate.ts
+import { useState, useCallback } from 'react';
+
+interface ReminderData {
+  amount: number;
+  description: string;
+  recipientName: string;
+  recipientPhone?: string;
+  upiId?: string;
+}
+
+interface ReminderResult {
+  whatsappLink: string;
+  webShareData: any;
+  upiLink: string;
+  amount: number;
+  description: string;
+  recipientName: string;
+}
+
+export function useSplitMate() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Send reminder
+  const sendReminder = useCallback(async (data: ReminderData): Promise<ReminderResult | null> => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch('/api/splitmate/remind', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to send reminder');
+      }
+      
+      const result: ReminderResult = await response.json();
+      return result;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
+      setError(errorMessage);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return {
+    isLoading,
+    error,
+    sendReminder,
+  };
 }
 ```
 
@@ -164,7 +258,7 @@ export function RemindUser() {
 
 1. User selects a pending payment to remind about
 2. SplitMate generates a UPI deep link for the payment
-3. User chooses to send reminder via WhatsApp or Web Share
+3. User chooses to send reminder via WhatsApp or Web Share API
 4. Pre-filled message is sent with payment link
 5. Recipient clicks link to pay via UPI
 
@@ -196,7 +290,7 @@ On desktop browsers, SplitMate provides alternatives:
 ```typescript
 // Copy link to clipboard
 await navigator.clipboard.writeText(upiLink);
-alert('Payment link copied to clipboard!');
+alert('UPI link copied to clipboard!');
 ```
 
 ## Security Considerations
@@ -272,8 +366,8 @@ Provide clear instructions for users:
 ```typescript
 <p>Choose how you'd like to remind your friend about this payment:</p>
 <div className="flex gap-2">
-  <button onClick={shareViaWhatsApp}>WhatsApp</button>
-  <button onClick={shareViaWebShare}>Share</button>
+  <Button onClick={shareViaWhatsApp}>WhatsApp</Button>
+  <Button onClick={shareViaWebShare}>Share</Button>
 </div>
 ```
 
@@ -326,4 +420,4 @@ Feature for scheduling automatic reminders:
 
 ## Conclusion
 
-The reminder integration in SplitMate provides users with flexible options for sending payment reminders. By leveraging both WhatsApp and Web Share API, SplitMate ensures optimal user experience across different devices and platforms while maintaining compliance with relevant policies and data privacy standards.
+The reminder tools in SplitMate provide users with flexible options for sending payment reminders. By leveraging both WhatsApp and Web Share API, SplitMate ensures optimal user experience across different devices and platforms while maintaining compliance with relevant policies and data privacy standards.
