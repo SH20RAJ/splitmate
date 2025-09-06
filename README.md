@@ -1,67 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
+# Splitmate 💸  
+> Simplifying group expenses, one split at a time.
 
-## Getting Started
+![Splitmate Banner](https://splitmate.pages.dev/og-image.png) <!-- Replace with your actual OG/banner -->
 
-First, run the development server:
+Splitmate is an **open-source expense splitting app** designed to make it effortless for friends, families, and teams to manage shared expenses. Think **Splitwise** but built for **modern web + Indian-first users** with UPI, AI assistance, and clean UI.
+
+🌐 Live: [splitmate.pages.dev](https://splitmate.pages.dev/)  
+📦 Repo: [github.com/SH20RAJ/splitmate](https://github.com/SH20RAJ/splitmate/)
+
+---
+
+## ✨ Features (MVP)
+- ➕ Add expenses easily with amount, payer, and members.  
+- 👥 Create groups (Trips, Friends, Roommates).  
+- ⚖️ Automatic balance calculation → who owes whom.  
+- ✅ Simple settlement tracking (mark as paid/unpaid).  
+- 📊 Dashboard view of total owed/lent.  
+- 📱 Responsive, clean UI powered by Shadcn/UI.  
+
+---
+
+## 🚀 Planned Features
+- 📷 Receipt upload & AI-powered auto-extraction.  
+- 💰 UPI integration for instant settlements.  
+- 🔔 Smart reminders & email notifications.  
+- 📈 Analytics & insights (who spends the most, categories).  
+- 🌍 Multi-language support.  
+- 🧑‍🤝‍🧑 Social features (reactions, comments).  
+
+---
+
+## 🛠️ Tech Stack
+A modern, hackathon-ready stack:
+
+- **Frontend:** [Next.js 15](https://nextjs.org/) (App Router)  
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)  
+- **Database & Auth:** [Supabase](https://supabase.com/) (Postgres + Auth)  
+- **Authentication Layer:** [StackAuth](https://stack-auth.com/) for flexible user login  
+- **AI Assistance:** [OpenAI](https://platform.openai.com/) for smart expense categorization & insights  
+- **Emails & Notifications:** [Resend](https://resend.com/) for transactional emails  
+- **Hosting:** [Vercel](https://vercel.com/) / [Cloudflare Pages](https://pages.cloudflare.com/)  
+- **Optional:**  
+  - [Clerk](https://clerk.com/) / [NextAuth.js](https://next-auth.js.org/) alternative auth.  
+  - [Stripe](https://stripe.com/) for premium features (Pro plan).  
+
+---
+
+## 📸 Screenshots (WIP)
+<!-- Add screenshots/gifs of app demo once ready -->
+![Dashboard Screenshot](public/screenshot1.png)  
+![Group Expenses Screenshot](public/screenshot2.png)  
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/SH20RAJ/splitmate.git
+cd splitmate
+````
+
+### 2. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install   # or npm install / yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Set up environment variables
 
-## Cloudflare integration
+Create a `.env.local` file:
 
-Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
-  - `pages:build` to build the application for Pages using the [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLI
-  - `preview` to locally preview your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
-  - `deploy` to deploy your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-> __Note:__ while the `dev` script is optimal for local development you should preview your Pages application as well (periodically or before deployments) in order to make sure that it can properly work in the Pages environment (for more details see the [`@cloudflare/next-on-pages` recommended workflow](https://github.com/cloudflare/next-on-pages/blob/main/internal-packages/next-dev/README.md#recommended-development-workflow))
+OPENAI_API_KEY=your_openai_key
+STACKAUTH_API_KEY=your_stackauth_key
+RESEND_API_KEY=your_resend_key
+```
 
-### Bindings
+### 4. Run the app
 
-Cloudflare [Bindings](https://developers.cloudflare.com/pages/functions/bindings/) are what allows you to interact with resources available in the Cloudflare Platform.
+```bash
+pnpm dev
+```
 
-You can use bindings during development, when previewing locally your application and of course in the deployed application:
+App will be available at [http://localhost:3000](http://localhost:3000).
 
-- To use bindings in dev mode you need to define them in the `next.config.js` file under `setupDevBindings`, this mode uses the `next-dev` `@cloudflare/next-on-pages` submodule. For more details see its [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md).
+---
 
-- To use bindings in the preview mode you need to add them to the `pages:preview` script accordingly to the `wrangler pages dev` command. For more details see its [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) or the [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+## 🤝 Contributing
 
-- To use bindings in the deployed application you will need to configure them in the Cloudflare [dashboard](https://dash.cloudflare.com/). For more details see the  [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+We welcome contributions!
 
-#### KV Example
+* Fork the repo
+* Create a feature branch
+* Submit a PR 🚀
 
-`c3` has added for you an example showing how you can use a KV binding.
+Open issues and feature requests in [GitHub Issues](https://github.com/SH20RAJ/splitmate/issues).
 
-In order to enable the example:
-- Search for javascript/typescript lines containing the following comment:
-  ```ts
-  // KV Example:
-  ```
-  and uncomment the commented lines below it (also uncomment the relevant imports).
-- In the `wrangler.jsonc` file add the following configuration line:
-  ```
-  "kv_namespaces": [{ "binding": "MY_KV_NAMESPACE", "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }],
-  ```
-- If you're using TypeScript run the `cf-typegen` script to update the `env.d.ts` file:
-  ```bash
-  npm run cf-typegen
-  # or
-  yarn cf-typegen
-  # or
-  pnpm cf-typegen
-  # or
-  bun cf-typegen
-  ```
+---
 
-After doing this you can run the `dev` or `preview` script and visit the `/api/hello` route to see the example in action.
+## 📜 License
 
-Finally, if you also want to see the example work in the deployed application make sure to add a `MY_KV_NAMESPACE` binding to your Pages application in its [dashboard kv bindings settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section). After having configured it make sure to re-deploy your application.
+[MIT](LICENSE) © 2025 [Shaswat Raj](https://shaswat.live)
+
+---
+
+## 🌟 Acknowledgements
+
+* Inspired by Splitwise but reimagined for modern web & UPI-first users.
+* Built with ❤️ at hackathons by the [Splitmate](https://github.com/SH20RAJ/splitmate) community.

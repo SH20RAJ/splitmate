@@ -28,6 +28,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <script
+          defer
+          src="https://assets.onedollarstats.com/stonks.js"
+        ></script>
       </body>
     </html>
   );
