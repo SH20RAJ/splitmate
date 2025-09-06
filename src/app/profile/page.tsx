@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@stackframe/stack";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  User, 
-  Mail, 
-  Bell, 
-  Lock, 
-  Share, 
-  HelpCircle, 
+import {
+  User,
+  Mail,
+  Bell,
+  Lock,
+  Share,
+  HelpCircle,
   LogOut,
   Edit,
   Camera,
@@ -20,6 +21,7 @@ import { BottomNav } from "@/components/bottom-nav";
 import Link from "next/link";
 
 export default function ProfilePage() {
+  const user = useUser();
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [notifications, setNotifications] = useState({
     email: true,
@@ -27,9 +29,37 @@ export default function ProfilePage() {
     reminders: true,
   });
 
+  // Handle loading state
+  if (user === undefined) {
+    return (
+      <div className="min-h-screen nm pb-20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Handle unauthenticated state
+  if (user === null) {
+    return (
+      <div className="min-h-screen nm pb-20 flex items-center justify-center">
+        <div className="text-center p-6 max-w-sm">
+          <h2 className="text-2xl font-bold mb-4">Please Sign In</h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            You need to be signed in to view your profile.
+          </p>
+          {/* You would typically have a sign-in button here */}
+        </div>
+      </div>
+    );
+  }
+
   const handleSignOut = () => {
     // Simple sign out simulation
     console.log("Signing out...");
+    user.signOut();
   };
 
   const profileStats = [
@@ -39,27 +69,27 @@ export default function ProfilePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto">
         {/* Profile Header */}
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
           <div className="flex items-center space-x-4">
             <div className="relative">
               <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-2xl">
-                👤
+                {user.displayName?.charAt(0) || user.primaryEmail?.charAt(0) || "👤"}
               </div>
               <button className="absolute -bottom-1 -right-1 bg-white text-gray-600 rounded-full p-1">
                 <Camera className="h-3 w-3" />
               </button>
             </div>
             <div className="flex-1">
-              <h1 className="text-xl font-bold">Shaswat Raj</h1>
-              <p className="text-blue-100">shaswat@example.com</p>
-              <p className="text-blue-100 text-sm">Member since Jan 2024</p>
+              <h1 className="text-xl font-bold">{user.displayName || "User"}</h1>
+              <p className="text-blue-100">{user.primaryEmail || "No email provided"}</p>
+              <p className="text-blue-100 text-sm">Member since Unknown</p>
             </div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="text-white hover:bg-white hover:bg-opacity-20"
               onClick={() => setShowEditProfile(true)}
             >
@@ -125,14 +155,12 @@ export default function ProfilePage() {
                   <span>Email Notifications</span>
                 </div>
                 <button
-                  onClick={() => setNotifications({...notifications, email: !notifications.email})}
-                  className={`w-12 h-6 rounded-full transition-colors ${
-                    notifications.email ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
-                  }`}
+                  onClick={() => setNotifications({ ...notifications, email: !notifications.email })}
+                  className={`w-12 h-6 rounded-full transition-colors ${notifications.email ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
+                    }`}
                 >
-                  <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                    notifications.email ? "translate-x-6" : "translate-x-0.5"
-                  }`} />
+                  <div className={`w-5 h-5 bg-white rounded-full transition-transform ${notifications.email ? "translate-x-6" : "translate-x-0.5"
+                    }`} />
                 </button>
               </div>
               <div className="flex items-center justify-between">
@@ -141,14 +169,12 @@ export default function ProfilePage() {
                   <span>Payment Reminders</span>
                 </div>
                 <button
-                  onClick={() => setNotifications({...notifications, reminders: !notifications.reminders})}
-                  className={`w-12 h-6 rounded-full transition-colors ${
-                    notifications.reminders ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
-                  }`}
+                  onClick={() => setNotifications({ ...notifications, reminders: !notifications.reminders })}
+                  className={`w-12 h-6 rounded-full transition-colors ${notifications.reminders ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-600"
+                    }`}
                 >
-                  <div className={`w-5 h-5 bg-white rounded-full transition-transform ${
-                    notifications.reminders ? "translate-x-6" : "translate-x-0.5"
-                  }`} />
+                  <div className={`w-5 h-5 bg-white rounded-full transition-transform ${notifications.reminders ? "translate-x-6" : "translate-x-0.5"
+                    }`} />
                 </button>
               </div>
             </CardContent>
@@ -174,7 +200,7 @@ export default function ProfilePage() {
                   <Settings className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   <span className="flex-1 text-left">App Settings</span>
                 </button>
-                <button 
+                <button
                   onClick={handleSignOut}
                   className="w-full flex items-center space-x-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-red-600"
                 >
@@ -219,14 +245,14 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div className="flex space-x-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="flex-1"
                     onClick={() => setShowEditProfile(false)}
                   >
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     className="flex-1"
                     onClick={() => setShowEditProfile(false)}
                   >

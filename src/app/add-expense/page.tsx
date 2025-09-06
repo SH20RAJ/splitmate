@@ -50,7 +50,7 @@ export default function AddExpensePage() {
 
   if (step === 4) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20 flex items-center justify-center">
+      <div className="min-h-screen nm pb-20 flex items-center justify-center">
         <div className="text-center p-8">
           <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <Check className="h-8 w-8 text-white" />
@@ -68,7 +68,7 @@ export default function AddExpensePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto p-4">
         {/* Progress Bar */}
         <div className="mb-6">
@@ -81,7 +81,7 @@ export default function AddExpensePage() {
             </span>
           </div>
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-            <div 
+            <div
               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
               style={{ width: `${(step / 3) * 100}%` }}
             />
@@ -104,7 +104,7 @@ export default function AddExpensePage() {
                   type="text"
                   placeholder="What was this expense for?"
                   value={expenseData.description}
-                  onChange={(e) => setExpenseData({...expenseData, description: e.target.value})}
+                  onChange={(e) => setExpenseData({ ...expenseData, description: e.target.value })}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
@@ -114,15 +114,15 @@ export default function AddExpensePage() {
                   type="number"
                   placeholder="₹0.00"
                   value={expenseData.amount}
-                  onChange={(e) => setExpenseData({...expenseData, amount: e.target.value})}
+                  onChange={(e) => setExpenseData({ ...expenseData, amount: e.target.value })}
                   className="w-full p-3 border rounded-lg"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-2">Paid by</label>
-                <select 
+                <select
                   value={expenseData.paidBy}
-                  onChange={(e) => setExpenseData({...expenseData, paidBy: e.target.value})}
+                  onChange={(e) => setExpenseData({ ...expenseData, paidBy: e.target.value })}
                   className="w-full p-3 border rounded-lg"
                 >
                   <option>You</option>
@@ -131,8 +131,8 @@ export default function AddExpensePage() {
                   ))}
                 </select>
               </div>
-              <Button 
-                onClick={handleNext} 
+              <Button
+                onClick={handleNext}
                 className="w-full"
                 disabled={!expenseData.description || !expenseData.amount}
               >
@@ -154,9 +154,9 @@ export default function AddExpensePage() {
             <CardContent className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Select Group (Optional)</label>
-                <select 
+                <select
                   value={expenseData.group}
-                  onChange={(e) => setExpenseData({...expenseData, group: e.target.value})}
+                  onChange={(e) => setExpenseData({ ...expenseData, group: e.target.value })}
                   className="w-full p-3 border rounded-lg"
                 >
                   <option value="">No group</option>
@@ -165,7 +165,7 @@ export default function AddExpensePage() {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium mb-2">Select Friends</label>
                 <div className="space-y-2">
@@ -195,9 +195,9 @@ export default function AddExpensePage() {
                   ))}
                 </div>
               </div>
-              
-              <Button 
-                onClick={handleNext} 
+
+              <Button
+                onClick={handleNext}
                 className="w-full"
                 disabled={expenseData.splitWith.length === 0}
               >
@@ -229,7 +229,7 @@ export default function AddExpensePage() {
                   </p>
                 )}
               </div>
-              
+
               <div>
                 <h4 className="font-medium mb-2">Split Details</h4>
                 <div className="space-y-2">
@@ -252,7 +252,7 @@ export default function AddExpensePage() {
                   })}
                 </div>
               </div>
-              
+
               <Button onClick={handleSubmit} className="w-full">
                 Split Expense
               </Button>

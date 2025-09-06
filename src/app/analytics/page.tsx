@@ -1,16 +1,16 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
+import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  DollarSign, 
+import {
+  TrendingUp,
+  TrendingDown,
+  DollarSign,
   Calendar,
   PieChart,
   BarChart3,
@@ -92,7 +92,7 @@ export default function AnalyticsPage() {
   const monthlyChange = ((currentMonth.amount - previousMonth.amount) / previousMonth.amount) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto p-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Analytics
@@ -168,9 +168,8 @@ export default function AnalyticsPage() {
             <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">This Month</span>
-                <span className={`text-sm font-bold ${
-                  monthlyChange > 0 ? "text-red-600" : "text-green-600"
-                }`}>
+                <span className={`text-sm font-bold ${monthlyChange > 0 ? "text-red-600" : "text-green-600"
+                  }`}>
                   {monthlyChange > 0 ? "+" : ""}{monthlyChange.toFixed(1)}%
                 </span>
               </div>
@@ -213,8 +212,8 @@ export default function AnalyticsPage() {
               {mockAnalytics.categories.map((category, index) => (
                 <div key={index} className="flex items-center justify-between text-sm">
                   <div className="flex items-center space-x-2">
-                    <div 
-                      className="w-3 h-3 rounded-full" 
+                    <div
+                      className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: category.fill }}
                     />
                     <span>{category.name}</span>

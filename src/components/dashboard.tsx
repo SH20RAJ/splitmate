@@ -130,8 +130,14 @@ export function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {/* Quick Actions */}
+    <Card>
+      <CardHeader>
+        <CardTitle>Quick Actions</CardTitle>
+        <CardDescription>Common tasks</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Link href="/add-expense">
           <Button className="h-20 flex-col gap-2 w-full">
             <PlusIcon className="h-6 w-6" />
@@ -158,7 +164,9 @@ export function Dashboard() {
           <ShareIcon className="h-6 w-6" />
           <span>Send Reminder</span>
         </Button>
-      </div>
+        </div>
+      </CardContent>
+    </Card>
 
       {/* Balances */}
       <Card>

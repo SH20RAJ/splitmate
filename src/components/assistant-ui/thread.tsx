@@ -12,12 +12,13 @@ import {
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CopyIcon,
+ CopyIcon,
   PencilIcon,
   RefreshCwIcon,
   Square,
 } from "lucide-react";
 import type { FC } from "react";
+import { memo } from "react";
 
 import {
   ComposerAddAttachment,
@@ -32,6 +33,15 @@ import { cn } from "@/lib/utils";
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import * as m from "motion/react-m";
 import { ExpenseSplitToolUI } from "@/components/tools/expense-split-tool";
+import { ExpenseAnalyticsToolUI } from "@/components/tools/expense-analytics-ui";
+import {
+  ExpenseParserTool,
+  CategorizationTool,
+  BudgetAlertTool,
+  InsightsGeneratorTool,
+  SettlementTool,
+  ExpenseSearchTool,
+} from "@/components/tools/conversational-tools";
 
 export const Thread: FC = () => {
   return (
@@ -97,7 +107,7 @@ const ThreadWelcome: FC = () => {
               transition={{ delay: 0.1 }}
               className="aui-thread-welcome-message-motion-2 text-2xl text-muted-foreground/65"
             >
-              I&apos;ll help you split expenses and manage group bills effortlessly.
+              I'll help you split expenses and manage group bills effortlessly.
             </m.div>
           </div>
         </div>
@@ -224,7 +234,7 @@ const MessageError: FC = () => {
   );
 };
 
-const AssistantMessage: FC = () => {
+const AssistantMessage: FC = memo(() => {
   return (
     <MessagePrimitive.Root asChild>
       <m.div
@@ -240,6 +250,13 @@ const AssistantMessage: FC = () => {
               tools: { 
                 by_name: {
                   splitExpense: ExpenseSplitToolUI,
+                  analyzeExpenses: ExpenseAnalyticsToolUI,
+                  parseExpense: ExpenseParserTool,
+                  categorizeExpense: CategorizationTool,
+                  checkBudget: BudgetAlertTool,
+                  generateInsights: InsightsGeneratorTool,
+                  calculateSettlement: SettlementTool,
+                  searchExpenses: ExpenseSearchTool,
                 },
                 Fallback: ToolFallback 
               },
@@ -255,7 +272,10 @@ const AssistantMessage: FC = () => {
       </m.div>
     </MessagePrimitive.Root>
   );
-};
+});
+
+// Add display name for React DevTools
+AssistantMessage.displayName = 'AssistantMessage';
 
 const AssistantActionBar: FC = () => {
   return (
@@ -284,7 +304,7 @@ const AssistantActionBar: FC = () => {
   );
 };
 
-const UserMessage: FC = () => {
+const UserMessage: FC = memo(() => {
   return (
     <MessagePrimitive.Root asChild>
       <m.div
@@ -308,7 +328,10 @@ const UserMessage: FC = () => {
       </m.div>
     </MessagePrimitive.Root>
   );
-};
+});
+
+// Add display name for React DevTools
+UserMessage.displayName = 'UserMessage';
 
 const UserActionBar: FC = () => {
   return (
@@ -326,7 +349,7 @@ const UserActionBar: FC = () => {
   );
 };
 
-const EditComposer: FC = () => {
+const EditComposer: FC = memo(() => {
   return (
     <div className="aui-edit-composer-wrapper mx-auto flex w-full max-w-[var(--thread-max-width)] flex-col gap-4 px-2 first:mt-4">
       <ComposerPrimitive.Root className="aui-edit-composer-root ml-auto flex w-full max-w-7/8 flex-col rounded-xl bg-muted">
@@ -350,7 +373,10 @@ const EditComposer: FC = () => {
       </ComposerPrimitive.Root>
     </div>
   );
-};
+});
+
+// Add display name for React DevTools
+EditComposer.displayName = 'EditComposer';
 
 const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
   className,

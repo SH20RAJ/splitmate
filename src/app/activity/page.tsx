@@ -92,7 +92,7 @@ const getActivityMessage = (activity: typeof mockActivities[0]) => {
 
 export default function ActivityPage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto p-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Recent Activity
@@ -112,15 +112,14 @@ export default function ActivityPage() {
                         {getActivityMessage(activity)}
                       </p>
                       {activity.amount && (
-                        <span className={`text-sm font-semibold ml-2 ${
-                          activity.type === "payment_received" 
-                            ? "text-green-600 dark:text-green-400" 
+                        <span className={`text-sm font-semibold ml-2 ${activity.type === "payment_received"
+                            ? "text-green-600 dark:text-green-400"
                             : activity.type === "payment_sent"
-                            ? "text-red-600 dark:text-red-400"
-                            : "text-gray-900 dark:text-white"
-                        }`}>
-                          {activity.type === "payment_received" ? "+" : 
-                           activity.type === "payment_sent" ? "-" : ""}
+                              ? "text-red-600 dark:text-red-400"
+                              : "text-gray-900 dark:text-white"
+                          }`}>
+                          {activity.type === "payment_received" ? "+" :
+                            activity.type === "payment_sent" ? "-" : ""}
                           ₹{activity.amount.toLocaleString()}
                         </span>
                       )}

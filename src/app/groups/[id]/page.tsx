@@ -30,7 +30,7 @@ export default function GroupDetailsPage({ params }: { params: { id: string } })
   const [activeTab, setActiveTab] = useState<"expenses" | "members">("expenses");
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="bg-white dark:bg-gray-800 p-4 border-b">
@@ -72,22 +72,20 @@ export default function GroupDetailsPage({ params }: { params: { id: string } })
         <div className="flex border-b bg-white dark:bg-gray-800">
           <button
             onClick={() => setActiveTab("expenses")}
-            className={`flex-1 py-3 px-4 text-sm font-medium ${
-              activeTab === "expenses"
+            className={`flex-1 py-3 px-4 text-sm font-medium ${activeTab === "expenses"
                 ? "text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-600 dark:text-gray-400"
-            }`}
+              }`}
           >
             <Receipt className="h-4 w-4 inline mr-2" />
             Expenses
           </button>
           <button
             onClick={() => setActiveTab("members")}
-            className={`flex-1 py-3 px-4 text-sm font-medium ${
-              activeTab === "members"
+            className={`flex-1 py-3 px-4 text-sm font-medium ${activeTab === "members"
                 ? "text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-600 dark:text-gray-400"
-            }`}
+              }`}
           >
             <Users className="h-4 w-4 inline mr-2" />
             Members
@@ -137,11 +135,10 @@ export default function GroupDetailsPage({ params }: { params: { id: string } })
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className={`font-semibold ${
-                          member.balance >= 0 
-                            ? "text-green-600 dark:text-green-400" 
+                        <p className={`font-semibold ${member.balance >= 0
+                            ? "text-green-600 dark:text-green-400"
                             : "text-red-600 dark:text-red-400"
-                        }`}>
+                          }`}>
                           {member.balance >= 0 ? "+" : ""}₹{Math.abs(member.balance)}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -181,14 +178,14 @@ export default function GroupDetailsPage({ params }: { params: { id: string } })
                   <option>Paid by Amit</option>
                 </select>
                 <div className="flex space-x-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="flex-1"
                     onClick={() => setShowAddExpense(false)}
                   >
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     className="flex-1"
                     onClick={() => {
                       setShowAddExpense(false);

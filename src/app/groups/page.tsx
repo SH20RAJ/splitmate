@@ -45,7 +45,7 @@ export default function GroupsPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Groups</h1>
@@ -75,11 +75,10 @@ export default function GroupsPage() {
                         {group.members} members
                       </p>
                       <div className="flex items-center justify-between mt-2">
-                        <span className={`text-sm font-medium ${
-                          group.totalBalance >= 0 
-                            ? "text-green-600 dark:text-green-400" 
+                        <span className={`text-sm font-medium ${group.totalBalance >= 0
+                            ? "text-green-600 dark:text-green-400"
                             : "text-red-600 dark:text-red-400"
-                        }`}>
+                          }`}>
                           {group.totalBalance >= 0 ? "+" : ""}₹{Math.abs(group.totalBalance)}
                         </span>
                         <span className="text-xs text-gray-500">
@@ -114,14 +113,14 @@ export default function GroupsPage() {
                   <option>Friends</option>
                 </select>
                 <div className="flex space-x-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="flex-1"
                     onClick={() => setShowCreateModal(false)}
                   >
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     className="flex-1"
                     onClick={() => {
                       setShowCreateModal(false);

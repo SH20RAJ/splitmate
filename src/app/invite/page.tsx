@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Share, 
-  Mail, 
-  MessageCircle, 
-  Copy, 
+import {
+  Share,
+  Mail,
+  MessageCircle,
+  Copy,
   Users,
   Gift,
   Check
@@ -65,7 +65,7 @@ export default function InvitePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
+    <div className="min-h-screen nm pb-20">
       <div className="max-w-md mx-auto p-4">
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -162,7 +162,7 @@ export default function InvitePage() {
               onChange={(e) => setInviteEmails(e.target.value)}
               className="w-full p-3 border rounded-lg h-24 resize-none"
             />
-            <Button 
+            <Button
               onClick={handleSendEmails}
               className="w-full"
               disabled={!inviteEmails.trim() || emailSent}
@@ -200,11 +200,10 @@ export default function InvitePage() {
                     <p className="text-sm text-gray-600 dark:text-gray-400">{invite.email}</p>
                   </div>
                   <div className="text-right">
-                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                      invite.status === "Joined" 
+                    <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${invite.status === "Joined"
                         ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
                         : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400"
-                    }`}>
+                      }`}>
                       {invite.status}
                     </span>
                     <p className="text-xs text-gray-500 mt-1">{invite.date}</p>
