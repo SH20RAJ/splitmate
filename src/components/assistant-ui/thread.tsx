@@ -122,12 +122,12 @@ const ThreadWelcomeSuggestions: FC = () => {
     {
       title: "Split a dinner bill",
       label: "of ₹1200 with 4 friends",
-      action: "I paid ₹1200 for dinner at Domino's with 3 friends yesterday. How much does each person owe me? Can you help me track who has paid and send payment reminders?",
+      action: "I paid ₹1200 for dinner at Domino's with Rahul, Priya, and Arjun yesterday. How much does each person owe me? Can you help me track who has paid and send payment reminders?",
     },
     {
       title: "Add a group expense",
       label: "for our trip to Goa",
-      action: "Help me add a group expense of ₹5000 for hotel booking for our 3-day Goa trip with 6 friends. Split it equally and track individual contributions.",
+      action: "Help me add a group expense of ₹5000 for hotel booking for our 3-day Goa trip with Aditya, Kavya, Rohan, Sneha, Vikram, and Meera. Split it equally and track individual contributions.",
     },
     {
       title: "Track monthly expenses",
@@ -137,7 +137,7 @@ const ThreadWelcomeSuggestions: FC = () => {
     {
       title: "Settle group balances",
       label: "with friends efficiently",
-      action: "I owe different amounts to different friends from various shared expenses. Help me calculate the optimal way to settle all balances with minimum transactions.",
+      action: "I owe different amounts to Rahul, Priya, and Arjun from various shared expenses. Help me calculate the optimal way to settle all balances with minimum transactions.",
     },
     {
       title: "Create expense budget",
@@ -147,12 +147,12 @@ const ThreadWelcomeSuggestions: FC = () => {
     {
       title: "Import restaurant bill",
       label: "from UPI payment screenshot",
-      action: "I have a screenshot of my Google Pay payment for ₹850 at Starbucks with 2 friends. Can you extract the details and help me split this bill equally?",
+      action: "I have a screenshot of my Google Pay payment for ₹850 at Starbucks with Kavya and Rohan. Can you extract the details and help me split this bill equally?",
     },
     {
       title: "Plan trip expenses",
       label: "for upcoming vacation",
-      action: "We're planning a 4-day trip to Manali with 5 friends. Help me create expense categories (accommodation, food, activities, transport) and set a budget of ₹8000 per person.",
+      action: "We're planning a 4-day trip to Manali with Aditya, Sneha, Vikram, Meera, and Arjun. Help me create expense categories (accommodation, food, activities, transport) and set a budget of ₹8000 per person.",
     },
     {
       title: "Roommate bill splitting",
@@ -162,22 +162,22 @@ const ThreadWelcomeSuggestions: FC = () => {
     {
       title: "Track lending money",
       label: "to friends and family",
-      action: "I lent ₹2000 to my friend Rahul last week and ₹1500 to my sister this month. Help me keep track of these personal loans and set payment reminders.",
+      action: "I lent ₹2000 to my friend Rahul last week and ₹1500 to my sister Priya this month. Help me keep track of these personal loans and set payment reminders.",
     },
     {
       title: "Analyze group spending",
       label: "for office lunch expenses",
-      action: "Our office team of 8 people regularly orders lunch together. Show me our spending pattern over the last 3 months and suggest ways to optimize costs.",
+      action: "Our office team with Aditya, Kavya, Rohan, Sneha, Vikram, Meera, Arjun, and me regularly orders lunch together. Show me our spending pattern over the last 3 months and suggest ways to optimize costs.",
     },
     {
       title: "Split shopping bills",
       label: "from grocery store",
-      action: "I bought groceries worth ₹3200 from BigBasket. Some items are shared (₹2000) and some are personal (₹1200). Help me split only the shared items with my roommates.",
+      action: "I bought groceries worth ₹3200 from BigBasket. Some items are shared (₹2000) and some are personal (₹1200). Help me split only the shared items with my roommates Asra and Rehan.",
     },
     {
       title: "Manage wedding expenses",
       label: "with family members",
-      action: "We're organizing my cousin's wedding with a budget of ₹5 lakhs. Help me track expenses across different categories (venue, catering, decorations, photography) and split costs among family members.",
+      action: "We're organizing my cousin's wedding with a budget of ₹5 lakhs. Help me track expenses across different categories (venue, catering, decorations, photography) and split costs among family members - Uncle Rajesh, Aunt Sunita, cousin Ankit, and my parents.",
     }
   ];
 
