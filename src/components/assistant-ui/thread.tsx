@@ -87,7 +87,7 @@ const ThreadWelcome: FC = () => {
               exit={{ opacity: 0, y: 10 }}
               className="aui-thread-welcome-message-motion-1 text-2xl font-semibold"
             >
-              Hello there!
+              Welcome to SplitMate AI!
             </m.div>
             <m.div
               initial={{ opacity: 0, y: 10 }}
@@ -96,7 +96,7 @@ const ThreadWelcome: FC = () => {
               transition={{ delay: 0.1 }}
               className="aui-thread-welcome-message-motion-2 text-2xl text-muted-foreground/65"
             >
-              How can I help you today?
+              I&apos;ll help you split expenses and manage group bills effortlessly.
             </m.div>
           </div>
         </div>
@@ -110,14 +110,14 @@ const ThreadWelcomeSuggestions: FC = () => {
     <div className="aui-thread-welcome-suggestions grid w-full gap-2 @md:grid-cols-2">
       {[
         {
-          title: "What's the weather",
-          label: "in San Francisco?",
-          action: "What's the weather in San Francisco?",
+          title: "Split a dinner bill",
+          label: "of ₹1200 with 4 friends",
+          action: "I paid ₹1200 for dinner with 3 friends. How much does each person owe me?",
         },
         {
-          title: "Help me write an essay",
-          label: `about AI chat applications`,
-          action: `Help me write an essay about AI chat applications`,
+          title: "Add a group expense",
+          label: "for our trip to Goa",
+          action: "Help me add a group expense for our trip to Goa and split it equally among everyone.",
         },
       ].map((suggestedAction, index) => (
         <m.div
