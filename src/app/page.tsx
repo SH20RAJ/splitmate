@@ -67,6 +67,8 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen mx-auto text-center bg-gradient-to-br from-background via-background to-muted/20">
+     
+      <div className="fixed top-0 left-0 w-full flex justify-center items-center  z-50">
       <Navbar1 
       logo={{
         url: "/dashboard",
@@ -74,7 +76,7 @@ export default function AboutPage() {
         alt: "SplitMate Logo",
         title: "SplitMate"
       }}
-      />
+      /></div>
 
       <HeroSection
       title="Split Expenses Smartly"
@@ -191,7 +193,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="border-t border-border mx-auto text-center bg-muted/30">
+      <div className="border-t border-border mx-auto flex justify-center items-center text-center bg-muted/30">
       <div className="container py-16">
         <div className="mx-auto max-w-3xl text-center">
         <h2 className="mb-4 text-3xl font-bold tracking-tight">

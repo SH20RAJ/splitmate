@@ -53,17 +53,15 @@ const Navbar1 = ({
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center justify-between lg:justify-between">
         {/* Logo */}
-        <Link href={logo.url} className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
-            <span className="text-lg font-bold text-primary-foreground">₹</span>
-          </div>
+        <Link href={logo.url} className="flex items-center gap-2 lg:flex-shrink-0">
+          <img src="/logo.png" alt={logo.alt} className="h-8 w-8" />
           <span className="text-xl font-bold">{logo.title}</span>
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-6">
+        {/* Desktop Menu - Centered */}
+        <div className="hidden lg:flex items-center gap-6 absolute left-1/2 transform -translate-x-1/2">
           <div className="flex items-center gap-4">
             {menu.map((item, index) => (
               <Link
@@ -78,7 +76,7 @@ const Navbar1 = ({
         </div>
 
         {/* Auth Buttons */}
-        <div className="hidden lg:flex gap-2">
+        <div className="hidden lg:flex gap-2 flex-shrink-0">
           <Button asChild variant="outline" size="sm">
             <Link href={auth.login.url}>{auth.login.text}</Link>
           </Button>
