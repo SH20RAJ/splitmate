@@ -9,6 +9,7 @@ import { ExpenseContributionGraph } from "@/components/expense-contribution-grap
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import WrapButton from "@/components/ui/wrap-button"
+import NumberTicker from "@/components/magicui/number-ticker"
 import { 
   PlusIcon, 
   UsersIcon, 
@@ -63,6 +64,10 @@ const mockData = {
   netBalance: 850,
   monthlyExpenses: 12450,
   activeGroups: 3,
+  totalExpenses: 156,
+  avgExpenseAmount: 780,
+  settlementRate: 92,
+  friendsConnected: 18,
   recentExpenses: [
     {
       id: "1",
@@ -105,7 +110,9 @@ export default function DashboardPage() {
                       <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-green-600">₹{mockData.netBalance.toLocaleString()}</div>
+                      <div className="text-2xl font-bold text-green-600">
+                        ₹<NumberTicker value={mockData.netBalance} className="font-bold" />
+                      </div>
                       <p className="text-xs text-muted-foreground">You are owed overall</p>
                     </CardContent>
                   </Card>
@@ -116,7 +123,9 @@ export default function DashboardPage() {
                       <TrendingUpIcon className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">₹{mockData.monthlyExpenses.toLocaleString()}</div>
+                      <div className="text-2xl font-bold">
+                        ₹<NumberTicker value={mockData.monthlyExpenses} className="font-bold" />
+                      </div>
                       <p className="text-xs text-muted-foreground">This month</p>
                     </CardContent>
                   </Card>
@@ -127,7 +136,9 @@ export default function DashboardPage() {
                       <UsersIcon className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold">{mockData.activeGroups}</div>
+                      <div className="text-2xl font-bold">
+                        <NumberTicker value={mockData.activeGroups} className="font-bold" />
+                      </div>
                       <p className="text-xs text-muted-foreground">Groups you&apos;re part of</p>
                     </CardContent>
                   </Card>
@@ -143,6 +154,47 @@ export default function DashboardPage() {
                           Add Expense
                         </Button>
                       </Link>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Additional Stats with NumberTicker */}
+              <div className="px-4 lg:px-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Card className="text-center">
+                    <CardContent className="pt-6">
+                      <div className="text-3xl font-bold text-blue-600">
+                        <NumberTicker value={mockData.totalExpenses} className="font-bold" />
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">Total Expenses</p>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="text-center">
+                    <CardContent className="pt-6">
+                      <div className="text-3xl font-bold text-purple-600">
+                        ₹<NumberTicker value={mockData.avgExpenseAmount} className="font-bold" />
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">Avg. Amount</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="text-center">
+                    <CardContent className="pt-6">
+                      <div className="text-3xl font-bold text-green-600">
+                        <NumberTicker value={mockData.settlementRate} className="font-bold" />%
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">Settlement Rate</p>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="text-center">
+                    <CardContent className="pt-6">
+                      <div className="text-3xl font-bold text-orange-600">
+                        <NumberTicker value={mockData.friendsConnected} className="font-bold" />
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-1">Friends Connected</p>
                     </CardContent>
                   </Card>
                 </div>

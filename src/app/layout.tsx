@@ -1,3 +1,4 @@
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 import type { Metadata } from 'next'
 import "./globals.css";
 import { AppHeaderWrapper } from "@/components/app-header-wrapper";
@@ -102,6 +103,8 @@ export default function RootLayout({
               </main>
             </div>
           </ThemeProvider>
+          <SmoothCursor />
+
         </StackProviderClient>
       </body>
     </html>
