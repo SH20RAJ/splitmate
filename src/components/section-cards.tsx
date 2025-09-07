@@ -58,7 +58,7 @@ export function SectionCards() {
             Growing social circle <IconTrendingUp className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            Groups you're actively splitting with
+            Groups you&apos;re actively splitting with
           </div>
         </CardFooter>
       </Card>

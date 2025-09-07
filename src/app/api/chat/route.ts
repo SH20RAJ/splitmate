@@ -11,6 +11,8 @@ import {
   searchExpenses,
   getTopExpenses
 } from "@/lib/tools";
+import { extractEmail } from "@/lib/email-detect";
+import { sendNotificationEmail } from "@/lib/email";
 
 export const runtime = 'edge';
 export const maxDuration = 30;
@@ -22,6 +24,21 @@ export async function POST(req: Request) {
     system?: string; 
     tools?: Record<string, unknown>; 
   };
+
+  // Check for email in the latest user message and send notification if found
+  const lastUserMessage = Array.isArray(messages) ? messages.slice().reverse().find((m: any) => m.role === 'user' && typeof m.content === 'string') : null;
+  if (lastUserMessage) {
+    const email = extractEmail((lastUserMessage as any).content);
+    if (email) {
+      // Send notification email (fire and forget)
+      sendNotificationEmail({
+        to: email,
+        subject: "SplitMate Notification",
+        text: "You have a new notification from SplitMate!",
+        html: `<p>You have a new notification from <b>SplitMate</b>!</p>`
+      }).catch(() => {});
+    }
+  }
 
   const result = streamText({
     model: openai("gpt-4o"),

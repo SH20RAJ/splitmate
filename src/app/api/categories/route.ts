@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { CategoryController } from '@/controllers/CategoryController';
 import { connectToDatabase } from '@/db/mongodb';
 
-export const runtime = 'edge';
-
 // GET /api/categories - Get all categories
 export async function GET(request: NextRequest) {
   try {
