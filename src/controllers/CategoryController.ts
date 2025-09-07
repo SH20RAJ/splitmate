@@ -7,6 +7,9 @@ export class CategoryController {
     name: string;
     icon?: string;
     color: string;
+    description?: string;
+    keywords?: string[];
+    parentCategory?: string;
     isDefault: boolean;
   }) {
     try {
@@ -153,6 +156,159 @@ export class CategoryController {
       return { message: 'Default categories already exist' };
     } catch (error) {
       console.error('Error seeding default categories:', error);
+      throw error;
+    }
+  }
+
+  // Get category by name
+  static async getCategoryByName(name: string) {
+    try {
+      const category = await Category.findOne({ 
+        name: { $regex: new RegExp(`^${name}$`, 'i') } 
+      }).select('-__v');
+      
+      return category;
+    } catch (error) {
+      console.error('Error fetching category by name:', error);
+      throw error;
+    }
+  }
+
+  // Get categories with usage statistics
+  static async getCategoriesWithUsage(userId: string, timeframe: string = '30d') {
+    try {
+      // Import Expense model dynamically to avoid circular dependencies
+      const { default: Expense } = await import('../models/Expense');
+      
+      // Calculate date range based on timeframe
+      const now = new Date();
+      const startDate = new Date();
+      
+      switch (timeframe) {
+        case '7d':
+          startDate.setDate(now.getDate() - 7);
+          break;
+        case '30d':
+          startDate.setDate(now.getDate() - 30);
+          break;
+        case '90d':
+          startDate.setDate(now.getDate() - 90);
+          break;
+        case '1y':
+          startDate.setFullYear(now.getFullYear() - 1);
+          break;
+        default:
+          startDate.setDate(now.getDate() - 30);
+      }
+
+      // Get all categories
+      const categories = await Category.find().select('-__v');
+      
+      // Get expense usage statistics
+      const usageStats = await Expense.aggregate([
+        {
+          $match: {
+            userId: new Types.ObjectId(userId),
+            createdAt: { $gte: startDate }
+          }
+        },
+        {
+          $group: {
+            _id: '$category',
+            count: { $sum: 1 },
+            totalAmount: { $sum: '$amount' },
+            avgAmount: { $avg: '$amount' }
+          }
+        }
+      ]);
+
+      // Combine categories with usage stats
+      const categoriesWithUsage = categories.map(category => {
+        const usage = usageStats.find(stat => 
+          stat._id && stat._id.toString() === category._id.toString()
+        );
+        
+        return {
+          ...category.toObject(),
+          usage: {
+            count: usage?.count || 0,
+            totalAmount: usage?.totalAmount || 0,
+            avgAmount: usage?.avgAmount || 0
+          }
+        };
+      });
+
+      // Sort by usage count (most used first)
+      categoriesWithUsage.sort((a, b) => (b.usage.count || 0) - (a.usage.count || 0));
+      
+      return categoriesWithUsage;
+    } catch (error) {
+      console.error('Error fetching categories with usage:', error);
+      throw error;
+    }
+  }
+
+  // Delete multiple categories
+  static async deleteCategories(categoryIds: string[]) {
+    try {
+      const validIds = categoryIds.filter(id => Types.ObjectId.isValid(id));
+      
+      if (validIds.length === 0) {
+        throw new Error('No valid category IDs provided');
+      }
+      
+      const result = await Category.deleteMany({
+        _id: { $in: validIds },
+        isDefault: false // Don't allow deletion of default categories
+      });
+      
+      return result.deletedCount;
+    } catch (error) {
+      console.error('Error deleting categories:', error);
+      throw error;
+    }
+  }
+
+  // Check if categories are being used in expenses
+  static async checkCategoriesInUse(categoryIds: string[]) {
+    try {
+      // Import Expense model dynamically to avoid circular dependencies
+      const { default: Expense } = await import('../models/Expense');
+      
+      const validIds = categoryIds.filter(id => Types.ObjectId.isValid(id));
+      
+      const categoriesInUse = await Expense.aggregate([
+        {
+          $match: {
+            category: { $in: validIds.map(id => new Types.ObjectId(id)) }
+          }
+        },
+        {
+          $group: {
+            _id: '$category',
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $lookup: {
+            from: 'categories',
+            localField: '_id',
+            foreignField: '_id',
+            as: 'categoryInfo'
+          }
+        },
+        {
+          $project: {
+            categoryId: '$_id',
+            name: { $arrayElemAt: ['$categoryInfo.name', 0] },
+            expenseCount: '$count'
+          }
+        }
+      ]);
+      
+      return categoriesInUse;
+    } catch (error) {
+      console.error('Error checking categories in use:', error);
       throw error;
     }
   }

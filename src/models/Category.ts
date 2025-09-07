@@ -4,7 +4,11 @@ export interface ICategory extends Document {
   name: string;
   icon?: string;
   color: string;
+  description?: string;
+  keywords?: string[];
+  parentCategory?: string;
   isDefault: boolean;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,10 +30,27 @@ const CategorySchema = new Schema<ICategory>(
       required: true,
       default: '#6366f1',
     },
+    description: {
+      type: String,
+      trim: true,
+    },
+    keywords: {
+      type: [String],
+      default: [],
+    },
+    parentCategory: {
+      type: String,
+      trim: true,
+    },
     isDefault: {
       type: Boolean,
       required: true,
       default: false,
+    },
+    isActive: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
   {
@@ -40,5 +61,8 @@ const CategorySchema = new Schema<ICategory>(
 // Indexes
 CategorySchema.index({ name: 1 });
 CategorySchema.index({ isDefault: 1 });
+CategorySchema.index({ isActive: 1 });
+CategorySchema.index({ parentCategory: 1 });
+CategorySchema.index({ keywords: 1 });
 
 export default model<ICategory>('Category', CategorySchema);
