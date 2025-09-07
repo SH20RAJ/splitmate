@@ -40,7 +40,7 @@ export const Assistant = () => {
       <CategorizeExpenseToolUI />
       <CheckBudgetToolUI />
       <GetTopExpensesToolUI />
-      <div className=" px-4 py-4">
+      <div className=" px-4 py-4 min-h-screen">
         {/* <ThreadList /> */}
         <Thread />
       </div>

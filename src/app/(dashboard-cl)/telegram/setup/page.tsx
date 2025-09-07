@@ -182,7 +182,34 @@ export default function TelegramSetupPage() {
             </CardContent>
           </Card>
         </div>
-
+        {/* Quick Access */}
+        <div className="px-4 lg:px-6">
+          <Card className="border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-950/20">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+          <Image 
+            src="/bot.png" 
+            alt="Telegram Bot QR Code" 
+            width={80} 
+            height={80}
+            className="rounded-lg border"
+          />
+          <div className="flex-1">
+            <h3 className="font-semibold text-green-900 dark:text-green-100 mb-1">
+              Quick Access
+            </h3>
+            <p className="text-sm text-green-700 dark:text-green-300 mb-3">
+              Scan the QR code or click the button to start using the Telegram bot
+            </p>
+            <Button className="bg-green-600 hover:bg-green-700">
+              <Send className="h-4 w-4 mr-2" />
+              Start Bot Now
+            </Button>
+          </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
         {/* Setup Guide */}
         <div className="px-4 lg:px-6">
           <Card>

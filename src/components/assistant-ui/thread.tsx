@@ -35,21 +35,23 @@ import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import * as m from "motion/react-m";
 import { ExpenseSplitToolUI } from "@/components/tool-ui/expense-split-tool";
 import { ExpenseAnalyticsToolUI } from "@/components/tool-ui/expense-analytics-ui";
-import {
-  ExpenseParserTool,
-  CategorizationTool,
-  BudgetAlertTool,
-  InsightsGeneratorTool,
-  SettlementTool,
-  ExpenseSearchTool,
-} from "@/components/tools/conversational-tools";
+import { AddExpenseToolUI } from "@/components/tools/expense-tools-ui";
+// Removed simple tool imports to let them render as markdown text
+// import {
+//   ExpenseParserTool,
+//   CategorizationTool,
+//   BudgetAlertTool,
+//   InsightsGeneratorTool,
+//   SettlementTool,
+//   ExpenseSearchTool,
+// } from "@/components/tools/conversational-tools";
 
 export const Thread: FC = () => {
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user">
         <ThreadPrimitive.Root
-          className="aui-root * border-border outline-ring/50 aui-thread-root @container flex h-full flex-col bg-background"
+          className="aui-root h-[90vh] * border-border outline-ring/50 aui-thread-root @container flex flex-col bg-background"
           style={{
             ["--thread-max-width" as string]: "44rem",
           }}
@@ -351,12 +353,14 @@ const AssistantMessage: FC = memo(() => {
                 by_name: {
                   splitExpense: ExpenseSplitToolUI,
                   analyzeExpenses: ExpenseAnalyticsToolUI,
-                  parseExpense: ExpenseParserTool,
-                  categorizeExpense: CategorizationTool,
-                  checkBudget: BudgetAlertTool,
-                  generateInsights: InsightsGeneratorTool,
-                  calculateSettlement: SettlementTool,
-                  searchExpenses: ExpenseSearchTool,
+                  addExpense: AddExpenseToolUI,
+                  // Remove simple text-based tools to let them render as markdown text
+                  // parseExpense: ExpenseParserTool,
+                  // categorizeExpense: CategorizationTool,
+                  // checkBudget: BudgetAlertTool,
+                  // generateInsights: InsightsGeneratorTool,
+                  // calculateSettlement: SettlementTool,
+                  // searchExpenses: ExpenseSearchTool,
                 },
                 Fallback: ToolFallback 
               },

@@ -14,19 +14,19 @@ const supportedApps = [
   {
     id: 'swiggy',
     name: 'Swiggy',
-    icon: '🍔',
+    icon: "https://pnghdpro.com/wp-content/themes/pnghdpro/download/social-media-and-brands/swiggy-logo-app-icon.png",
     color: 'bg-orange-500',
   },
   {
     id: 'zomato',
     name: 'Zomato',
-    icon: '🍽️',
+    icon: 'https://cdn.brandfetch.io/idEql8nEWn/w/2048/h/2048/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1724311594781',
     color: 'bg-red-500',
   },
   {
     id: 'instamart',
     name: 'Instamart',
-    icon: '🛒',
+    icon: 'https://pnghdpro.com/wp-content/themes/pnghdpro/download/social-media-and-brands/swiggy-instamart-logo-app-icon.png',
     color: 'bg-purple-500',
   },
 ]
@@ -71,7 +71,7 @@ export default function AutoFetchPage() {
               <div key={app.id} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 ${app.color} rounded-full flex items-center justify-center text-white text-xl`}>
-                    {app.icon}
+                    <img src={app.icon} alt={app.name} className="w-6 h-6 object-contain" />
                   </div>
                   <span className="font-medium text-gray-800">{app.name}</span>
                 </div>

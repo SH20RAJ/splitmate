@@ -4,15 +4,18 @@
 export interface ExpenseParseResult {
   amount: number;
   description: string;
-  participants: string[];
-  date: string;
   category: string;
-  confidence: number;
 }
 
 export interface AnalyticsResult {
-  message: string; // Simple text response
-  data?: Record<string, unknown>; // Optional data for internal use
+  answer: string;
+  data: {
+    currentMonth: number;
+    previousMonth: number;
+    change: number;
+    trend: string;
+  };
+  insights: string[];
 }
 
 export interface CategoryResult {
@@ -28,7 +31,7 @@ export interface SplitResult {
 }
 
 // Helper functions for mock implementations
-export async function parseExpenseFromText(input: string): Promise<string> {
+export async function parseExpenseFromText(input: string): Promise<ExpenseParseResult> {
   // Extract amount and description from input
   const amountMatch = input.match(/₹?(\d+(?:\.\d+)?)/);
   const amount = amountMatch ? parseFloat(amountMatch[1]) : 100;
@@ -36,44 +39,48 @@ export async function parseExpenseFromText(input: string): Promise<string> {
   // Simple category detection
   let category = "Other";
   if (input.toLowerCase().includes("food") || input.toLowerCase().includes("pizza") || input.toLowerCase().includes("dinner") || input.toLowerCase().includes("lunch")) {
-    category = "Food > Dining";
+    category = "Food & Dining";
   } else if (input.toLowerCase().includes("uber") || input.toLowerCase().includes("transport") || input.toLowerCase().includes("taxi")) {
-    category = "Transport";
+    category = "Transportation";
   } else if (input.toLowerCase().includes("movie") || input.toLowerCase().includes("entertainment")) {
     category = "Entertainment";
+  } else if (input.toLowerCase().includes("shopping") || input.toLowerCase().includes("amazon") || input.toLowerCase().includes("clothes")) {
+    category = "Shopping";
   }
   
-  // Get current date or extract date
-  const today = new Date();
-  let dateStr = "today";
-  if (input.toLowerCase().includes("yesterday")) {
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    dateStr = yesterday.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  } else if (input.toLowerCase().includes("today")) {
-    dateStr = "today";
-  }
+  // Extract description (remove amount and clean up)
+  let description = input.replace(/₹?\d+(?:\.\d+)?/, '').replace(/for\s+/i, '').trim();
+  if (!description) description = "Expense";
   
-  return `Got it! Added ₹${amount} to *${category}* on ${dateStr}.`;
+  // Return structured data that matches the UI component expectations
+  return {
+    amount: amount,
+    description: description,
+    category: category
+  };
 }
 
-export async function processAnalyticsQuery(query: string, timeframe?: string, category?: string): Promise<string> {
-  // Simple analytics responses based on query type
-  if (query.toLowerCase().includes("top") && query.toLowerCase().includes("expense")) {
-    return "Here are your top 3 expenses this week:\n1. **Rent** – ₹5,000\n2. **Food** – ₹2,300\n3. **Transport** – ₹1,200";
-  }
+export async function processAnalyticsQuery(query: string, timeframe?: string, category?: string): Promise<AnalyticsResult> {
+  const currentMonth = 4200;
+  const previousMonth = 4800;
+  const change = ((currentMonth - previousMonth) / previousMonth) * 100;
   
-  if (query.toLowerCase().includes("total") || query.toLowerCase().includes("spend")) {
-    const period = timeframe || "month";
-    const cat = category || "food";
-    return `You spent ₹2,450 on ${cat} this ${period}, which is 15% less than last ${period}.`;
-  }
-  
-  if (query.toLowerCase().includes("budget")) {
-    return "You're at 78% of your monthly budget (₹3,900 of ₹5,000). You have ₹1,100 remaining.";
-  }
-  
-  return `Based on your ${timeframe || "monthly"} spending: You've been doing great with budgeting! Your ${category || "overall"} expenses are well within limits.`;
+  // Return structured data that matches the UI component expectations
+  return {
+    answer: `Based on your ${timeframe || "monthly"} spending analysis: You spent ₹${currentMonth.toLocaleString()} this ${timeframe || "month"}, which is ${Math.abs(change).toFixed(1)}% ${change < 0 ? 'less' : 'more'} than last ${timeframe || "month"}.`,
+    data: {
+      currentMonth: currentMonth,
+      previousMonth: previousMonth,
+      change: change,
+      trend: change < 0 ? "decreasing" : "increasing"
+    },
+    insights: [
+      "Your spending has decreased compared to last month",
+      "Food expenses account for 40% of your total spending",
+      "Transportation costs have been optimized well",
+      "Weekend spending is 25% higher than weekdays"
+    ]
+  };
 }
 
 export async function categorizeExpense(description: string, amount?: number, merchant?: string): Promise<string> {
