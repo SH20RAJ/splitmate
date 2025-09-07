@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/magicui/marquee";
+import Image from 'next/image';
 
 interface Project {
   name: string;
@@ -37,10 +38,12 @@ const ReviewCard = ({
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-col">
             <div className="flex items-start gap-2">
-              <img
+              <Image
                 src={`/og.png`}
                 alt={name}
-                className="w-8 h-8 rounded-lg object-cover shadow"
+                width={32}
+                height={32}
+                className="rounded-lg object-cover shadow"
               />
               <figcaption className="text-lg font-medium dark:text-white">
                 {name}

@@ -12,12 +12,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { 
-  Users, 
-  Plus, 
-  X, 
-  Upload, 
-  Camera, 
+import {
+  Users,
+  Plus,
+  X,
+  Upload,
+  Camera,
   ArrowLeft,
   UserPlus,
   Mail,
@@ -27,6 +27,7 @@ import {
   Eye,
   EyeOff
 } from "lucide-react"
+import Image from 'next/image'
 
 const groupTemplates = [
   {
@@ -287,7 +288,7 @@ export default function CreateGroupPage() {
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
                       {groupData.image ? (
-                        <img src={groupData.image} alt="Group" className="w-16 h-16 rounded-full object-cover" />
+                        <Image src={groupData.image} alt="Group" width={64} height={64} className="rounded-full object-cover" />
                       ) : (
                         <Users className="h-8 w-8 text-muted-foreground" />
                       )}

@@ -11,6 +11,7 @@ import {
   ArrowRightIcon,
   ShareIcon
 } from "lucide-react";
+import Image from 'next/image';
 
 // Split Expense Tool UI
 export const SplitExpenseToolUI = makeAssistantToolUI<
@@ -153,24 +154,26 @@ export const SplitExpenseToolUI = makeAssistantToolUI<
                     </button>
                     <button
                       onClick={() => handleWhatsAppShare(participant, shareAmount)}
-                      className="p-1 rounded-full bg-green-100 hover:bg-green-200 text-green-600"
+                      className="p-1 rounded-full bg-green-10 hover:bg-green-200 text-green-600"
                       title="Share via WhatsApp"
                     >
-                      <img
+                      <Image
                         src="https://www.svgrepo.com/show/475692/whatsapp-color.svg"
                         alt="WhatsApp"
-                        className="h-4 w-4"
+                        width={16}
+                        height={16}
                       />
                     </button>
                     <button
                       onClick={() => handleTelegramShare(participant, shareAmount)}
-                      className="p-1 rounded-full bg-blue-400 hover:bg-blue-500 text-white"
+                      className="p-1 rounded-full bg-blue-40 hover:bg-blue-500 text-white"
                       title="Share via Telegram"
                     >
-                      <img
+                      <Image
                         src="https://www.svgrepo.com/show/354443/telegram.svg"
                         alt="Telegram"
-                        className="h-4 w-4"
+                        width={16}
+                        height={16}
                       />
                     </button>
                   </div>

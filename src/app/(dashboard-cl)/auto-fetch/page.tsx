@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, HelpCircle } from "lucide-react"
+import Image from 'next/image'
 
 export const runtime = 'edge'
 
@@ -71,7 +72,7 @@ export default function AutoFetchPage() {
               <div key={app.id} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 ${app.color} rounded-full flex items-center justify-center text-white text-xl`}>
-                    <img src={app.icon} alt={app.name} className="w-6 h-6 object-contain" />
+                    <Image src={app.icon} alt={app.name} width={24} height={24} className="object-contain" />
                   </div>
                   <span className="font-medium text-gray-800">{app.name}</span>
                 </div>

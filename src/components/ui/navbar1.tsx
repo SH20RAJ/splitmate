@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import Image from 'next/image';
 
 interface MenuItem {
   title: string;
@@ -12,22 +13,22 @@ interface MenuItem {
 
 interface Navbar1Props {
  logo?: {
-    url: string;
-    src?: string;
-    alt?: string;
-    title: string;
-  };
-  menu?: MenuItem[];
-  auth?: {
-    login: {
-      text: string;
-      url: string;
-    };
-    signup: {
-      text: string;
-      url: string;
-    };
-  };
+   url: string;
+   src: string;
+   alt: string;
+   title: string;
+ };
+ menu?: MenuItem[];
+ auth?: {
+   login: {
+     text: string;
+     url: string;
+   };
+   signup: {
+     text: string;
+     url: string;
+   };
+ };
 }
 
 const Navbar1 = ({
@@ -52,11 +53,11 @@ const Navbar1 = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 pl-5 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between lg:justify-between">
         {/* Logo */}
         <Link href={logo.url} className="flex items-center gap-2 lg:flex-shrink-0">
-          <img src="/logo.png" alt={logo.alt} className="h-8 w-8" />
+          <Image src={logo.src || "/logo.png"} alt={logo.alt || "Logo"} width={32} height={32} />
           <span className="text-xl font-bold">{logo.title}</span>
         </Link>
 

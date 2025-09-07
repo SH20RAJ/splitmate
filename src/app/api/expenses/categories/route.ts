@@ -1,40 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CategoryController } from '@/controllers/CategoryController';
-import { connectToDatabase } from '@/db/mongodb';
+import { CategoryDrizzleService } from '@/services/category.drizzle.service';
+import { NewCategory } from '@/db/schema';
+
+export const runtime = 'nodejs';
 
 // GET /api/expenses/categories - Get categories related to expenses
 export async function GET(request: NextRequest) {
   try {
-    await connectToDatabase();
-    
-    const url = new URL(request.url);
-    const searchParams = url.searchParams;
-    
-    // Optional query parameters
-    const includeUsage = searchParams.get('includeUsage') === 'true';
-    const userId = searchParams.get('userId');
-    const timeframe = searchParams.get('timeframe') || '30d'; // 7d, 30d, 90d, 1y
-    
-    let categories;
-    
-    if (includeUsage && userId) {
-      // Get categories with expense usage statistics
-      categories = await CategoryController.getCategoriesWithUsage(userId, timeframe);
-    } else {
-      // Get all categories (default behavior)
-      categories = await CategoryController.getAllCategories();
-    }
-    
-    return NextResponse.json({ 
-      success: true, 
-      data: categories,
-      meta: {
-        includeUsage,
-        timeframe: includeUsage ? timeframe : null,
-        count: categories.length
-      }
+    const categories = await CategoryDrizzleService.getAllCategories();
+    return NextResponse.json({
+      success: true,
+      data: categories
     });
-    
   } catch (error) {
     console.error('Error fetching expense categories:', error);
     return NextResponse.json(
@@ -47,60 +24,21 @@ export async function GET(request: NextRequest) {
 // POST /api/expenses/categories - Create new expense category
 export async function POST(request: NextRequest) {
   try {
-    await connectToDatabase();
+    const body = await request.json() as NewCategory;
     
-    const body = await request.json() as {
-      name: string;
-      icon?: string;
-      color?: string;
-      description?: string;
-      keywords?: string[];
-      parentCategory?: string;
-      isDefault?: boolean;
-    };
-    
-    const { 
-      name, 
-      icon, 
-      color = '#6366f1', 
-      description,
-      keywords = [],
-      parentCategory,
-      isDefault = false 
-    } = body;
-    
-    if (!name) {
+    // Validate required fields
+    if (!body.name || !body.color) {
       return NextResponse.json(
-        { error: 'Category name is required' },
+        { error: 'Name and color are required fields' },
         { status: 400 }
       );
     }
     
-    // Check if category already exists
-    const existingCategory = await CategoryController.getCategoryByName(name);
-    if (existingCategory) {
-      return NextResponse.json(
-        { error: 'Category already exists' },
-        { status: 409 }
-      );
-    }
-    
-    const category = await CategoryController.createCategory({
-      name,
-      icon,
-      color,
-      description,
-      keywords,
-      parentCategory,
-      isDefault
-    });
-    
-    return NextResponse.json({ 
-      success: true, 
-      data: category,
-      message: 'Expense category created successfully'
+    const category = await CategoryDrizzleService.createCategory(body);
+    return NextResponse.json({
+      success: true,
+      data: category
     }, { status: 201 });
-    
   } catch (error) {
     console.error('Error creating expense category:', error);
     return NextResponse.json(
@@ -110,51 +48,31 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT /api/expenses/categories - Bulk update categories
+// PUT /api/expenses/categories/[id] - Update a specific category
 export async function PUT(request: NextRequest) {
   try {
-    await connectToDatabase();
+    const url = new URL(request.url);
+    const pathParts = url.pathname.split('/');
+    const id = pathParts[pathParts.length - 1];
     
-    const body = await request.json() as {
-      categories: Array<{
-        id: string;
-        name?: string;
-        icon?: string;
-        color?: string;
-        description?: string;
-        keywords?: string[];
-        isActive?: boolean;
-      }>;
-    };
-    
-    if (!body.categories || !Array.isArray(body.categories)) {
+    if (!id || id === 'categories') {
       return NextResponse.json(
-        { error: 'Categories array is required' },
+        { error: 'Category ID is required' },
         { status: 400 }
       );
     }
     
-    const updatedCategories = [];
+    const body = await request.json() as Partial<NewCategory>;
+    const category = await CategoryDrizzleService.updateCategory(id, body);
     
-    for (const categoryUpdate of body.categories) {
-      if (!categoryUpdate.id) {
-        continue; // Skip categories without ID
-      }
-      
-      const updated = await CategoryController.updateCategory(categoryUpdate.id, categoryUpdate);
-      updatedCategories.push(updated);
-    }
-    
-    return NextResponse.json({ 
-      success: true, 
-      data: updatedCategories,
-      message: `${updatedCategories.length} categories updated successfully`
+    return NextResponse.json({
+      success: true,
+      data: category
     });
-    
   } catch (error) {
-    console.error('Error bulk updating expense categories:', error);
+    console.error('Error updating expense category:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to update expense categories' },
+      { error: error instanceof Error ? error.message : 'Failed to update expense category' },
       { status: 500 }
     );
   }
@@ -163,39 +81,23 @@ export async function PUT(request: NextRequest) {
 // DELETE /api/expenses/categories - Delete multiple categories
 export async function DELETE(request: NextRequest) {
   try {
-    await connectToDatabase();
-    
     const url = new URL(request.url);
-    const categoryIds = url.searchParams.get('ids')?.split(',') || [];
+    const idsParam = url.searchParams.get('ids');
     
-    if (categoryIds.length === 0) {
+    if (!idsParam) {
       return NextResponse.json(
         { error: 'Category IDs are required' },
         { status: 400 }
       );
     }
     
-    // Check if categories are being used in expenses
-    const categoriesInUse = await CategoryController.checkCategoriesInUse(categoryIds);
+    const ids = idsParam.split(',');
+    const deletedCount = await CategoryDrizzleService.deleteCategories(ids);
     
-    if (categoriesInUse.length > 0) {
-      return NextResponse.json(
-        { 
-          error: 'Cannot delete categories that are in use',
-          categoriesInUse: categoriesInUse
-        },
-        { status: 409 }
-      );
-    }
-    
-    const deletedCount = await CategoryController.deleteCategories(categoryIds);
-    
-    return NextResponse.json({ 
-      success: true, 
-      data: { deletedCount },
-      message: `${deletedCount} categories deleted successfully`
+    return NextResponse.json({
+      success: true,
+      data: { deletedCount }
     });
-    
   } catch (error) {
     console.error('Error deleting expense categories:', error);
     return NextResponse.json(
