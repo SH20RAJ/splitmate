@@ -93,8 +93,21 @@ export default function ExpenseCategoriesPage() {
     try {
       const response = await fetch('/api/expenses/categories')
       if (response.ok) {
-        const data = await response.json()
-        setCategories(data.categories || [])
+        const result: { data: any[] } = await response.json()
+        // Transform the data to match our Category interface
+        const transformedCategories = result.data.map((cat) => ({
+          id: cat.id,
+          name: cat.name,
+          description: cat.description || '',
+          color: cat.color,
+          icon: cat.icon || '',
+          keywords: [],
+          parentCategory: '',
+          isActive: true,
+          isDefault: cat.isDefault || false,
+          createdAt: cat.createdAt ? new Date(cat.createdAt) : new Date()
+        }))
+        setCategories(transformedCategories)
       }
     } catch (error) {
       console.error('Error fetching categories:', error)
@@ -427,7 +440,7 @@ export default function ExpenseCategoriesPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {filteredCategories.map((category) => (
-                <Card key={category._id} className="relative group">
+                <Card key={category.id} className="relative group">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
@@ -481,7 +494,7 @@ export default function ExpenseCategoriesPage() {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem 
-                            onClick={() => deleteCategory(category._id)}
+                            onClick={() => deleteCategory(category.id)}
                             className="text-destructive"
                           >
                             <Trash2 className="h-4 w-4 mr-2" />

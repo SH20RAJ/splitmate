@@ -240,6 +240,114 @@ const mockGroupsData = {
             { type: 'group_settled', description: 'All expenses settled', time: '2 weeks ago', by: 'System' },
             { type: 'expense_added', description: 'Beach food expenses added', time: '3 weeks ago', by: 'Priya Patel' }
         ]
+    },
+    'goa-trip-2024': {
+        id: 'goa-trip-2024',
+        name: 'Goa Trip 2024 🏖️',
+        description: 'Amazing beach vacation memories from 2024',
+        members: [
+            {
+                name: 'You',
+                id: 'you',
+                balance: -2500,
+                avatar: 'Y',
+                email: 'you@example.com',
+                joinedAt: '2024-11-10'
+            },
+            {
+                name: 'Alex Kumar',
+                id: 'alex',
+                balance: 1200,
+                avatar: 'AK',
+                email: 'alex@example.com',
+                joinedAt: '2024-11-10'
+            },
+            {
+                name: 'Sneha Roy',
+                id: 'sneha',
+                balance: 800,
+                avatar: 'SR',
+                email: 'sneha@example.com',
+                joinedAt: '2024-11-10'
+            },
+            {
+                name: 'Rohan Joshi',
+                id: 'rohan',
+                balance: 500,
+                avatar: 'RJ',
+                email: 'rohan@example.com',
+                joinedAt: '2024-11-12'
+            }
+        ],
+        totalExpenses: 65000,
+        yourShare: 16250,
+        monthlyBudget: 0,
+        createdAt: '2024-11-10',
+        status: 'active',
+        currency: '₹',
+        category: 'Travel',
+        expenses: [
+            {
+                id: 1,
+                description: 'Beach Resort - 3 Nights Stay',
+                amount: 28000,
+                paidBy: 'You',
+                date: '2024-12-15',
+                category: 'Accommodation',
+                participants: ['You', 'Alex Kumar', 'Sneha Roy', 'Rohan Joshi'],
+                receipt: 'resort-goa-2024.pdf',
+                splitType: 'equal'
+            },
+            {
+                id: 2,
+                description: 'Flight Tickets - Mumbai to Goa',
+                amount: 24000,
+                paidBy: 'Alex Kumar',
+                date: '2024-12-12',
+                category: 'Transport',
+                participants: ['You', 'Alex Kumar', 'Sneha Roy', 'Rohan Joshi'],
+                receipt: 'flights-goa-2024.pdf',
+                splitType: 'equal'
+            },
+            {
+                id: 3,
+                description: 'Scuba Diving Adventure',
+                amount: 8000,
+                paidBy: 'Sneha Roy',
+                date: '2024-12-16',
+                category: 'Activities',
+                participants: ['You', 'Alex Kumar', 'Sneha Roy', 'Rohan Joshi'],
+                receipt: null,
+                splitType: 'equal'
+            },
+            {
+                id: 4,
+                description: 'Beach Side Dinners',
+                amount: 3500,
+                paidBy: 'Rohan Joshi',
+                date: '2024-12-17',
+                category: 'Food',
+                participants: ['You', 'Alex Kumar', 'Sneha Roy', 'Rohan Joshi'],
+                receipt: null,
+                splitType: 'equal'
+            },
+            {
+                id: 5,
+                description: 'Bike Rentals for 3 Days',
+                amount: 1500,
+                paidBy: 'You',
+                date: '2024-12-15',
+                category: 'Transport',
+                participants: ['You', 'Alex Kumar', 'Sneha Roy', 'Rohan Joshi'],
+                receipt: 'bike-rental-goa.jpg',
+                splitType: 'equal'
+            }
+        ],
+        recentActivity: [
+            { type: 'expense_added', description: 'Beach dinner expenses added', time: '3 months ago', by: 'Rohan Joshi' },
+            { type: 'expense_added', description: 'Scuba diving added', time: '3 months ago', by: 'Sneha Roy' },
+            { type: 'payment_made', description: 'Alex paid ₹1000 to You', time: '2 months ago', by: 'Alex Kumar' }
+        ]
     }
 };
 
