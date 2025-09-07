@@ -359,6 +359,72 @@ export class PaymentController {
       session.endSession();
     }
   }
+
+  // Generate settlement suggestions to minimize the number of transactions
+  static async generateSettlementSuggestions(groupId: string) {
+    try {
+      if (!Types.ObjectId.isValid(groupId)) {
+        throw new Error('Invalid group ID');
+      }
+
+      // Get all group members with their balances
+      const members = await GroupMember.find({ groupId })
+        .populate('userId', 'email displayName')
+        .select('userId balance -_id');
+
+      if (members.length === 0) {
+        return [];
+      }
+
+      // Separate creditors (negative balance - they are owed money) and debtors (positive balance - they owe money)
+      const creditors = members.filter(member => member.balance < 0).map(member => ({
+        ...member.toObject(),
+        balance: Math.abs(member.balance) // Make positive for easier calculation
+      }));
+
+      const debtors = members.filter(member => member.balance > 0).map(member => ({
+        ...member.toObject(),
+        balance: member.balance
+      }));
+
+      const suggestions = [];
+
+      // Create a copy for manipulation
+      const creditorsQueue = [...creditors];
+      const debtorsQueue = [...debtors];
+
+      while (creditorsQueue.length > 0 && debtorsQueue.length > 0) {
+        const creditor = creditorsQueue[0];
+        const debtor = debtorsQueue[0];
+
+        const settleAmount = Math.min(creditor.balance, debtor.balance);
+
+        suggestions.push({
+          fromUser: debtor.userId,
+          toUser: creditor.userId,
+          amount: settleAmount,
+          currency: 'INR' // Default currency, could be made dynamic
+        });
+
+        // Update balances
+        creditor.balance -= settleAmount;
+        debtor.balance -= settleAmount;
+
+        // Remove if balance is zero
+        if (creditor.balance === 0) {
+          creditorsQueue.shift();
+        }
+        if (debtor.balance === 0) {
+          debtorsQueue.shift();
+        }
+      }
+
+      return suggestions;
+    } catch (error) {
+      console.error('Error generating settlement suggestions:', error);
+      throw error;
+    }
+  }
 }
 
 export default PaymentController;

@@ -151,6 +151,57 @@ export class AuthService {
       return false;
     }
   }
+
+  // Get OAuth providers
+  getOAuthProviders() {
+    try {
+      // Return mock OAuth providers for demonstration
+      return [
+        { id: 'google', name: 'Google' },
+        { id: 'github', name: 'GitHub' },
+      ];
+    } catch (error) {
+      console.error('Error getting OAuth providers:', error);
+      return [];
+    }
+  }
+
+  // Sign in with OAuth
+  async signInWithOAuth(provider: string) {
+    try {
+      // In a real implementation, you would use StackAuth's OAuth methods
+      console.warn('StackAuth OAuth not fully implemented in this context');
+      
+      // Return mock success for demonstration
+      return { success: true };
+    } catch (error) {
+      console.error(`Error signing in with ${provider}:`, error);
+      throw error;
+    }
+  }
+
+  // Handle OAuth callback
+  async handleOAuthCallback() {
+    try {
+      // StackAuth handles the OAuth callback automatically
+      // We just need to sync the user with our database
+      const user = await this.getCurrentUser();
+      
+      if (user) {
+        // Sync user with our database
+        await DatabaseService.getInstance().users.upsertUser({
+          email: user.email || '',
+          displayName: user.displayName || user.email || 'Anonymous User',
+          avatarUrl: user.profileImageUrl || undefined
+        });
+      }
+      
+      return user;
+    } catch (error) {
+      console.error('Error handling OAuth callback:', error);
+      throw error;
+    }
+  }
 }
 
 // Export a singleton instance

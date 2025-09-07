@@ -3,7 +3,6 @@ import GroupMember from '../models/GroupMember';
 import Expense from '../models/Expense';
 import Payment from '../models/Payment';
 import { Types } from 'mongoose';
-import { NextRequest } from 'next/server';
 
 export class UserController {
   // Get user by email

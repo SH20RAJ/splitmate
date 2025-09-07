@@ -44,6 +44,34 @@ export class GroupController {
     }
   }
   
+  // Get user's groups
+  static async getUserGroups(userId: string) {
+    try {
+      if (!Types.ObjectId.isValid(userId)) {
+        throw new Error('Invalid user ID');
+      }
+      
+      const groupMembers = await GroupMember.find({ userId })
+        .populate('groupId')
+        .select('-__v');
+      
+      const groups = groupMembers.map(member => {
+        const group = member.groupId as any; // Type assertion for populated field
+        return {
+          ...group._doc,
+          role: member.role,
+          balance: member.balance,
+          joinedAt: member.joinedAt
+        };
+      });
+      
+      return groups;
+    } catch (error) {
+      console.error('Error fetching user groups:', error);
+      throw error;
+    }
+  }
+
   // Get group by ID
   static async getGroupById(groupId: string) {
     try {

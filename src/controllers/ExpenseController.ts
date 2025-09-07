@@ -1,5 +1,5 @@
 import Expense, { IExpense } from '../models/Expense';
-import ExpenseParticipant, { IExpenseParticipant } from '../models/ExpenseParticipant';
+import ExpenseParticipant from '../models/ExpenseParticipant';
 import GroupMember from '../models/GroupMember';
 import Activity from '../models/Activity';
 import { Types } from 'mongoose';
